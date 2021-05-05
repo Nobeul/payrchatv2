@@ -359,7 +359,7 @@
                         html += '<div class="post-description"><div class="fullsizeimg"><img src="public/uploads/' + value.post_image + '" alt=""></div></div>';
                     }
 
-                    html += '<div class="post-state"><div class="post-state-btns"> <i class="uil-heart"></i><span> Liked </span></div><div class="post-state-btns" id="myBtn"> <i class="uil-chat"></i><span> Coments</span></div><div class="post-state-btns"> <i class="uil-share-alt"></i> 19 <span> Shared </span></div><div class="post-state-btns"> <i class="uil-eye"></i> 13 <span> View </span></div></div></div>';
+                    html += '<div class="post-state"><div class="post-state-btns" uk-tooltip="views"> <i class="uil-eye"></i> <sup>1.2k</sup></div><div class="post-state-btns" id="myBtn" uk-tooltip="comments"> <i class="uil-comments"></i> <sup>52</sup></div><div class="post-state-btns" uk-tooltip="like" style="color: green;"> <i class="uil-heart"></i> <sup>2.2k</sup></div><div class="post-state-btns" uk-tooltip="dislike" style="color: red;"> <i class="fa fa-heartbeat" aria-hidden="true"></i> <sup>20</sup></div><div class="post-state-btns" uk-tooltip="share"> <i class="fa fa-share-alt-square" aria-hidden="true"></i></div></div>';
 
                     $("#data").append(html);
                 });

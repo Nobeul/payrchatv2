@@ -17,5 +17,4 @@ Auth::routes();
 
 Route::group(['middleware' => ['verified']],function(){
     Route::get('/', 'HomeController@index');
-    Route::get('/blogs', 'HomeController@test');
 });

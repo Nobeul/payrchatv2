@@ -39,17 +39,4 @@ class HomeController extends Controller
 
         return view('home');
     }
-
-    public function test(Request $request)
-    {
-        $posts = Post::with(['user'])->where('posts.user_id', Auth::user()->id)
-            ->orderBy('posts.id', 'DESC')
-            ->paginate(30);
-
-        if ($request->ajax()) {
-            return response($posts);
-        }
-
-        return view('welcome');
-    }
 }
