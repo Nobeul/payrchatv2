@@ -2,7 +2,6 @@
     <header>
         <div class="header-innr">
 
-
             <!-- Logo-->
             <div class="header-btn-traiger" uk-toggle="target: #wrapper ; cls: collapse-sidebar mobile-visible">
                 <span></span></div>
@@ -17,7 +16,7 @@
             <div class="head_search">
                 <form>
                     <div class="head_search_cont">
-                        <input value="" type="text" class="form-control" placeholder="Search for Friends , Videos and moreholaTheme" autocomplete="off">
+                        <input value="" type="text" class="form-control" placeholder="Search for Friends , Videos and more" autocomplete="off">
                         <i class="s_icon uil-search-alt"></i>
                     </div>
 
@@ -62,7 +61,7 @@
 
                 <!-- Message  notificiation dropdown -->
                 <a href="#" class="opts_icon" uk-tooltip="title: Messages ; pos: bottom ;offset:7">
-                    <img src="{{ asset('public/holaTheme/assets/images/icons/chat.svg') }}" alt="" style="width: 20px; height: 20px;"> <span>4</span>
+                    <img src="{{ asset('public/holaTheme/assets/images/icons/messenger.png') }}" alt="" style="width: 20px; height: 20px;"> <span>4</span>
                 </a>
 
                 <!-- Message  notificiation dropdown -->
@@ -105,7 +104,7 @@
 
                 <!-- notificiation icon  -->
                 <a href="#" class="opts_icon" uk-tooltip="title: Notifications ; pos: bottom ;offset:7">
-                    <img src="{{ asset('public/holaTheme/assets/images/icons/bell.svg') }}" alt="" style="width: 26px; height: 20px;"> <span>3</span>
+                    <img src="{{ asset('public/holaTheme/assets/images/icons/notification.png') }}" alt="" style="width: 30px; height: 20px;"> <span>3</span>
                 </a>
 
 
@@ -168,9 +167,17 @@
                     <ul class="dropdown-user-menu">
                         <li><a href=""> <i class="uil-user"></i> My Account </a> </li>
                         <li><a href="#"> <i class="uil-cog"></i> Account Settings</a></li>
-                        <li><a href="#"> <i class="uil-thumbs-up"></i> Privacy Settings </a></li>
+                        <li><a href="#"> <i class="uil-wallet"></i> Wallet </a></li>
+                        <li><a href="#"> <i class="uil-book"></i> my articles </a></li>
                         </li>
-                        <li><a href="{{ url('/logout') }}"> <i class="uil-sign-out-alt"></i>Log Out</a>
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}">
+                              @csrf
+                              <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                               this.closest('form').submit();"> <i class="uil-sign-out-alt"></i>
+                               {{ __('Log Out') }}
+                              </a>
+                            </form>
                         </li>
                     </ul>
 
