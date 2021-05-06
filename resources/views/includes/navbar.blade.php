@@ -7,7 +7,7 @@
                 <span></span></div>
 
             <!-- Logo-->
-            <div id="logo">
+            <div id="logo" class="uk-visible@s">
                 <a href="{{ url('/') }}"> <img src="{{ asset('public/holaTheme/assets/images/logo.png') }}" alt=""></a>
                 <a href="{{ url('/') }}"> <img src="{{ asset('public/holaTheme/assets/images/logo-light.png') }}" class="logo-inverse" alt=""></a>
             </div>
@@ -156,19 +156,26 @@
 
                         <div class="dropdown-user-details">
                             <div class="dropdown-user-avatar">
-                                <img src="" alt="">
+                                <img src="{{ asset('public/holaTheme/assets/images/avatars/avatar.jpg') }}" alt="">
                             </div>
                             <div class="dropdown-user-name">  {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}  <span>See your profile</span> </div>
                         </div>
 
                     </a>
-
                     <hr class="m-0">
                     <ul class="dropdown-user-menu">
                         <li><a href=""> <i class="uil-user"></i> My Account </a> </li>
                         <li><a href="#"> <i class="uil-cog"></i> Account Settings</a></li>
                         <li><a href="#"> <i class="uil-wallet"></i> Wallet </a></li>
-                        <li><a href="#"> <i class="uil-book"></i> my articles </a></li>
+                        <li><a href="{{ route('my.articles') }}"> <i class="uil-book"></i> my articles </a></li>
+                        </li>
+                        <li>
+                            <a href="#" id="night-mode" class="btn-night-mode">
+                                <i class="uil-moon"></i> Night mode
+                                <span class="btn-night-mode-switch">
+                                    <span class="uk-switch-button"></span>
+                                </span>
+                            </a>
                         </li>
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
@@ -199,3 +206,38 @@
     </header>
 
 </div>
+
+<!-- For Night mode -->
+<script>
+  (function (window, document, undefined) {
+      'use strict';
+      if (!('localStorage' in window)) return;
+      var nightMode = localStorage.getItem('gmtNightMode');
+      if (nightMode) {
+          document.documentElement.className += ' night-mode';
+      }
+  })(window, document);
+  (function (window, document, undefined) {
+
+      'use strict';
+
+      // Feature test
+      if (!('localStorage' in window)) return;
+
+      // Get our newly insert toggle
+      var nightMode = document.querySelector('#night-mode');
+      if (!nightMode) return;
+
+      // When clicked, toggle night mode on or off
+      nightMode.addEventListener('click', function (event) {
+          event.preventDefault();
+          document.documentElement.classList.toggle('night-mode');
+          if (document.documentElement.classList.contains('night-mode')) {
+              localStorage.setItem('gmtNightMode', true);
+              return;
+          }
+          localStorage.removeItem('gmtNightMode');
+      }, false);
+
+  })(window, document);
+</script>

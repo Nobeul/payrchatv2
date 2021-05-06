@@ -18,3 +18,8 @@ Auth::routes();
 Route::group(['middleware' => ['verified']],function(){
     Route::get('/', 'HomeController@index');
 });
+
+// Blogs Route 
+Route::get('/my/article', 'Blog\BlogController@index')->name('my.articles');
+Route::get('/create/blog', 'Blog\BlogController@create');
+Route::get('/blogs', 'Blog\BlogController@blog')->name('blogs');
