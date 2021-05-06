@@ -6,11 +6,11 @@
         margin-top: 8px;
     }
     
-    /*@media only screen and (max-width: 425px) {
+    @media only screen and (max-width: 425px) {
         .chat-plus-btn {
             display: none;
         }
-    }*/
+    }
 </style>
 @endsection
 @section('content')
