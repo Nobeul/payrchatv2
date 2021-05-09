@@ -170,8 +170,6 @@
                         <li><a href="#"> <i class="uil-cog"></i> Account Settings</a></li>
                         <li><a href="#"> <i class="uil-thumbs-up"></i> Privacy Settings </a></li>
                         </li>
-                        <li><a href="{{ url('/logout') }}"> <i class="uil-sign-out-alt"></i>Log Out</a>
-                        </li>
                     </ul>
 
 
@@ -180,6 +178,12 @@
                         <li><a href="#" class="bg-secondery"> <i class="uil-bolt"></i>
                                 <div> Upgrade To Premium <span> Pro features give you complete control </span> </div>
                             </a>
+                        </li>
+                        <li>
+                            <form action="{{ url('/logout') }}" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-primary float-right"> <i class="uil-sign-out-alt"></i>Log Out</button>
+                            </form>
                         </li>
                     </ul>
 
