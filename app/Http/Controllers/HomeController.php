@@ -40,4 +40,10 @@ class HomeController extends Controller
         }
         return view('home');
     }
+
+    public function fetchComment(Request $request)
+    {
+        $comments = Comment::with('user:id,first_name,last_name,profile_image')->where('post_id', $request->id)->get();
+        return response($comments);
+    }
 }

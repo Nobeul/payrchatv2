@@ -266,27 +266,63 @@
                         html += '<div class="post-description"><div class="fullsizeimg"><img src="public/uploads/' + value.post_image + '" alt=""></div></div>';
                     }
 
-                    html += '<div class="post-state"><div class="post-state-btns" uk-tooltip="views"> <i class="uil-eye"></i> <sup>1.2k</sup></div><div class="post-state-btns" id="myBtn" uk-tooltip="comments"> <i class="uil-comments"></i> <sup>52</sup></div><div class="post-state-btns" uk-tooltip="like" style="color: green;"> <i class="uil-heart"></i> <sup>2.2k</sup></div><div class="post-state-btns" uk-tooltip="dislike" style="color: red;"> <i class="fa fa-heartbeat" aria-hidden="true"></i> <sup>20</sup></div><div class="post-state-btns" uk-tooltip="share"> <i class="fa fa-share-alt-square" aria-hidden="true"></i></div></div>';
+                    html += '<div class="post-state"><div class="post-state-btns" uk-tooltip="views"> <i class="uil-eye"></i> <sup>1.2k</sup></div><div class="post-state-btns" id="comment-button-'+value.id+'" uk-tooltip="comments" onclick="viewCommentBox('+value.id+')"> <i class="uil-comments"></i> <sup>'+value.comments.length+'</sup></div><div class="post-state-btns" uk-tooltip="like" style="color: green;"> <i class="uil-heart"></i> <sup>2.2k</sup></div><div class="post-state-btns" uk-tooltip="dislike" style="color: red;"> <i class="fa fa-heartbeat" aria-hidden="true"></i> <sup>20</sup></div><div class="post-state-btns" uk-tooltip="share"> <i class="fa fa-share-alt-square" aria-hidden="true"></i></div></div>';
 
                     html += '<div class="post-comments">';
                     if (value.comments.length != 0) {
-                        html += '<a href="#" class="view-more-comment"> View more comments</a>';
+                        html += '<p class="view-more-comment more-comment" id="more-comment'+value.id+'" onClick="loadMoreComments('+value.id+')">View more comments</p>';
                         $.each(value.comments, function (key, comment) {
-                            console.log(comment.user.profile_image);
                             if (key < 1) {
                                 html += '<div class="post-comments-single"><div class="post-comment-avatar"><img src="public/uploads/'+comment.user.profile_image+'" alt=""></div><div class="post-comment-text"><div class="post-comment-text-inner"><h6><a href="">'+comment.user.first_name+ ' '+comment.user.last_name+'</a></h6><p>' + comment.comment_text + '</p></div><div class="uk-text-small"><a href="#" class="text-danger mr-1"> <i class="uil-heart"></i> Love </a><a href="#" class=" mr-1"> Replay </a><span> </span></div></div><a href="#" class="post-comment-opt"></a></div>';
                             }
                         });
                     }
-                    html += '<div class="post-add-comment"><div class="post-add-comment-avature"><img src="public/uploads/'+value.user.profile_image+'" alt=""></div><div class="post-add-comment-text-area"><form action="" method="post"><input type="hidden" name="post_id" value=""><input type="text" id="post-text" name="comment_text" placeholder="Write your comment ..." required><div class="icons" id="comment-icon-div"><button type="submit" class="comment-icon"><i class="fa fa-paper-plane" aria-hidden="true"></i></button></div></form></div></div></div></div></div>';
+
+                    html += '<div class="post-add-comment" id="view-comment-box-'+value.id+'"><div class="post-add-comment-avature"><img src="public/uploads/'+value.user.profile_image+'" alt=""></div><div class="post-add-comment-text-area"><form action="" method="post"><input type="hidden" name="post_id" value=""><input type="text" id="post-text" name="comment_text" placeholder="Write your comment ..." required><div class="icons" id="comment-icon-div"><button type="submit" class="comment-icon"><i class="fa fa-paper-plane" aria-hidden="true"></i></button></div></form></div></div></div></div></div>';
 
                     $("#data").append(html);
+                    $('.post-add-comment').hide();
                 });
             })
             .fail(function (jqXHR, ajaxOptions, thrownError) {
                 console.log('Server error occured');
             }
         );
+    }
+    var postId = null;
+    function loadMoreComments(postId) {
+        $.ajax({
+                url: ENDPOINT + "/fetchComments/" + postId,
+                datatype: "json",
+                type: "get",
+                data: {
+                    id: postId
+                },
+                beforeSend: function () {
+                    $('.auto-load').show();
+                }
+            })
+            .done(function (response) {
+                $(response).each(function(key, value) {
+                    html = '';
+                    html += '<div class="post-comments-single" id="view-comment-box"><div class="post-comment-avatar"><img src="public/uploads/'+value.user.profile_image+'" alt=""></div><div class="post-comment-text"><div class="post-comment-text-inner"><h6><a href="">'+value.user.first_name+ ' '+value.user.last_name+'</a></h6><p>' + value.comment_text + '</p></div><div class="uk-text-small"><a href="#" class="text-danger mr-1"> <i class="uil-heart"></i> Love </a><a href="#" class=" mr-1"> Replay </a><span> </span></div></div><a href="#" class="post-comment-opt"></a></div>';
+
+                    $('#more-comment'+postId).append(html);
+                });
+            });
+    }
+
+    $(document).ready(function (){
+        $('.post-add-comment').each(function () {
+          $(this).hide();  
+        });
+        $('#view-comment-box').each(function () {
+            $(this).hide();
+        });
+    });
+
+    function viewCommentBox(postId) {
+        $('#view-comment-box-'+postId).show();
     }
 </script>
 @endsection

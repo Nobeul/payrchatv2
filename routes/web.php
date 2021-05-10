@@ -17,4 +17,5 @@ Auth::routes();
 
 Route::group(['middleware' => ['verified']],function(){
     Route::get('/', 'HomeController@index');
+    Route::get('/fetchComments/{id}', 'HomeController@fetchComment');
 });
