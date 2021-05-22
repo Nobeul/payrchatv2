@@ -23,3 +23,8 @@ Route::group(['middleware' => ['verified']],function(){
 Route::get('/my/article', 'Blog\BlogController@index')->name('my.articles');
 Route::get('/create/blog', 'Blog\BlogController@create');
 Route::get('/blogs', 'Blog\BlogController@blog')->name('blogs');
+Route::post('/store/blog', 'Blog\BlogController@store')->name('store.blog');
+Route::get('/blog/details/{slug}', 'Blog\BlogController@details')->name('blog.details');
+Route::post('/comment/{singleBlog}', 'Blog\CommentController@store')->name('comment.store');
+Route::post('/like/{singleBlog}', 'Blog\BlogController@likeblog')->name('like.blog');
+

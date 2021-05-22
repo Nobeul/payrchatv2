@@ -1,20 +1,6 @@
 @extends('layouts.app')
 @section('custom_css')
-<style>
-    .uil-book{color: #1E87F0;background: #fff;padding: 5px;border-radius: 50%;}
-    .uk-section span{color: #fff; font-size: 20px;}
-    .uk-section a{color: #fff;font-size: 15px;margin-right: 10px;}
-    #p1::after{content: '';position: absolute;bottom: -13px;left: 0;width: 70px;height: 3px;background: #fff;}
-    .uk-section .right button a{color: #1E87F0;text-decoration: none;}
-    .uil-plus{color: #1E87F0;}
-    .uk-section .right button a:hover{color: #1E87F0;}
-    @media only screen and (max-width: 425px) {
-      .uk-section a{color: #fff;font-size: 12px;margin-right: 12px;}
-      .uk-section .right button a{color: #1E87F0;text-decoration: none;font-size: 9px;}
-      .uil-plus{color: #1E87F0;font-size: 9px;}
-      #p1::after{content: '';position: absolute;bottom: -13px;left: 0;width: 60px;height: 3px;background: #fff;}
-    }
-</style> 
+  <link rel="stylesheet" type="text/css" href="{{ asset('public/holaTheme/assets/css/blog.css') }}"> 
 @endsection
 @section('content')
 <div class="main_content">
@@ -33,6 +19,37 @@
         </div>
       </div>
     </div>
-  </div>
+    @if(!empty($blogs[0]))
+      <div class="uk-grid-column-small uk-grid-row-large uk-child-width-1-2@s uk-margin-top" uk-grid>
+        @foreach($blogs as $blog)
+          <div>
+              <div class="uk-card" data-src="images/photo.jpg">
+                <img src="{{ asset('storage/app/public/uploads/' .$blog->image) }}" class="blog-img">
+                <div class="uk-overlay uk-position-cover uk-light blog-info">
+                  <div class="uk-text-left">
+                    <a href="{{ route('blog.details',['slug' => $blog->blog_slug]) }}"><p>{{ $blog->category->category_name }}</p></a>
+                    <a href=""><h3>{{ $blog->title }}</h3></a>
+                    <span>{{ $blog->views }} views</span> . <span>{{ App\Models\Blog::getTime($blog->created_at) }}</span><br/>
+                  </div>
+                  <p uk-margin style="position: absolute; margin-top: 100px;">
+                    <a href=""><button class="uk-button uk-button-default uk-button-small">Edit</button></a>
+                    <a href=""><button class="uk-button uk-button-primary uk-button-small">Delete</button></a>
+                  </p>
+                </div>
+              </div>
+              
+          </div>
+        @endforeach
+      </div>
+    @else
+      <div class="uk-child-width-1-1" uk-grid>
+        <div class="uk-card uk-card-body uk-height-large uk-flex uk-flex-center uk-flex-middle uk-flex-column">
+          <div><i class="uil-book"></i></div>
+            <p>You haven't created any articles yet.</p>
+          </div>
+      </div> 
+    @endif
+    </div>
 </div>
+
 @endsection
