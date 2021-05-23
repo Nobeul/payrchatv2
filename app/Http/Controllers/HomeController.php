@@ -50,15 +50,28 @@ class HomeController extends Controller
     public function createLike(Request $request)
     {
         $like = Like::where(['user_id' => Auth::user()->id, 'post_id' => $request->id])->first();
+        $dislike = Dislike::where(['user_id' => Auth::user()->id, 'post_id' => $request->id])->first();
 
-        if (empty($like)) {
+        if (empty($dislike)) {
+            if (empty($like)) {
+                $newLike = new Like;
+    
+                $newLike->user_id = Auth::user()->id;
+                $newLike->post_id = $request->id;
+                $newLike->save();
+                return response(['found_dislike' => 'false']);
+            } else {
+                return response(['status'=>'false']);
+            }
+        } else {
+            $dislike->delete();
+
             $newLike = new Like;
-
+    
             $newLike->user_id = Auth::user()->id;
             $newLike->post_id = $request->id;
             $newLike->save();
-        } else {
-            return response(['status'=>'false']);
+            return response(['found_dislike' => 'true']);
         }
     }
 
@@ -72,16 +85,29 @@ class HomeController extends Controller
 
     public function createDislike(Request $request)
     {
+        $like = Like::where(['user_id' => Auth::user()->id, 'post_id' => $request->id])->first();
         $dislike = Dislike::where(['user_id' => Auth::user()->id, 'post_id' => $request->id])->first();
 
-        if (empty($dislike)) {
-            $newDislike = new Dislike;
+        if (empty($like)) {
+            if (empty($dislike)) {
+                $newDislike = new Dislike;
+    
+                $newDislike->user_id = Auth::user()->id;
+                $newDislike->post_id = $request->id;
+                $newDislike->save();
+                return response(['found_like' => 'false']);
+            } else {
+                return response(['status'=>'false']);
+            }
+        } else {
+            $like->delete();
 
+            $newDislike = new Dislike;
+    
             $newDislike->user_id = Auth::user()->id;
             $newDislike->post_id = $request->id;
             $newDislike->save();
-        } else {
-            return response(['status'=>'false']);
+            return response(['found_like' => 'true']);
         }
     }
 
