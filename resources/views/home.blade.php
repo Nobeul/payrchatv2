@@ -213,94 +213,9 @@
                 <div id="data">
                     <!-- Results -->
                 </div>
-                <!-- <div class="post">
-                    <div class="post-heading">
-                        <div class="post-avature">
-                            <img src="{{ asset('public/holaTheme/assets/images/avatars/avatar-6.jpg') }}" alt="">
-                        </div>
-                        <div class="post-title">
-                            <h4> User Name</h4>
-                            <p> <i class="uil-users-alt"></i> </p>
-                        </div>
-                        <div class="post-btn-action">
-                            <span class="icon-more uil-ellipsis-h"></span>
-                            <div class="mt-0 p-2" uk-dropdown="pos: bottom-right;mode:hover ">
-                                <ul class="uk-nav uk-dropdown-nav">
-                                    <li><a href="#"> <i class="uil-share-alt mr-1"></i> Share</a> </li>
-                                    <li><a href="#"> <i class="uil-edit-alt mr-1"></i> Edit Post </a></li>
-                                    <li><a href="#"> <i class="uil-comment-slash mr-1"></i> Disable comments
-                                        </a></li>
-                                    <li><a href="#"> <i class="uil-favorite mr-1"></i> Add favorites </a></li>
-                                    <li><a href="#" class="text-danger"> <i class="uil-trash-alt mr-1"></i>
-                                            Delete </a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="post-description">
-                        <p class="post-text"></p>
-                        <div class="fullsizeimg">
-                            <img src="" alt="">
-                        </div>
-                    </div>
-
-                    <div class="post-state">
-                        <div class="post-state-btns"> <i class="uil-heart"></i><span> Liked </span>
-                        </div>
-                        <div class="post-state-btns" id="myBtn"> <i class="uil-chat"></i><span> Coments</span>
-                        </div>
-                        <div class="post-state-btns"> <i class="uil-share-alt"></i> 19 <span> Shared </span>
-                        </div>
-                        <div class="post-state-btns"> <i class="uil-eye"></i> 13 <span> View </span>
-                        </div>
-                    </div>
-
-                    <div class="post-comments">
-                        <a href="#" class="view-more-comment"> Veiw 8 more Comments</a>
-                        
-                        <div class="post-comments-single">
-                            <div class="post-comment-avatar">
-                                <img src="" alt="">
-                            </div>
-                            <div class="post-comment-text">
-                                <div class="post-comment-text-inner">
-                                    <h6>
-                                        <a href=""></a>
-                                    </h6> -->
-                                    <!-- comment text here -->
-                                    <!-- <p>  </p>
-                                </div>
-                                <div class="uk-text-small">
-                                    <a href="#" class="text-danger mr-1"> <i class="uil-heart"></i> Love </a>
-                                    <a href="#" class=" mr-1"> Replay </a>
-                                    <span> </span>
-                                </div>
-                            </div>
-                            <a href="#" class="post-comment-opt"></a>
-                        </div>
-
-                        <a href="#" class="view-more-comment"> Veiw 8 more Comments</a>
-
-                        <div class="post-add-comment">
-                            <div class="post-add-comment-avature">
-                                <img src="" alt="">
-                            </div>
-                            <div class="post-add-comment-text-area">
-                                <form action="" method="post">
-                                    @csrf
-                                    <input type="hidden" name="post_id" value="">
-                                    <input type="text" id="post-text" name="comment_text" placeholder="Write your comment ..." required>
-                                    <div class="icons" id="comment-icon-div">
-                                        <button type="submit" class="comment-icon">
-                                            <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
+                <div class="post-comments">
+                    <p class="view-more-comment" id="load-more" style="margin-left: 30%; cursor:pointer; color:#1a73e8"> Load more post... </p>
+                </div>
                 <div class="d-flex" style="margin-left:35%">
                 </div>
             </div>
@@ -315,23 +230,15 @@
 <script>
     $('#image-input').hide();
 
-    $(window).bind('scroll', onScroll); 
     var ENDPOINT = "{{ url('/') }}";
     var page = 1;
     var requestNumber = false;
-    setTimeout(infinteLoadMore(page), 2000);
+    infinteLoadMore(page);
 
-    function onScroll() {
-        if ($(window).scrollTop() + $(window).height() == $(document).height() - 1) {
-            $('html,body').bind('touchmove', function() {
-                setTimeout(onScroll, 2000);
-            });
-            page++;
-            infinteLoadMore(page);
-        } else {
-            $('html,body').unbind('touchmove');
-        }
-    }
+    $('#load-more').on('click', function() {
+        page++;
+        infinteLoadMore(page);
+    });
 
     function infinteLoadMore(page) {
         $.ajax({
@@ -358,16 +265,123 @@
                     } else if (value.post_txt == null && value.post_image != '') {
                         html += '<div class="post-description"><div class="fullsizeimg"><img src="public/uploads/' + value.post_image + '" alt=""></div></div>';
                     }
+                    html += '<div class="post-state"><div class="post-state-btns" uk-tooltip="like" id="like-div-'+value.id+'" onclick="addLike('+value.id+')"> <i class="uil-heart"></i> <sup id="like-'+value.id+'">'+value.likes.length+'</sup></div><div class="post-state-btns" id="comment-button-'+value.id+'" uk-tooltip="comments" onclick="viewCommentBox('+value.id+')"> <i class="uil-comments"></i> <sup>'+value.comments.length+'</sup></div><div class="post-state-btns" uk-tooltip="share"> <i class="fa fa-share-alt-square" aria-hidden="true"></i></div><div class="post-state-btns" uk-tooltip="dislike"> <i class="fa fa-heartbeat" aria-hidden="true" id="dislike-div-'+value.id+'" onclick="addDislike('+value.id+')"></i><sup id="dislike-'+value.id+'">'+value.dislikes.length+'</sup></div></div></div>';
 
-                    html += '<div class="post-state"><div class="post-state-btns" uk-tooltip="views"> <i class="uil-eye"></i> <sup>1.2k</sup></div><div class="post-state-btns" id="myBtn" uk-tooltip="comments"> <i class="uil-comments"></i> <sup>52</sup></div><div class="post-state-btns" uk-tooltip="like" style="color: green;"> <i class="uil-heart"></i> <sup>2.2k</sup></div><div class="post-state-btns" uk-tooltip="dislike" style="color: red;"> <i class="fa fa-heartbeat" aria-hidden="true"></i> <sup>20</sup></div><div class="post-state-btns" uk-tooltip="share"> <i class="fa fa-share-alt-square" aria-hidden="true"></i></div></div>';
+                    html += '<div class="post-comments">';
+                    
+                    if (value.comments.length != 0) {
+                        if (value.comments.length > 1) {
+                            html += '<p class="view-more-comment more-comment" id="more-comment'+value.id+'" onClick="loadMoreComments('+value.id+')">View more comments</p>';
+                        }
+                        $.each(value.comments, function (key, comment) {
+                            if (key < 1) {
+                                html += '<div class="post-comments-single"><div class="post-comment-avatar"><img src="public/uploads/'+comment.user.profile_image+'" alt=""></div><div class="post-comment-text"><div class="post-comment-text-inner"><h6><a href="">'+comment.user.first_name+ ' '+comment.user.last_name+'</a></h6><p>' + comment.comment_text + '</p></div><div class="uk-text-small"><a href="#" class="text-danger mr-1"> <i class="uil-heart"></i> Love </a><a href="#" class=" mr-1"> Replay </a><span> </span></div></div><a href="#" class="post-comment-opt"></a></div>';
+                            }
+                        });
+                    }
+
+                    html += '<div class="post-add-comment" id="view-comment-box-'+value.id+'"><div class="post-add-comment-avature"><img src="public/uploads/'+value.user.profile_image+'" alt=""></div><div class="post-add-comment-text-area"><form action="" method="post"><input type="hidden" name="post_id" value=""><input type="text" id="post-text" name="comment_text" placeholder="Write your comment ..." required><div class="icons" id="comment-icon-div"><button type="submit" class="comment-icon"><i class="fa fa-paper-plane" aria-hidden="true"></i></button></div></form></div></div></div></div></div>';
 
                     $("#data").append(html);
+                    $('.post-add-comment').hide();
                 });
             })
             .fail(function (jqXHR, ajaxOptions, thrownError) {
                 console.log('Server error occured');
             }
         );
+    }
+    var postId = null;
+    function loadMoreComments(postId) {
+        $('#more-comment'+postId).removeAttr('onClick');
+        $.ajax({
+                url: ENDPOINT + "/fetchComments/" + postId,
+                datatype: "json",
+                type: "get",
+                data: {
+                    id: postId
+                },
+                beforeSend: function () {
+                    $('.auto-load').show();
+                }
+            })
+            .done(function (response) {
+                $(response).each(function(key, value) {
+                    if (key != 0) {
+                        html = '';
+                        html += '<div class="post-comments-single" id="view-comment-box"><div class="post-comment-avatar"><img src="public/uploads/'+value.user.profile_image+'" alt=""></div><div class="post-comment-text"><div class="post-comment-text-inner"><h6><a href="">'+value.user.first_name+ ' '+value.user.last_name+'</a></h6><p>' + value.comment_text + '</p></div><div class="uk-text-small"><a href="#" class="text-danger mr-1"> <i class="uil-heart"></i> Love </a><a href="#" class=" mr-1"> Replay </a><span> </span></div></div><a href="#" class="post-comment-opt"></a></div>';
+
+                        $('#more-comment'+postId).append(html);
+                    }
+                });
+            });
+    }
+
+    $(document).ready(function () {
+        $('.post-add-comment').each(function () {
+          $(this).hide();  
+        });
+        $('#view-comment-box').each(function () {
+            $(this).hide();
+        });
+    });
+
+    function viewCommentBox(postId) {
+        $('#view-comment-box-'+postId).show();
+    }
+
+    function addLike(postId) {
+        $.ajax({
+            url: ENDPOINT + "/like/" + postId,
+            type: "POST",
+            data: {
+                id: postId,
+                '_token': "{!! csrf_token() !!}"
+            },
+        })
+        .done(function (response) {
+            if (response.status != "false") {
+                $.ajax({
+                    url: ENDPOINT + "/get-post-like/" + postId,
+                    datatype: "json",
+                    type: "GET",
+                    data: {
+                        id: postId,
+                    }
+                })
+                .done(function (response) {
+                    $('#like-div-'+postId).removeAttr('onClick');
+                    $('#like-'+postId).text(response.postCount);
+                });
+            }
+        });
+    }
+
+    function addDislike(postId) {
+        $.ajax({
+            url: ENDPOINT + "/dislike/" + postId,
+            type: "POST",
+            data: {
+                id: postId,
+                '_token': "{!! csrf_token() !!}"
+            },
+        })
+        .done(function (response) {
+            if (response.status != "false") {
+                $.ajax({
+                    url: ENDPOINT + "/get-post-dislike/" + postId,
+                    datatype: "json",
+                    type: "GET",
+                    data: {
+                        id: postId,
+                    }
+                })
+                .done(function (response) {
+                    $('#dislike-div-'+postId).removeAttr('onClick');
+                    $('#dislike-'+postId).text(response.postCount);
+                });
+            }
+        });
     }
 </script>
 @endsection

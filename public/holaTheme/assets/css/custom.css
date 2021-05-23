@@ -1,24 +1,24 @@
 /* create blog */
-.cloud-upload{
+.cloud-upload {
   font-size: 40px !important;
 }
-.drag-area{
+.drag-area {
   border: 1px dashed #CCCCCC;
   border-radius: 5px;
 }
-.drag-area.active{
+.drag-area.active {
   border: 1px solid #CCCCCC;
 }
-.drag-area img{
+.drag-area img {
   height: 100%;
   width: 100%;
   object-fit: cover;
   border-radius: 5px;
 }
-.post-new-media p{
+.post-new-media p {
   margin-bottom: 0;
 }
-.post-new-media select{
+.post-new-media select {
   border: none;
   width: 72px;
   outline: none;
@@ -28,26 +28,40 @@
   font-size: 12px;
 }
 
-.uk-textarea{
+.uk-textarea {
   border: none;
 }
 
-.post-new-media{
+.post-new-media {
   display: flex;
   align-items: center;
 }
 
-.post-new-tab-nav{
+.post-new-tab-nav {
   background-color: #e6e6e6;
   border-radius: 5px;
   display: flex;
   align-items: center;
 }
 
-.uk-link-primary{
+.uk-link-primary {
   color: #1E89F5;
 }
-.uk-link-primary:hover{
+.uk-link-primary:hover {
   color: #1E89F5;
   text-decoration: underline;
+}
+
+.view-more-comment {
+    cursor: pointer;
+    color: #1a73e8;
+}
+.view-more-comment p {
+    color: black;
+}
+.post-comment-text-inner {
+    margin-bottom: 0;
+    padding-top: .025in;
+    padding-bottom: .0025in;
+
 }

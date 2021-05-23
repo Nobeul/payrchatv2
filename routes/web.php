@@ -17,6 +17,11 @@ Auth::routes();
 
 Route::group(['middleware' => ['verified']],function(){
     Route::get('/', 'HomeController@index');
+    Route::get('/fetchComments/{id}', 'HomeController@fetchComment');
+    Route::post('/like/{id}', 'HomeController@createLike');
+    Route::get('/get-post-like/{id}', 'HomeController@getPostLike');
+    Route::post('/dislike/{id}', 'HomeController@createDislike');
+    Route::get('/get-post-dislike/{id}', 'HomeController@getPostDislike');
 });
 
 // Blogs Route 

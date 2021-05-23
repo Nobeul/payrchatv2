@@ -169,6 +169,7 @@
                         <li><a href="#"> <i class="uil-wallet"></i> Wallet </a></li>
                         <li><a href="{{ route('my.articles') }}"> <i class="uil-book"></i> my articles </a></li>
                         </li>
+
                         <li>
                             <a href="#" id="night-mode" class="btn-night-mode">
                                 <i class="uil-moon"></i> Night mode
@@ -178,30 +179,14 @@
                             </a>
                         </li>
                         <li>
-                            <form method="POST" action="{{ route('logout') }}">
-                              @csrf
-                              <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                               this.closest('form').submit();"> <i class="uil-sign-out-alt"></i>
-                               {{ __('Log Out') }}
-                              </a>
+                            <form action="{{ url('/logout') }}" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-primary float-right"> <i class="uil-sign-out-alt"></i>Log Out</button>
                             </form>
                         </li>
                     </ul>
-
-
-                    <hr class="m-0">
-                    <ul class="dropdown-user-menu">
-                        <li><a href="#" class="bg-secondery"> <i class="uil-bolt"></i>
-                                <div> Upgrade To Premium <span> Pro features give you complete control </span> </div>
-                            </a>
-                        </li>
-                    </ul>
-
                 </div>
-
-
             </div>
-
         </div> <!-- / heaader-innr -->
     </header>
 
