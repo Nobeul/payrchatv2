@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Comment extends Model
+class Like extends Model
 {
     public function user()
     {
@@ -15,5 +15,4 @@ class Comment extends Model
     {
         return $this->belongsTo(Post::class);
     }
-
 }

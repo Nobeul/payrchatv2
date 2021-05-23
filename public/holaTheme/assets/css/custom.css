@@ -2,3 +2,11 @@
     cursor: pointer;
     color: #1a73e8;
 }
+.view-more-comment p {
+    color: black;
+}
+.post-comment-text-inner {
+    margin-bottom: 0;
+    padding-top: .025in;
+    padding-bottom: .0025in;
+}

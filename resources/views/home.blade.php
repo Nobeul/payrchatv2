@@ -265,12 +265,14 @@
                     } else if (value.post_txt == null && value.post_image != '') {
                         html += '<div class="post-description"><div class="fullsizeimg"><img src="public/uploads/' + value.post_image + '" alt=""></div></div>';
                     }
-
-                    html += '<div class="post-state"><div class="post-state-btns" uk-tooltip="views"> <i class="uil-eye"></i> <sup>1.2k</sup></div><div class="post-state-btns" id="comment-button-'+value.id+'" uk-tooltip="comments" onclick="viewCommentBox('+value.id+')"> <i class="uil-comments"></i> <sup>'+value.comments.length+'</sup></div><div class="post-state-btns" uk-tooltip="like" style="color: green;"> <i class="uil-heart"></i> <sup>2.2k</sup></div><div class="post-state-btns" uk-tooltip="dislike" style="color: red;"> <i class="fa fa-heartbeat" aria-hidden="true"></i> <sup>20</sup></div><div class="post-state-btns" uk-tooltip="share"> <i class="fa fa-share-alt-square" aria-hidden="true"></i></div></div>';
+                    html += '<div class="post-state"><div class="post-state-btns" uk-tooltip="like" id="like-div-'+value.id+'" onclick="addLike('+value.id+')"> <i class="uil-heart"></i> <sup id="like-'+value.id+'">'+value.likes.length+'</sup></div><div class="post-state-btns" id="comment-button-'+value.id+'" uk-tooltip="comments" onclick="viewCommentBox('+value.id+')"> <i class="uil-comments"></i> <sup>'+value.comments.length+'</sup></div><div class="post-state-btns" uk-tooltip="share"> <i class="fa fa-share-alt-square" aria-hidden="true"></i></div><div class="post-state-btns" uk-tooltip="dislike"> <i class="fa fa-heartbeat" aria-hidden="true" id="dislike-div-'+value.id+'" onclick="addDislike('+value.id+')"></i><sup id="dislike-'+value.id+'">'+value.dislikes.length+'</sup></div></div></div>';
 
                     html += '<div class="post-comments">';
+                    
                     if (value.comments.length != 0) {
-                        html += '<p class="view-more-comment more-comment" id="more-comment'+value.id+'" onClick="loadMoreComments('+value.id+')">View more comments</p>';
+                        if (value.comments.length > 1) {
+                            html += '<p class="view-more-comment more-comment" id="more-comment'+value.id+'" onClick="loadMoreComments('+value.id+')">View more comments</p>';
+                        }
                         $.each(value.comments, function (key, comment) {
                             if (key < 1) {
                                 html += '<div class="post-comments-single"><div class="post-comment-avatar"><img src="public/uploads/'+comment.user.profile_image+'" alt=""></div><div class="post-comment-text"><div class="post-comment-text-inner"><h6><a href="">'+comment.user.first_name+ ' '+comment.user.last_name+'</a></h6><p>' + comment.comment_text + '</p></div><div class="uk-text-small"><a href="#" class="text-danger mr-1"> <i class="uil-heart"></i> Love </a><a href="#" class=" mr-1"> Replay </a><span> </span></div></div><a href="#" class="post-comment-opt"></a></div>';
@@ -291,6 +293,7 @@
     }
     var postId = null;
     function loadMoreComments(postId) {
+        $('#more-comment'+postId).removeAttr('onClick');
         $.ajax({
                 url: ENDPOINT + "/fetchComments/" + postId,
                 datatype: "json",
@@ -304,15 +307,17 @@
             })
             .done(function (response) {
                 $(response).each(function(key, value) {
-                    html = '';
-                    html += '<div class="post-comments-single" id="view-comment-box"><div class="post-comment-avatar"><img src="public/uploads/'+value.user.profile_image+'" alt=""></div><div class="post-comment-text"><div class="post-comment-text-inner"><h6><a href="">'+value.user.first_name+ ' '+value.user.last_name+'</a></h6><p>' + value.comment_text + '</p></div><div class="uk-text-small"><a href="#" class="text-danger mr-1"> <i class="uil-heart"></i> Love </a><a href="#" class=" mr-1"> Replay </a><span> </span></div></div><a href="#" class="post-comment-opt"></a></div>';
+                    if (key != 0) {
+                        html = '';
+                        html += '<div class="post-comments-single" id="view-comment-box"><div class="post-comment-avatar"><img src="public/uploads/'+value.user.profile_image+'" alt=""></div><div class="post-comment-text"><div class="post-comment-text-inner"><h6><a href="">'+value.user.first_name+ ' '+value.user.last_name+'</a></h6><p>' + value.comment_text + '</p></div><div class="uk-text-small"><a href="#" class="text-danger mr-1"> <i class="uil-heart"></i> Love </a><a href="#" class=" mr-1"> Replay </a><span> </span></div></div><a href="#" class="post-comment-opt"></a></div>';
 
-                    $('#more-comment'+postId).append(html);
+                        $('#more-comment'+postId).append(html);
+                    }
                 });
             });
     }
 
-    $(document).ready(function (){
+    $(document).ready(function () {
         $('.post-add-comment').each(function () {
           $(this).hide();  
         });
@@ -323,6 +328,60 @@
 
     function viewCommentBox(postId) {
         $('#view-comment-box-'+postId).show();
+    }
+
+    function addLike(postId) {
+        $.ajax({
+            url: ENDPOINT + "/like/" + postId,
+            type: "POST",
+            data: {
+                id: postId,
+                '_token': "{!! csrf_token() !!}"
+            },
+        })
+        .done(function (response) {
+            if (response.status != "false") {
+                $.ajax({
+                    url: ENDPOINT + "/get-post-like/" + postId,
+                    datatype: "json",
+                    type: "GET",
+                    data: {
+                        id: postId,
+                    }
+                })
+                .done(function (response) {
+                    $('#like-div-'+postId).removeAttr('onClick');
+                    $('#like-'+postId).text(response.postCount);
+                });
+            }
+        });
+    }
+
+    function addDislike(postId) {
+        $.ajax({
+            url: ENDPOINT + "/dislike/" + postId,
+            type: "POST",
+            data: {
+                id: postId,
+                '_token': "{!! csrf_token() !!}"
+            },
+        })
+        .done(function (response) {
+            if (response.status != "false") {
+                $.ajax({
+                    url: ENDPOINT + "/get-post-dislike/" + postId,
+                    datatype: "json",
+                    type: "GET",
+                    data: {
+                        id: postId,
+                    }
+                })
+                .done(function (response) {
+                    $('#dislike-div-'+postId).removeAttr('onClick');
+                    $('#dislike-'+postId).text(response.postCount);
+                });
+            }
+        });
     }
 </script>
 @endsection
