@@ -15,7 +15,7 @@
                             <span> Newsfeed </span>
                         </a>
                     </li>
-                    <li id="more-veiw">
+                    <li>
                         <a href=""> <img src="{{ asset('public/holaTheme/assets/images/icons/tag-friend.png') }}" alt="">
                             <span> Profile </span>
                         </a>
@@ -25,34 +25,16 @@
                             <span> Chat Buds </span>
                         </a>
                     </li>
-                    <li id="more-veiw">
+                    <li>
                         <a href="#"> <img src="{{ asset('public/holaTheme/assets/images/icons/friends.png') }}" alt="">
                             <span> People you may know </span>
                         </a>
                     </li>
-                    <li id="more-veiw" hidden>
-                        <a href=""> <img src="{{ asset('public/holaTheme/assets/images/icons/document.png') }}" alt="">
-                            <span> Blogs </span>
-                        </a>
-                    </li>
                     <li>
-                        <a href="#"> <img src="{{ asset('public/holaTheme/assets/images/icons/wallet.png') }}" alt="">
-                            <span> Wallet </span>
+                        <a href="">
+                            <img src="{{ asset('public/holaTheme/assets/images/icons/google-docs.png') }}" alt="">
+                            <span>Blogs</span>
                         </a>
-                        <ul>
-                            <li>
-                                <a href="">My wallet</a>
-                            </li>
-                            <li>
-                                <a href="">Top members</a>
-                            </li>
-                            <li>
-                                <a href="">E-gold</a>
-                            </li>
-                            <li>
-                                <a href="">Payment proof</a>
-                            </li>
-                        </ul>
                     </li>
                     <li>
                         <a href="#"> <img src="{{ asset('public/holaTheme/assets/images/icons/investment.png') }}" alt="">

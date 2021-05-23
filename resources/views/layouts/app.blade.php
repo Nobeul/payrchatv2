@@ -27,6 +27,7 @@
    <!-- CSS -->
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
    <link rel="stylesheet" href="{{ asset('public/holaTheme/assets/css/style.css') }}">
+   <link rel="stylesheet" href="{{ asset('public/holaTheme/assets/css/night-mode.css') }}">
    <link rel="stylesheet" href="{{ asset('public/holaTheme/assets/css/framework.css') }}">
    <!-- icons -->
    <link rel="stylesheet" href="{{ asset('public/holaTheme/assets/css/icons.css') }}">
@@ -60,6 +61,10 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
    <script src="{{ asset('public/holaTheme/assets/js/custom.js') }}"></script>
+   <!-- <script src="{{ asset('public/holaTheme/assets/js/image.js') }}"></script> -->
+    <!-- tinyMC  -->
+    <script src="{{ asset('public/holaTheme/plugin/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('public/holaTheme/plugin/tinymce/init-tinymce.js') }}"></script>
    @yield('custom_js')
 </body>
 

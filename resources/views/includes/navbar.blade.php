@@ -2,13 +2,12 @@
     <header>
         <div class="header-innr">
 
-
             <!-- Logo-->
             <div class="header-btn-traiger" uk-toggle="target: #wrapper ; cls: collapse-sidebar mobile-visible">
                 <span></span></div>
 
             <!-- Logo-->
-            <div id="logo">
+            <div id="logo" class="uk-visible@s">
                 <a href="{{ url('/') }}"> <img src="{{ asset('public/holaTheme/assets/images/logo.png') }}" alt=""></a>
                 <a href="{{ url('/') }}"> <img src="{{ asset('public/holaTheme/assets/images/logo-light.png') }}" class="logo-inverse" alt=""></a>
             </div>
@@ -17,7 +16,7 @@
             <div class="head_search">
                 <form>
                     <div class="head_search_cont">
-                        <input value="" type="text" class="form-control" placeholder="Search for Friends , Videos and moreholaTheme" autocomplete="off">
+                        <input value="" type="text" class="form-control" placeholder="Search for Friends , Videos and more" autocomplete="off">
                         <i class="s_icon uil-search-alt"></i>
                     </div>
 
@@ -62,7 +61,7 @@
 
                 <!-- Message  notificiation dropdown -->
                 <a href="#" class="opts_icon" uk-tooltip="title: Messages ; pos: bottom ;offset:7">
-                    <img src="{{ asset('public/holaTheme/assets/images/icons/chat.svg') }}" alt="" style="width: 20px; height: 20px;"> <span>4</span>
+                    <img src="{{ asset('public/holaTheme/assets/images/icons/messenger.png') }}" alt="" style="width: 20px; height: 20px;"> <span>4</span>
                 </a>
 
                 <!-- Message  notificiation dropdown -->
@@ -105,7 +104,7 @@
 
                 <!-- notificiation icon  -->
                 <a href="#" class="opts_icon" uk-tooltip="title: Notifications ; pos: bottom ;offset:7">
-                    <img src="{{ asset('public/holaTheme/assets/images/icons/bell.svg') }}" alt="" style="width: 26px; height: 20px;"> <span>3</span>
+                    <img src="{{ asset('public/holaTheme/assets/images/icons/notification.png') }}" alt="" style="width: 30px; height: 20px;"> <span>3</span>
                 </a>
 
 
@@ -157,26 +156,26 @@
 
                         <div class="dropdown-user-details">
                             <div class="dropdown-user-avatar">
-                                <img src="" alt="">
+                                <img src="{{ asset('public/holaTheme/assets/images/avatars/avatar.jpg') }}" alt="">
                             </div>
                             <div class="dropdown-user-name">  {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}  <span>See your profile</span> </div>
                         </div>
 
                     </a>
-
                     <hr class="m-0">
                     <ul class="dropdown-user-menu">
                         <li><a href=""> <i class="uil-user"></i> My Account </a> </li>
                         <li><a href="#"> <i class="uil-cog"></i> Account Settings</a></li>
-                        <li><a href="#"> <i class="uil-thumbs-up"></i> Privacy Settings </a></li>
+                        <li><a href="#"> <i class="uil-wallet"></i> Wallet </a></li>
+                        <li><a href="{{ route('my.articles') }}"> <i class="uil-book"></i> my articles </a></li>
                         </li>
-                    </ul>
 
-
-                    <hr class="m-0">
-                    <ul class="dropdown-user-menu">
-                        <li><a href="#" class="bg-secondery"> <i class="uil-bolt"></i>
-                                <div> Upgrade To Premium <span> Pro features give you complete control </span> </div>
+                        <li>
+                            <a href="#" id="night-mode" class="btn-night-mode">
+                                <i class="uil-moon"></i> Night mode
+                                <span class="btn-night-mode-switch">
+                                    <span class="uk-switch-button"></span>
+                                </span>
                             </a>
                         </li>
                         <li>
@@ -186,13 +185,44 @@
                             </form>
                         </li>
                     </ul>
-
                 </div>
-
-
             </div>
-
         </div> <!-- / heaader-innr -->
     </header>
 
 </div>
+
+<!-- For Night mode -->
+<script>
+  (function (window, document, undefined) {
+      'use strict';
+      if (!('localStorage' in window)) return;
+      var nightMode = localStorage.getItem('gmtNightMode');
+      if (nightMode) {
+          document.documentElement.className += ' night-mode';
+      }
+  })(window, document);
+  (function (window, document, undefined) {
+
+      'use strict';
+
+      // Feature test
+      if (!('localStorage' in window)) return;
+
+      // Get our newly insert toggle
+      var nightMode = document.querySelector('#night-mode');
+      if (!nightMode) return;
+
+      // When clicked, toggle night mode on or off
+      nightMode.addEventListener('click', function (event) {
+          event.preventDefault();
+          document.documentElement.classList.toggle('night-mode');
+          if (document.documentElement.classList.contains('night-mode')) {
+              localStorage.setItem('gmtNightMode', true);
+              return;
+          }
+          localStorage.removeItem('gmtNightMode');
+      }, false);
+
+  })(window, document);
+</script>
