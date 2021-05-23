@@ -37,15 +37,9 @@
 			    		<p> <i> {!! $singleBlog->description !!} </i> </p>
 			    		<hr>
 			    		<p>{!! $singleBlog->content !!}</p>
-			    		<div>
-			    			<a href="" onclick="document.getElementById('like-form-{{ $singleBlog->id }}.submit()')"><i class="fa fa-thumbs-up"></i></a>
-			    		</div>
-			    		<form action="{{ route('like.blog', $singleBlog->id) }}" method="POST" id="like-form-{{ $singleBlog->id }}">
-			    			@csrf
-			    		</form>
 			    	</div>
 			    	<div class="uk-clearfix"></div>
-			    	<div class="uk-margin">
+			    	<div class="uk-margin uk-visible@m">
 			    		<div class="uk-card uk-card-default uk-text-left uk-card-body">
 			    		<p> <i></i> Read More </p>
 			    		<hr>
@@ -111,18 +105,20 @@
 						<hr>
 						<div class="uk-margin">
 			    			<p>Recent Post </p>
-						    <hr>
+						    <hr>  
 						    <div class="uk-float-left">
-						        <div class="uk-card single-blog-auth">
-						        	<div class="uk-flex">
-								        <img class="uk-border-rounded" src="{{ asset('storage/app/public/uploads/' .$singleBlog->image) }}" width="40" height="30">
-								        <div class="uk-text-middle uk-margin-left">
-									        <h4 style="color: #000;font-weight: bold;font-size: 13px; margin-bottom: 5px;">{{ $singleBlog->title }}</h4>
-									        By<span style="color: #000;font-weight: bold;"> {{ $singleBlog->author->first_name }}
-									         {{ $singleBlog->author->last_name }}</span>
-								        </div>
-								    </div>
-						        </div>
+						    	@foreach($recentBlog as $recent)
+							        <div class="uk-card single-blog-auth uk-margin-bottom">
+							        	<div class="uk-flex">
+									        <img class="uk-border-rounded" src="{{ asset('storage/app/public/uploads/' .$recent->image) }}" style="height: 30px; width: 40px;">
+									        <div class="uk-text-middle uk-margin-left">
+										        <h4 style="color: #000;font-weight: bold;font-size: 13px; margin-bottom: 5px;">{{ $recent->title }}</h4>
+										        By<span style="color: #000;font-weight: bold;"> {{ $recent->author->first_name }}
+										         {{ $recent->author->last_name }}</span>
+									        </div>
+									    </div>
+							        </div>
+						        @endforeach
 					    	</div>
 						</div>
 						<div class="uk-clearfix"></div>
@@ -131,17 +127,19 @@
 			    			<p>Popular Post </p>
 						    <hr>
 						    <div class="uk-float-left">
-						        <div class="uk-card single-blog-auth">
-						        	<div class="uk-flex">
-								        <img class="uk-border-rounded" src="{{ asset('storage/app/public/uploads/' .$singleBlog->image) }}" width="40" height="30">
-								        <div class="uk-text-middle uk-margin-left">
-									        <h4 style="color: #000;font-weight: bold;font-size: 13px; margin-bottom: 5px;">{{ $singleBlog->title }}</h4>
-									        By<span style="color: #000;font-weight: bold;"> {{ $singleBlog->author->first_name }}
-									         {{ $singleBlog->author->last_name }}</span>
-								        </div>
-								    </div>
-						        </div>
-					    	</div>
+						    	@foreach($popularBlog as $popular)
+							        <div class="uk-card single-blog-auth uk-margin-bottom">
+							        	<div class="uk-flex">
+									        <img class="uk-border-rounded" src="{{ asset('storage/app/public/uploads/' .$popular->image) }}" style="height: 30px; width: 40px;">
+									        <div class="uk-text-middle uk-margin-left">
+										        <h4 style="color: #000;font-weight: bold;font-size: 13px; margin-bottom: 5px;">{{ $popular->title }}</h4>
+										        By<span style="color: #000;font-weight: bold;"> {{ $popular->author->first_name }}
+										         {{ $popular->author->last_name }}</span>
+									        </div>
+									    </div>
+							        </div>
+						        @endforeach
+					    	</div>	
 						</div>
 						<div class="uk-clearfix"></div>
 						<hr>

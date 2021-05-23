@@ -25,7 +25,8 @@ class BlogController extends Controller
     }
 
     public function blog(){
-      return view('blog.blogs');
+      $blogs = Blog::all();
+      return view('blog.blogs', ['blogs' => $blogs]);
     }
 
     public function store(Request $request)
@@ -60,25 +61,54 @@ class BlogController extends Controller
     {
       $moreBlogs = Blog::all();
       $singleBlog = Blog::where('blog_slug', $slug)->where('status', 1)->first();
-      $blogKey = 'blog_'.$singleBlog->id;
-      if(Session::has($blogKey)){
+      $blogKey = 'blog_'. $singleBlog->id;
+      if(!Session::has($blogKey)){
         $singleBlog->increment('views');
         Session::put($blogKey, 1);
       }
-      return view('blog.blog-deatils', ['singleBlog' => $singleBlog, 'moreBlogs' => $moreBlogs]);
+      $recentBlog = Blog::where('status', 1)->orderBy('id', 'asc')->limit(3)->get();
+      $popularBlog = Blog::where('status', 1)->orderBy('views', 'desc')->limit(3)->get();
+
+      return view('blog.blog-deatils', ['singleBlog' => $singleBlog, 'moreBlogs' => $moreBlogs, 'recentBlog' => $recentBlog, 'popularBlog' => $popularBlog]);
     }
 
-    public function likeblog($singleBlog)
-    {
-      // Check if user alrady like blog or not
-      $user = Auth::user();
-      $likedblog = $user->likedBlogs()->where('blog_id', $singleBlog)->count();
-      if($likedblog == 0){
-        $user->likedBlogs()->attach($singleBlog);
+   public function deleteblog($id)
+   {
+      Blog::find($id)->delete();
+      return redirect()->back();
+   }
+
+   public function editblog($id)
+   {
+     $bcategories = BlogCategory::all();
+     $blogInfo = Blog::where('id', $id)->first();
+     return view('blog.edit-blog', ['bcategories' => $bcategories, 'blogInfo' => $blogInfo]);
+   }
+
+   public function updateblog(Request $request, $id)
+   {
+      $blogSlug = $request->title.rand();
+      $slug = Str::slug($blogSlug, '-');
+
+      $blog = Blog::find($id);
+      $blog->author_id = Auth::user()->id; 
+      $blog->title = $request->title;
+      $blog->category_id = $request->category_id;
+      $blog->description = $request->description;
+      $blog->content = $request->content;
+      $blog->blog_slug = $slug;
+      $image = $request->image;
+
+      if($request->hasFile('image')){
+        $extension = $request->file('image')->getClientOriginalExtension();
+          $fileNameToStore =time().'.'.$extension;
+          $path = $request->file('image')->storeAs('public/uploads/', $fileNameToStore);
+          $blog->image = $fileNameToStore;
+          $blog->save();
       }else{
-        $user->likedBlogs()->detach($singleBlog);
+          $blog->save();
       }
 
       return redirect()->back();
-    }
+   }
 }

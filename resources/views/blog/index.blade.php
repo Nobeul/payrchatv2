@@ -27,14 +27,20 @@
                 <img src="{{ asset('storage/app/public/uploads/' .$blog->image) }}" class="blog-img">
                 <div class="uk-overlay uk-position-cover uk-light blog-info">
                   <div class="uk-text-left">
+                    <div class="post-btn-action uk-float-right">
+                        <span class="icon-more uil-ellipsis-v"></span>
+                        <div class="mt-0 p-2" uk-dropdown="pos: bottom-right;mode:hover ">
+                            <ul class="uk-nav uk-dropdown-nav">
+                                <li><a href="{{ route('edit.blog',['id' => $blog->id]) }}"> <i class="uil-edit-alt mr-1"></i> Edit blog </a></li>
+                                <li><a href="{{ route('delete.blog',['id' => $blog->id]) }}" class="text-danger"> <i class="uil-trash-alt mr-1"></i>
+                                        Delete </a></li>
+                            </ul>
+                        </div>
+                    </div>
                     <a href="{{ route('blog.details',['slug' => $blog->blog_slug]) }}"><p>{{ $blog->category->category_name }}</p></a>
                     <a href=""><h3>{{ $blog->title }}</h3></a>
                     <span>{{ $blog->views }} views</span> . <span>{{ App\Models\Blog::getTime($blog->created_at) }}</span><br/>
                   </div>
-                  <p uk-margin style="position: absolute; margin-top: 100px;">
-                    <a href=""><button class="uk-button uk-button-default uk-button-small">Edit</button></a>
-                    <a href=""><button class="uk-button uk-button-primary uk-button-small">Delete</button></a>
-                  </p>
                 </div>
               </div>
               
