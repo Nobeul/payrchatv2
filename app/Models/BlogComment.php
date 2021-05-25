@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class BlogComment extends Model
 {
-    public function post()
+    public function blogpost()
     {
     	return $this->belongsTo(Blog::class);
     }
 
-    public function user()
+    public function bloguser()
     {
     	return $this->belongsTo(User::class);
     }

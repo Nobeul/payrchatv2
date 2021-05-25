@@ -36,7 +36,7 @@
             </div>
             <div class="uk-margin-bottom">
                 <a href="{{ route('my.articles') }}"><i class="uil-arrow-left"></i> Go Back</a>
-                <button class="uk-button uk-button-primary" type="submit">Publish</button>
+                <button class="uk-button uk-button-primary" type="submit">Submit</button>
             </div>
           </form>
         </div>

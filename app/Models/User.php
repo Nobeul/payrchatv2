@@ -49,13 +49,14 @@ class User extends Authenticatable
 
 
     // blog section
+
     // user has many blogs
     public function blogs()
     {
         return $this->hasMany(Blog::class);
     }
 
-    public function comments()
+    public function blogComments()
     {
         return $this->hasMany(BlogComment::class);
     }

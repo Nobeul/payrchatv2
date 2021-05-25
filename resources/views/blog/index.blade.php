@@ -19,7 +19,7 @@
         </div>
       </div>
     </div>
-    @if(!empty($blogs[0]))
+    @if(!empty($blogs))
       <div class="uk-grid-column-small uk-grid-row-large uk-child-width-1-2@s uk-margin-top" uk-grid>
         @foreach($blogs as $blog)
           <div>
@@ -37,8 +37,8 @@
                             </ul>
                         </div>
                     </div>
-                    <a href="{{ route('blog.details',['slug' => $blog->blog_slug]) }}"><p>{{ $blog->category->category_name }}</p></a>
-                    <a href=""><h3>{{ $blog->title }}</h3></a>
+                    <a href="#"><p>{{ $blog->category->category_name }}</p></a>
+                    <a href="{{ route('blog.details',['slug' => $blog->blog_slug]) }}"><h3>{{ $blog->title }}</h3></a>
                     <span>{{ $blog->views }} views</span> . <span>{{ App\Models\Blog::getTime($blog->created_at) }}</span><br/>
                   </div>
                 </div>

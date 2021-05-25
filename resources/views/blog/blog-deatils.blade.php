@@ -11,10 +11,10 @@
         	<div class="uk-overlay uk-position-cover uk-light blog-info">
                   <div class="uk-text-left single-blog-category">
                     <a href=""><button>{{ $singleBlog->category->category_name }}</button></a>
-                    <a href=""><h3 class="uk-margin-top">{{ $singleBlog->title }}</h3></a>
+                    <a href="#"><h3 class="uk-margin-top">{{ $singleBlog->title }}</h3></a>
                     <div class="uk-clearfix uk-margin-top">
 					    <div class="uk-float-right">
-					        <div class="uk-card single-blog-comment"><span style="color: #fff;">{{ $singleBlog->comments->count() }} comments</span> . <span style="color: #fff;">{{ $singleBlog->views }} views</span></div>
+					        <div class="uk-card single-blog-comment"><span style="color: #fff;">{{ $singleBlog->blogComments->count() }} comments</span> . <span style="color: #fff;">{{ $singleBlog->views }} views</span></div>
 					    </div>
 					    <div class="uk-float-left">
 					        <div class="uk-card single-blog-auth">
@@ -48,7 +48,7 @@
 			    			<div>
 			    				<div class="uk-card">
 			    					<img src="{{ asset('storage/app/public/uploads/' .$moreBlog->image) }}" class="uk-margin-bottom"><br/>
-				    				<h5>{{ $moreBlog->title }}</h5>
+				    				<a href="{{ route('blog.details',['slug' => $moreBlog->blog_slug]) }}" style="color: #000;"><h5>{{ $moreBlog->title }}</h5></a>
 				    				<p class="uk-text-left">{{ App\Models\Blog::getTime($moreBlog->created_at) }}</p>
 			    				</div>
 			    			</div>
@@ -59,7 +59,7 @@
 			    	<div class="uk-clearfix"></div>
 			    	<div class="uk-margin comment">
 			    		<div class="uk-card uk-card-default uk-card-body uk-text-justify">
-			    		<p> <i></i>{{ $singleBlog->comments->count() }} Comments </p>
+			    		<p> <i></i>{{ $singleBlog->blogComments->count() }} Comments </p>
 			    		<hr>
 			    		<div>
 			    			<div class="uk-flex uk-flex-between read-more">
@@ -75,13 +75,13 @@
 			    				</div>
 			    			</div>
 			    		</div>
-			    		@foreach($singleBlog->comments as $comment)
+			    		@foreach($singleBlog->blogComments as $comment)
 			    			<div class="uk-clearfix uk-margin">
 						        <div class="uk-float-left uk-card single-blog-comment">
 						        	<div class="uk-flex">
 								        <img class="uk-border-circle" src="{{ asset('public/holaTheme/assets/images/avatars/avatar-5.jpg') }}" width="40" height="40">
 								        <div class="uk-text-middle uk-margin-left">
-								        <span>{{ $singleBlog->author->first_name }} {{ $singleBlog->author->last_name }}</span><span style="margin-left: 5px;font-size: 10px;">{{ $comment->created_at->diffForHumans() }}</span><br/>
+								        <span>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span><span style="margin-left: 5px;font-size: 10px;">{{ $comment->created_at->diffForHumans() }}</span><br/>
 								        <span class="com">{{ $comment->comment }}</span>
 								        </div>
 								    </div>
@@ -112,7 +112,7 @@
 							        	<div class="uk-flex">
 									        <img class="uk-border-rounded" src="{{ asset('storage/app/public/uploads/' .$recent->image) }}" style="height: 30px; width: 40px;">
 									        <div class="uk-text-middle uk-margin-left">
-										        <h4 style="color: #000;font-weight: bold;font-size: 13px; margin-bottom: 5px;">{{ $recent->title }}</h4>
+										        <a href="{{ route('blog.details',['slug' => $recent->blog_slug]) }}" style="color: #000;"><h4 style="color: #000;font-weight: bold;font-size: 13px; margin-bottom: 5px;">{{ $recent->title }}</h4></a>
 										        By<span style="color: #000;font-weight: bold;"> {{ $recent->author->first_name }}
 										         {{ $recent->author->last_name }}</span>
 									        </div>
@@ -132,7 +132,7 @@
 							        	<div class="uk-flex">
 									        <img class="uk-border-rounded" src="{{ asset('storage/app/public/uploads/' .$popular->image) }}" style="height: 30px; width: 40px;">
 									        <div class="uk-text-middle uk-margin-left">
-										        <h4 style="color: #000;font-weight: bold;font-size: 13px; margin-bottom: 5px;">{{ $popular->title }}</h4>
+										        <a href="{{ route('blog.details',['slug' => $popular->blog_slug]) }}"><h4 style="color: #000;font-weight: bold;font-size: 13px; margin-bottom: 5px;">{{ $popular->title }}</h4></a>
 										        By<span style="color: #000;font-weight: bold;"> {{ $popular->author->first_name }}
 										         {{ $popular->author->last_name }}</span>
 									        </div>

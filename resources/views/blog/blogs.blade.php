@@ -15,8 +15,8 @@
         <div class="uk-inline">
             <img src="{{ asset('storage/app/public/uploads/' .$blog->image) }}" style="height: 303px; position: relative;" alt="">
             <div class="uk-position-top uk-padding">
-            	<a href="{{ route('blog.details',['slug' => $blog->blog_slug]) }}"><p style="color: #fff;">{{ $blog->category->category_name }}</p></a>
-            	<a href=""><h3 class="uk-margin-top" style="color: #fff;">{{ $blog->title }}</h3></a>
+            	<a href="#"><p style="color: #fff;">{{ $blog->category->category_name }}</p></a>
+            	<a href="{{ route('blog.details',['slug' => $blog->blog_slug]) }}"><h3 class="uk-margin-top" style="color: #fff;">{{ $blog->title }}</h3></a>
             	<div class="uk-float-left">
 			        <div class="uk-card single-blog-auth">
 			        	<div class="uk-flex">
@@ -33,7 +33,7 @@
                 <div class="uk-flex uk-flex-center uk-flex-between">
                 	<div><span><i class="fa fa-heart"></i> <sup>0</sup></span></div>
                 	<div><span><i class="fa fa-eye"></i> <sup>{{ $blog->views }}</sup></span></div>
-                	<div><span><i class="fa fa-comments"></i> <sup>{{ $blog->comments->count() }}</sup></span></div>
+                	<div><span><i class="fa fa-comments"></i> <sup>{{ $blog->blogComments->count() }}</sup></span></div>
                 </div>
             </div>
         </div>

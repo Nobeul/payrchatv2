@@ -26,7 +26,7 @@
 .blog-search{border: 1px solid #2396F2;height: 30px;width: 100%;padding: 0 10px;border-radius: 50px;outline: none;background: rgba(225, 225, 225, 0.2);}
 .tags a{text-decoration: none;background: transparent;border: 1px solid #1FA3E5;border-radius: 5px;padding: 0 7px;margin: 3px;font-size: 12px;}
 .tags a:hover{background: #68AEDC;color: #fff;}
-.single-blog-des .read-more h5{width: 160px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;font-size: 14px;}
+.single-blog-des .read-more h5{width: 110px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;font-size: 14px;text-align: left;}
 .single-blog-des .read-more img{height: 100px;width: 100px;}
 .comment .comment-input{width: 450px; height: 30px;border: none;border: 1px solid #1C9EE3;border-radius: 50px;outline: none;padding-left: 8px;}
 @media only screen and (max-width: 425px) {.comment .comment-input{width: 160px;}}
