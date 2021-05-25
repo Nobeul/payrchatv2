@@ -30,6 +30,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+        $data['menu'] = 'home';
         $followers = Follower::where(['following_id' => Auth::user()->id])->pluck('follower_id')->toArray();
         array_push($followers, Auth::user()->id);
 
@@ -38,7 +39,7 @@ class HomeController extends Controller
         if ($request->ajax()) {
             return response($posts);
         }
-        return view('home');
+        return view('home', $data);
     }
 
     public function fetchComment(Request $request)
@@ -117,5 +118,33 @@ class HomeController extends Controller
 
         return response(['postCount' => $post]);
         
+    }
+
+    public function viewProfile(Request $request)
+    {
+        $data['menu'] = 'profile';
+        $data['submenu'] = 'timeline';
+        $data['userProfile'] = User::where('id', Auth::user()->id)->first();
+        $data['postCount'] = Post::where('id', Auth::user()->id)->count();
+        $posts = Post::with(['user', 'comments.user', 'likes.user', 'dislikes.user'])->where('posts.user_id', Auth::user()->id)->orderBy('posts.id', 'DESC')->paginate(10);
+
+        if ($request->ajax()) {
+            if (count($posts) != 0) {
+                return response($posts);
+            } else {
+                return response(['status' => 'You are at the end of your post...!!!']);
+            }
+        }
+        return view('user.profile', $data);
+    }
+
+    public function viewProfileAbout()
+    {
+        $data['menu'] = 'profile';
+        $data['submenu'] = 'about';
+        $data['userProfile'] = User::where('id', Auth::user()->id)->first();
+        $data['postCount'] = Post::where('id', Auth::user()->id)->count();
+
+        return view('user.about', $data);
     }
 }

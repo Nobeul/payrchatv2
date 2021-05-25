@@ -22,6 +22,10 @@ Route::group(['middleware' => ['verified']],function(){
     Route::get('/get-post-like/{id}', 'HomeController@getPostLike');
     Route::post('/dislike/{id}', 'HomeController@createDislike');
     Route::get('/get-post-dislike/{id}', 'HomeController@getPostDislike');
+    Route::get('/timeline', 'HomeController@viewProfile');
+    Route::get('profile/about', 'HomeController@viewProfileAbout');
+    Route::get('people-you-may-know', 'Friends\FriendsController@viewFriendPage');
+    Route::get('search-friends/{id}', 'Friends\FriendsController@findFriends');
 });
 
 // Blogs Route 
