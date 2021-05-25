@@ -3,9 +3,13 @@
 @section('content')
 <div class="main_content">
   <div class="main_content_inner">
-    <div class="uk-section uk-section-primary uk-light">
+    <div class="uk-section uk-section-primary uk-light uk-padding-small">
 	    <div class="uk-container">
-	        <h3 class="uk-text-center">Most Recent Articles</h3>
+	        <ul class="uk-breadcrumb">
+            <li><a href="{{ url('/') }}" style="color: #fff;">Home</a></li>
+            <li><a href="{{ route('blogs') }}" style="color: #fff;">blogs</a></li>
+            <li class="uk-disabled"><a>all blogs</a></li>
+        </ul>
 	    </div>
 	</div>
 	<div class="uk-clearfix"></div>

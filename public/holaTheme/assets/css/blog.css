@@ -7,7 +7,6 @@
 .uil-plus{color: #1E87F0;}
 .uk-section .right button a:hover{color: #1E87F0;}
 .blog-img{width: 457px; height: 305px;border-radius: 5px;}
-.uil-book{border-radius: 50%;background: rgba(36, 154, 243, 0.3);padding: 5px;}
 @media only screen and (max-width: 425px) {
   .uk-section a{color: #fff;font-size: 12px;margin-right: 12px;}
   .uk-section .right button a{color: #1E87F0;text-decoration: none;font-size: 9px;}

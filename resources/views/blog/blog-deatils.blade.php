@@ -5,6 +5,15 @@
 @section('content')
 <div class="main_content">
   <div class="main_content_inner">
+  	<div class="uk-section uk-section-primary uk-light uk-padding-small uk-margin-bottom">
+	    <div class="uk-container">
+	        <ul class="uk-breadcrumb">
+            <li><a href="{{ url('/') }}" style="color: #fff;">Home</a></li>
+            <li><a href="{{ route('my.articles') }}" style="color: #fff;">my article</a></li>
+            <li class="uk-disabled"><a>blog details</a></li>
+        </ul>
+	    </div>
+	</div>
   	<div class="uk-child-width-1-1@s uk-text-center uk-padding-remove" uk-grid>
 	    <div>
 	        <div class="uk-height-large uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light uk-position-relative single-blog-image" data-src="{{ asset('storage/app/public/uploads/' .$singleBlog->image) }}" data-sizes="(min-width: 650px) 650px, 100vw" uk-img>
