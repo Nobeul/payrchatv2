@@ -15,7 +15,7 @@ class BlogController extends Controller
     public function index()
     {
         $data['blogs'] = Blog::where(['author_id' => Auth::user()->id, 'status' => 1])->get();
-        return view('blog.index', $data);
+        return view('blog.index', $data);  
     }
 
     public function create(){
