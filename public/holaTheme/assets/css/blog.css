@@ -20,6 +20,8 @@
 .single-blog-category a >button{background: rgba(225,225,225,0.2);padding: 3px 10px;outline: none;color: #fff;border: none;}
 .blog-info a{text-decoration: none;}
 .single-blog-comment span{color: #fff;}
+.single-blog-comment .comment{width: 80%;}
+.single-blog-comment .com{word-wrap: break-word;}
 .single-blog-auth span{color: #fff;font-size: 12px;}
 .single-blog-des{margin-top: -100px; z-index: 10;border-radius: 5px;}
 .blog-search{border: 1px solid #2396F2;height: 30px;width: 100%;padding: 0 10px;border-radius: 50px;outline: none;background: rgba(225, 225, 225, 0.2);}

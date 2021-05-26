@@ -31,6 +31,7 @@ class BlogController extends Controller
 
     public function store(Request $request)
     {
+      
       $blogSlug = $request->title.rand();
       $slug = Str::slug($blogSlug, '-');
 
@@ -47,11 +48,13 @@ class BlogController extends Controller
           $fileNameToStore =time().'.'.$extension;
           $path = $request->file('image')->storeAs('public/uploads/', $fileNameToStore);
           $blog->image = $fileNameToStore;
+          $blog->save();
+        return Redirect('/my/article');
       }else{
-          $blog->image = '';
+        return Redirect()->back();
       }
 
-      $blog->save();
+      
 
       return back();
 
@@ -59,7 +62,7 @@ class BlogController extends Controller
 
     public function details($slug)
     {
-      $moreBlogs = Blog::all();
+      $moreBlogs = Blog::where('status', 1)->latest()->limit(4)->get();
       $singleBlog = Blog::where('blog_slug', $slug)->where('status', 1)->first();
       $blogKey = 'blog_'. $singleBlog->id;
       if(!Session::has($blogKey)){

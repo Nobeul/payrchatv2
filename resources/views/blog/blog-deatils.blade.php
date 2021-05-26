@@ -88,13 +88,13 @@
 			    			<div class="uk-clearfix uk-margin">
 						        <div class="uk-float-left uk-card single-blog-comment">
 						        	<div class="uk-flex">
-								        <img class="uk-border-circle" src="{{ asset('public/holaTheme/assets/images/avatars/avatar-5.jpg') }}" width="40" height="40">
-								        <div class="uk-text-middle uk-margin-left">
-								        <span>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span><span style="margin-left: 5px;font-size: 10px;">{{ $comment->created_at->diffForHumans() }}</span><br/>
+								        <img class="uk-border-circle" src="{{ asset('public/holaTheme/assets/images/avatars/avatar-5.jpg') }}" style="height: 40px !important;width: 40px;">
+								        <div class="uk-text-middle uk-margin-left comment">
+								        <span>{{ $comment->user->first_name }} {{ $comment->user->last_name }}</span><span style="margin-left: 5px;font-size: 10px;">{{ $comment->created_at->diffForHumans() }}</span><br/>
 								        <span class="com">{{ $comment->comment }}</span>
 								        </div>
 								    </div>
-							    	<div style="margin-left: 60px; color: #1D9FE4;"><a href="" ><i class="fa fa-reply"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;<a href=""><i class="fa fa-thumbs-up"></i></a></div>
+							    	<div style="margin-left: 60px; color: #1D9FE4;"><a href="" >reply</a> &nbsp;&nbsp;&nbsp;&nbsp;<a href=""><i class="fa fa-thumbs-up"></i></a></div>
 						        </div>
 						        <!-- <div class="uk-float-right">
 						        	<a href=""><i class="fa fa-trash"></i></a>
