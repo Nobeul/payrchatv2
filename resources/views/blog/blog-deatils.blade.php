@@ -20,7 +20,7 @@
         	<div class="uk-overlay uk-position-cover uk-light blog-info">
                   <div class="uk-text-left single-blog-category">
                     <a href=""><button>{{ $singleBlog->category->category_name }}</button></a>
-                    <a href="#"><h3 class="uk-margin-top">{{ $singleBlog->title }}</h3></a>
+                    <a href="#" class="single-blog-title"><h3 class="uk-margin-top" style="color: #fff;">{{ $singleBlog->title }}</h3></a>
                     <div class="uk-clearfix uk-margin-top">
 					    <div class="uk-float-right">
 					        <div class="uk-card single-blog-comment"><span style="color: #fff;">{{ $singleBlog->blogComments->count() }} comments</span> . <span style="color: #fff;">{{ $singleBlog->views }} views</span></div>
@@ -94,11 +94,7 @@
 								        <span class="com">{{ $comment->comment }}</span>
 								        </div>
 								    </div>
-							    	<div style="margin-left: 60px; color: #1D9FE4;"><a href="" >reply</a> &nbsp;&nbsp;&nbsp;&nbsp;<a href=""><i class="fa fa-thumbs-up"></i></a></div>
 						        </div>
-						        <!-- <div class="uk-float-right">
-						        	<a href=""><i class="fa fa-trash"></i></a>
-						        </div> -->
 						    </div>
 				    	@endforeach
 			    	</div>

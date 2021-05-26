@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <a href="#"><p>{{ $blog->category->category_name }}</p></a>
-                    <a href="{{ route('blog.details',['slug' => $blog->blog_slug]) }}"><h3>{{ $blog->title }}</h3></a>
+                    <a href="{{ route('blog.details',['slug' => $blog->blog_slug]) }}" class="blog-title"><h3 style="color: #fff;">{{ $blog->title }}</h3></a>
                     <span>{{ $blog->views }} views</span> . <span>{{ App\Models\Blog::getTime($blog->created_at) }}</span><br/>
                   </div>
                 </div>

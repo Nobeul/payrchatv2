@@ -31,16 +31,9 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#"><img src="{{ asset('public/holaTheme/assets/images/icons/google-docs.png') }}" alt="">
-                            <span> Blogs </span> </a>
-                            <ul>
-                                <li>
-                                    <a href="{{ route('blogs') }}">All Blogs</a>
-                                </li>
-                                <li>
-                                    <a href="{{ url('/create/blog') }}">Create New</a>
-                                </li>
-                            </ul>
+                        <a href="{{ route('blogs') }}"> <img src="{{ asset('public/holaTheme/assets/images/icons/google-docs.png') }}" alt="">
+                            <span> Blogs </span>
+                        </a>
                     </li>
                     <li>
                         <a href="#"> <img src="{{ asset('public/holaTheme/assets/images/icons/investment.png') }}" alt="">
