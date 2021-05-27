@@ -14,18 +14,23 @@ class BlogController extends Controller
 {
     public function index()
     {
+        $data['menu'] = 'article';
         $data['blogs'] = Blog::where(['author_id' => Auth::user()->id, 'status' => 1])->get();
         return view('blog.index', $data);
     }
 
-    public function create(){
+    public function create()
+    {
+        $data['menu'] = 'create-blog';
         $data['bcategories'] = BlogCategory::all();
 
         return view('blog.create-blog', $data);
     }
 
-    public function blog(){
-        $data['blogs'] = Blog::all();
+    public function blog()
+    {
+        $data['menu'] = 'blog';
+        $data['blogs'] = Blog::where(['status' => 1])->orderBy('id', 'DESC')->get();
         return view('blog.blogs', $data);
     }
 
@@ -52,7 +57,9 @@ class BlogController extends Controller
 
             return Redirect('/my/article');
         } else {
-            return Redirect()->back();
+            $blog->image = ' ';
+            $blog->save();
+            return Redirect('/my/article');
         }
 
         return back();
@@ -61,8 +68,9 @@ class BlogController extends Controller
 
     public function details($slug)
     {
+        $data['menu'] = 'blog-deatils';
         $data['moreBlogs'] = Blog::where('status', 1)->latest()->limit(4)->get();
-        $data['singleBlog'] = $singleBlog = Blog::where(['blog_slug' => $slug, 'status' => 1])->first();
+        $data['singleBlog'] = $singleBlog = Blog::where(['blog_slug' => $slug])->first();
 
         if (empty($singleBlog)) {
             return back(); 
@@ -93,6 +101,7 @@ class BlogController extends Controller
 
    public function editblog($id)
    {
+        $data['menu'] = 'edit-blog';
         $data['bcategories'] = BlogCategory::all();
         $data['blogInfo'] = Blog::where('id', $id)->first();
 
@@ -128,9 +137,9 @@ class BlogController extends Controller
                 $blog->save();
             }
 
-            return redirect()->back();
+            return redirect('/my/article');
         } else {
-            return back();
+            return redirect('/my/article');
         }
    }
 }

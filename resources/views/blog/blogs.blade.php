@@ -17,10 +17,14 @@
 	</div>
 	<div class="uk-clearfix"></div>
 	<div class="uk-child-width-1-3@m uk-margin-top" uk-grid>
-	@foreach($blogs as $blog)
+	@foreach ($blogs as $blog)
     <div>
         <div class="uk-inline">
-             <img src="{{ asset('storage/app/public/uploads/' .$blog->image) }}" style="height: 303px;width: 100%; position: relative;opacity: 0.5;" alt="" uk-img>
+            @if (!empty($blog->image))
+                <img src="{{ asset('storage/app/public/uploads/' .$blog->image) }}" style="height: 303px;width: 100%; position: relative;opacity: 0.5;" alt="" uk-img>
+            @else
+                <img src="{{ asset('public/holaTheme/assets/images/blog/dark-gray-solid-color-background.jpg') }}" style="height: 303px;width: 100%; position: relative;opacity: 0.5;" alt="" uk-img>
+            @endif
             <div class="uk-position-top uk-padding">
             	<p style="color: #000;">{{ $blog->category->category_name }}</p>
             	<a class="blog-title" href="{{ route('blog.details',['slug' => $blog->blog_slug]) }}"><h3 class="uk-margin-top">{{ $blog->title }}</h3></a>

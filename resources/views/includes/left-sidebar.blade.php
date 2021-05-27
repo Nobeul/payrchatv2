@@ -10,13 +10,13 @@
         <div class="sidebar_innr" data-simplebar>
             <div class="sections">
                 <ul>
-                    <li class="active">
+                    <li class="{{ $menu == 'home' ? 'active' : '' }}">
                         <a href="{{ url('/') }}"> <img src="{{ asset('public/holaTheme/assets/images/icons/home.png') }}" alt="">
                             <span> Newsfeed </span>
                         </a>
                     </li>
-                    <li>
-                        <a href=""> <img src="{{ asset('public/holaTheme/assets/images/icons/tag-friend.png') }}" alt="">
+                    <li class="{{ $menu == 'profile' ? 'active' : '' }}">
+                        <a href="{{ url('timeline') }}"> <img src="{{ asset('public/holaTheme/assets/images/icons/tag-friend.png') }}" alt="">
                             <span> Profile </span>
                         </a>
                     </li>
@@ -30,7 +30,7 @@
                             <span> People you may know </span>
                         </a>
                     </li>
-                    <li>
+                    <li class="{{ $menu == 'blog' ? 'active' : '' }}">
                         <a href="{{ route('blogs') }}"> <img src="{{ asset('public/holaTheme/assets/images/icons/google-docs.png') }}" alt="">
                             <span> Blogs </span>
                         </a>

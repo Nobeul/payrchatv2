@@ -354,6 +354,19 @@
                     $('#like-'+postId).text(response.postCount);
                 });
             }
+            if (response.found_dislike == 'true') {
+                $.ajax({
+                    url: ENDPOINT + "/get-post-dislike/" + postId,
+                    datatype: "json",
+                    type: "GET",
+                    data: {
+                        id: postId,
+                    }
+                })
+                .done(function (response) {
+                    $('#dislike-'+postId).text(response.postCount);
+                });
+            }
         });
     }
 
@@ -379,6 +392,19 @@
                 .done(function (response) {
                     $('#dislike-div-'+postId).removeAttr('onClick');
                     $('#dislike-'+postId).text(response.postCount);
+                });
+            }
+            if (response.found_like == 'true') {
+                $.ajax({
+                    url: ENDPOINT + "/get-post-like/" + postId,
+                    datatype: "json",
+                    type: "GET",
+                    data: {
+                        id: postId,
+                    }
+                })
+                .done(function (response) {
+                    $('#like-'+postId).text(response.postCount);
                 });
             }
         });

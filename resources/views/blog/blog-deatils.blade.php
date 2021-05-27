@@ -16,7 +16,12 @@
 	</div>
   	<div class="uk-child-width-1-1@s uk-text-center uk-padding-remove" uk-grid>
 	    <div>
-	        <div class="uk-height-large uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light uk-position-relative single-blog-image" data-src="{{ asset('storage/app/public/uploads/' .$singleBlog->image) }}" data-sizes="(min-width: 650px) 650px, 100vw" uk-img>
+	    	@if (!empty($singleBlog->image))
+	        	<div class="uk-height-large uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light uk-position-relative single-blog-image" data-src="{{ asset('storage/app/public/uploads/' .$singleBlog->image) }}" data-sizes="(min-width: 650px) 650px, 100vw" uk-img>
+        	@else
+        		<div class="uk-height-large uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light uk-position-relative single-blog-image" data-src="{{ asset('public/holaTheme/assets/images/blog/dark-gray-solid-color-background.jpg') }}" data-sizes="(min-width: 650px) 650px, 100vw" uk-img>
+        	@endif
+
         	<div class="uk-overlay uk-position-cover uk-light blog-info">
                   <div class="uk-text-left single-blog-category">
                     <a href=""><button>{{ $singleBlog->category->category_name }}</button></a>
@@ -52,11 +57,17 @@
 			    		<div class="uk-card uk-card-default uk-text-left uk-card-body">
 			    		<p> <i></i> Read More </p>
 			    		<hr>
-			    		<div class="uk-child-width-expand@s uk-text-center read-more" uk-grid>
+			    		<div class="uk-child-width-1-4@s uk-text-center read-more" uk-grid>
 			    			@foreach($moreBlogs as $moreBlog)
 			    			<div>
 			    				<div class="uk-card">
-			    					<img src="{{ asset('storage/app/public/uploads/' .$moreBlog->image) }}" class="uk-margin-bottom"><br/>
+
+			    					@if(!empty($moreBlog->image))
+			    						<img src="{{ asset('storage/app/public/uploads/' .$moreBlog->image) }}" class="uk-margin-bottom"><br/>
+			    					@else
+			    						<img src="{{ asset('public/holaTheme/assets/images/blog/dark-gray-solid-color-background.jpg') }}" class="uk-margin-bottom"><br/>
+			    					@endif
+
 				    				<a href="{{ route('blog.details',['slug' => $moreBlog->blog_slug]) }}" style="color: #000;"><h5>{{ $moreBlog->title }}</h5></a>
 				    				<p class="uk-text-left">{{ App\Models\Blog::getTime($moreBlog->created_at) }}</p>
 			    				</div>
@@ -115,7 +126,13 @@
 						    	@foreach($recentBlog as $recent)
 							        <div class="uk-card single-blog-auth uk-margin-bottom">
 							        	<div class="uk-flex">
-									        <img class="uk-border-rounded" src="{{ asset('storage/app/public/uploads/' .$recent->image) }}" style="height: 30px; width: 40px;">
+
+									        @if (!empty($recent->image))
+									        	<img class="uk-border-rounded" src="{{ asset('storage/app/public/uploads/' .$recent->image) }}" style="height: 30px; width: 40px;">
+									        @else
+									        	<img class="uk-border-rounded" src="{{ asset('public/holaTheme/assets/images/blog/dark-gray-solid-color-background.jpg') }}" style="height: 30px; width: 40px;">
+									        @endif
+
 									        <div class="uk-text-middle uk-margin-left">
 										        <a href="{{ route('blog.details',['slug' => $recent->blog_slug]) }}" style="color: #000;"><h4 style="color: #000;font-weight: bold;font-size: 13px; margin-bottom: 5px;">{{ $recent->title }}</h4></a>
 										        By<span style="color: #000;font-weight: bold;"> {{ $recent->author->first_name }}
@@ -135,8 +152,15 @@
 						    	@foreach($popularBlog as $popular)
 							        <div class="uk-card single-blog-auth uk-margin-bottom">
 							        	<div class="uk-flex">
-									        <img class="uk-border-rounded" src="{{ asset('storage/app/public/uploads/' .$popular->image) }}" style="height: 30px; width: 40px;">
+
+							        		@if (!empty($popular->image))
+									        	<img class="uk-border-rounded" src="{{ asset('storage/app/public/uploads/' .$popular->image) }}" style="height: 30px; width: 40px;">
 									        <div class="uk-text-middle uk-margin-left">
+									        @else
+									        	<img class="uk-border-rounded" src="{{ asset('public/holaTheme/assets/images/blog/dark-gray-solid-color-background.jpg') }}" style="height: 30px; width: 40px;">
+									        <div class="uk-text-middle uk-margin-left">
+									        @endif
+
 										        <a href="{{ route('blog.details',['slug' => $popular->blog_slug]) }}"><h4 style="color: #000;font-weight: bold;font-size: 13px; margin-bottom: 5px;">{{ $popular->title }}</h4></a>
 										        By<span style="color: #000;font-weight: bold;"> {{ $popular->author->first_name }}
 										         {{ $popular->author->last_name }}</span>

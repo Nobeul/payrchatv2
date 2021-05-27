@@ -2,7 +2,7 @@
 @section('content')
 <div class="main_content">
     <div class="main_content_inner">
-      <div class="uk-section uk-section-primary uk-light uk-padding-small">
+      <div class="uk-section uk-section-primary uk-margin-bottom uk-light uk-padding-small">
         <div class="uk-container">
             <ul class="uk-breadcrumb">
               <li><a href="{{ url('/') }}" style="color: #fff;">Home</a></li>
@@ -11,13 +11,8 @@
           </ul>
         </div>
       </div>
-      <div class="uk-section uk-section-primary uk-padding-small uk-margin-bottom">
-          <div class="uk-container">
-            <a href="#"> Create new article</a>
-          </div>
-      </div>
       <div class="uk-text-center uk-flex-center" uk-grid>
-        <div class="uk-width-3-4@m uk-width-1-1">
+        <div class="uk-width-1-1@m uk-width-1-1">
             <div class="uk-card uk-card-default">
               <form class="uk-padding-small" action="{{ route('store.blog') }}" method="post" enctype="multipart/form-data">
                 @csrf
@@ -41,7 +36,7 @@
                   <span class="cloud-upload" uk-icon="icon: cloud-upload" style=""><i class="uil-cloud-upload uk-margin-top"></i></span><br/>
                   <label for="image" class="uk-button uk-button-primary" type="button">Browse To Upload</label>
                   <input type="file" hidden name="image" id="image" onchange="loadFile(event)">
-                  <img id="output" style="position: absolute;top: 0;left: 0;z-index: 100" required="" />
+                  <img id="output" style="position: absolute;top: 0;left: 0;z-index: 100" />
                 </div>
                 <div class="uk-margin-bottom">
                     <a href="{{ route('my.articles') }}"><i class="uil-arrow-left"></i> Go Back</a>

@@ -167,7 +167,7 @@
                         <li><a href=""> <i class="uil-user"></i> My Account </a> </li>
                         <li><a href="#"> <i class="uil-cog"></i> Account Settings</a></li>
                         <li><a href="#"> <i class="uil-wallet"></i> Wallet </a></li>
-                        <li><a href="{{ route('my.articles') }}"> <i class="uil-book"></i> my articles </a></li>
+                        <li class="{{ $menu == 'blog' ? 'active' : '' }}"><a href="{{ route('my.articles') }}"> <i class="uil-book"></i> my articles </a></li>
                         </li>
 
                         <li>
