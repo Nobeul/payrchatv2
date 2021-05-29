@@ -25,8 +25,8 @@
                             <span> Chat Buds </span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#"> <img src="{{ asset('public/holaTheme/assets/images/icons/friends.png') }}" alt="">
+                    <li class="{{ $menu == 'people-you-may-know' ? 'active' : '' }}">
+                        <a href="{{ url('people-you-may-know') }}"> <img src="{{ asset('public/holaTheme/assets/images/icons/friends.png') }}" alt="">
                             <span> People you may know </span>
                         </a>
                     </li>

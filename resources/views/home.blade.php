@@ -232,7 +232,6 @@
 
     var ENDPOINT = "{{ url('/') }}";
     var page = 1;
-    var requestNumber = false;
     infinteLoadMore(page);
 
     $('#load-more').on('click', function() {
