@@ -29,7 +29,7 @@ class Blog extends Model
 	   return $time->format('d M Y');
 	}
 
-    public function comments()
+    public function blogComments()
     {
         return $this->hasMany(BlogComment::class);
     }

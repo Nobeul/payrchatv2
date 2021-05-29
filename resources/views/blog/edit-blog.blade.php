@@ -4,11 +4,11 @@
     <div class="main_content_inner">
   <div class="uk-section uk-section-primary uk-padding-small uk-margin-bottom">
       <div class="uk-container">
-        <a href="#"> Create new article</a>
+        <a href="#"> Update article</a>
       </div>
   </div>
   <div class="uk-text-center uk-flex-center" uk-grid>
-    <div class="uk-width-3-4@m uk-width-1-1">
+    <div class="uk-width-1-1@m uk-width-1-1">
         <div class="uk-card uk-card-default">
           <form class="uk-padding-small" action="{{ route('update.blog', ['id' => $blogInfo->id]) }}" method="post" enctype="multipart/form-data">
             @csrf
@@ -30,11 +30,17 @@
             <div class="uk-width-1-1 uk-margin-bottom">
                 <textarea id="local-upload" class="bg" name="content">{{ $blogInfo->content }}</textarea>
             </div>
-            <div class="uk-width-1-1 drag-area uk-height-medium uk-flex uk-text-center uk-flex-middle uk-flex-column uk-background-cover uk-margin-bottom" style="background-image: url('{{ asset('storage/app/public/uploads/' .$blogInfo->image) }}');position: relative;padding-top: 70px;">         
-              <span class="cloud-upload" uk-icon="icon: cloud-upload" style=""><i class="uil-cloud-upload uk-margin-top"></i></span><br/>
-              <label for="image" class="uk-button uk-button-primary" type="button">Browse To Upload</label>
-              <input type="file" hidden name="image" id="image" onchange="loadFile(event)">
-              <img id="output" style="position: absolute;top: 0;left: 0;z-index: 100" />
+
+            @if (!empty($blogInfo->image))
+              <div class="uk-width-1-1 drag-area uk-height-medium uk-flex uk-text-center uk-flex-middle uk-flex-column uk-background-cover uk-margin-bottom" style="background-image: url('{{ asset('storage/app/public/uploads/' .$blogInfo->image) }}');position: relative;padding-top: 70px;">         
+            </div>
+            @else
+
+            @endif
+
+            <div class="custom-file uk-margin-bottom">
+              <input type="file" class="custom-file-input" id="customFile" name="image">
+              <label class="custom-file-label" for="customFile">Choose file</label>
             </div>
             <div class="uk-margin-bottom">
                 <a href="{{ route('my.articles') }}"><i class="uil-arrow-left"></i> Go Back</a>
@@ -47,10 +53,11 @@
 </div>
  
   <script>
-    var loadFile = function(event) {
-      var output = document.getElementById('output');
-      output.src = URL.createObjectURL(event.target.files[0]);
-    }
+    // Add the following code if you want the name of the file appear on select
+    $(".custom-file-input").on("change", function() {
+      var fileName = $(this).val().split("\\").pop();
+      $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
   </script>
 
 @endsection

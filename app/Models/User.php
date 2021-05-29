@@ -49,6 +49,7 @@ class User extends Authenticatable
 
 
     // blog section
+
     // user has many blogs
     public function blogs()
     {
@@ -58,10 +59,5 @@ class User extends Authenticatable
     public function blogComments()
     {
         return $this->hasMany(BlogComment::class);
-    }
-
-    public function likedBlogs()
-    {
-        return $this->belongsToMany(Blog::class);
     }
 }

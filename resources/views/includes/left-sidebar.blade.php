@@ -30,10 +30,9 @@
                             <span> People you may know </span>
                         </a>
                     </li>
-                    <li>
-                        <a href="">
-                            <img src="{{ asset('public/holaTheme/assets/images/icons/google-docs.png') }}" alt="">
-                            <span>Blogs</span>
+                    <li class="{{ $menu == 'blog' ? 'active' : '' }}">
+                        <a href="{{ route('blogs') }}"> <img src="{{ asset('public/holaTheme/assets/images/icons/google-docs.png') }}" alt="">
+                            <span> Blogs </span>
                         </a>
                     </li>
                     <li>

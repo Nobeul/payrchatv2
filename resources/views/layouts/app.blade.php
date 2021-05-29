@@ -61,10 +61,12 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
    <script src="{{ asset('public/holaTheme/assets/js/custom.js') }}"></script>
-   <!-- <script src="{{ asset('public/holaTheme/assets/js/image.js') }}"></script> -->
     <!-- tinyMC  -->
     <script src="{{ asset('public/holaTheme/plugin/tinymce/tinymce.min.js') }}"></script>
     <script src="{{ asset('public/holaTheme/plugin/tinymce/init-tinymce.js') }}"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
    @yield('custom_js')
 </body>
 
