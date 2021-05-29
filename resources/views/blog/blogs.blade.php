@@ -20,7 +20,7 @@
 	@foreach ($blogs as $blog)
     <div>
         <div class="uk-inline">
-            @if (!empty($blog->image))
+            @if (!empty($blog->image) && file_exists('storage/app/public/uploads/' .$blog->image))
                 <img src="{{ asset('storage/app/public/uploads/' .$blog->image) }}" style="height: 303px;width: 100%; position: relative;opacity: 0.5;" alt="" uk-img>
             @else
                 <img src="{{ asset('public/holaTheme/assets/images/blog/dark-gray-solid-color-background.jpg') }}" style="height: 303px;width: 100%; position: relative;opacity: 0.5;" alt="" uk-img>
@@ -31,7 +31,11 @@
             	<div class="uk-float-left">
 			        <div class="uk-card single-blog-auth">
 			        	<div class="uk-flex">
-					        <img class="uk-border-circle" src="{{ asset('public/holaTheme/assets/images/avatars/avatar-5.jpg') }}" width="40" height="40">
+                            @if(!empty($blog->author->profile_image) && file_exists('public/uploads/'.$blog->author->profile_image))
+					        <img class="uk-border-circle" src="{{ asset('public/uploads/'.$blog->author->profile_image) }}" width="40" height="40">
+                            @else
+					        <img class="uk-border-circle" src="{{ asset('public/uploads/profile/demo-profile.png') }}" width="40" height="40">
+                            @endif
 					        <div class="uk-text-middle uk-margin-left">
 					        <span style="color: #000;">{{ $blog->author->first_name }} {{ $blog->author->last_name }}</span><br/>
 					        <span style="color: #000;">{{ App\Models\Blog::getTime($blog->created_at) }}</span>

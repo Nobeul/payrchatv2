@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use App\Models\Blog;
 use Auth;
 use App\Models\BlogCategory;
+use Illuminate\Support\Facades\Validator;
 use Session;
 
 class BlogController extends Controller
@@ -15,8 +16,8 @@ class BlogController extends Controller
     public function index()
     {
         $data['menu'] = 'article';
-        $data['blogs'] = Blog::where(['author_id' => Auth::user()->id, 'status' => 1])->get();
-        return view('blog.index', $data);  
+        $data['blogs'] = Blog::where(['author_id' => Auth::user()->id])->get();
+        return view('blog.index', $data);
     }
 
     public function create()
@@ -30,13 +31,18 @@ class BlogController extends Controller
     public function blog()
     {
         $data['menu'] = 'blog';
-        $data['blogs'] = Blog::where(['status' => 1])->orderBy('id', 'DESC')->get();
+        $data['blogs'] = Blog::orderBy('id', 'DESC')->get();
         return view('blog.blogs', $data);
     }
 
     public function store(Request $request)
     {
-      
+        $v = $request->validate([
+            'title' => 'required|max:255',
+            'category_id' => 'required',
+            'description' => 'required',
+            'content' => 'required'
+        ]);
         $blogSlug = $request->title.rand();
         $slug = Str::slug($blogSlug, '-');
 
@@ -50,8 +56,8 @@ class BlogController extends Controller
 
         if ($request->hasFile('image')) {
             $extension = $request->file('image')->getClientOriginalExtension();
-            $fileNameToStore =time().'.'.$extension;
-            $path = $request->file('image')->storeAs('public/uploads/', $fileNameToStore);
+            $fileNameToStore = time().'.'.$extension;
+            $request->file('image')->storeAs('public/uploads/', $fileNameToStore);
             $blog->image = $fileNameToStore;
             $blog->save();
 
@@ -69,7 +75,7 @@ class BlogController extends Controller
     public function details($slug)
     {
         $data['menu'] = 'blog-deatils';
-        $data['moreBlogs'] = Blog::where('status', 1)->latest()->limit(4)->get();
+        $data['moreBlogs'] = Blog::latest()->limit(4)->get();
         $data['singleBlog'] = $singleBlog = Blog::where(['blog_slug' => $slug])->first();
 
         if (empty($singleBlog)) {
@@ -80,8 +86,8 @@ class BlogController extends Controller
               $singleBlog->increment('views');
               Session::put($blogKey, 1);
             }
-            $data['recentBlog'] = Blog::where('status', 1)->orderBy('id', 'asc')->limit(3)->get();
-            $data['popularBlog'] = Blog::where('status', 1)->orderBy('views', 'desc')->limit(3)->get();
+            $data['recentBlog'] = Blog::orderBy('id', 'asc')->limit(3)->get();
+            $data['popularBlog'] = Blog::orderBy('views', 'desc')->limit(3)->get();
 
             return view('blog.blog-deatils', $data);
         }

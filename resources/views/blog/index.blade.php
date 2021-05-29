@@ -24,7 +24,7 @@
           @if(!empty($blog))
             <div>
                 <div class="uk-card" data-src="images/photo.jpg">
-                  @if (!empty($blog->image))
+                  @if (!empty($blog->image) && file_exists('storage/app/public/uploads/' .$blog->image))
                   <img src="{{ asset('storage/app/public/uploads/' .$blog->image) }}" style="height: 303px;width: 100%; position: relative;opacity: 0.8;" alt="" class="blog-img" uk-img>
                   @else
                       <img src="{{ asset('public/holaTheme/assets/images/blog/dark-gray-solid-color-background.jpg') }}" style="height: 303px;width: 100%; position: relative;opacity: 0.8;" alt="" class="blog-img" uk-img>

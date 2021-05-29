@@ -16,7 +16,7 @@
 	</div>
   	<div class="uk-child-width-1-1@s uk-text-center uk-padding-remove" uk-grid>
 	    <div>
-	    	@if (!empty($singleBlog->image))
+	    	@if (!empty($singleBlog->image) && file_exists('storage/app/public/uploads/' .$singleBlog->image))
 	        	<div class="uk-height-large uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light uk-position-relative single-blog-image" data-src="{{ asset('storage/app/public/uploads/' .$singleBlog->image) }}" data-sizes="(min-width: 650px) 650px, 100vw" uk-img>
         	@else
         		<div class="uk-height-large uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light uk-position-relative single-blog-image" data-src="{{ asset('public/holaTheme/assets/images/blog/dark-gray-solid-color-background.jpg') }}" data-sizes="(min-width: 650px) 650px, 100vw" uk-img>
@@ -33,7 +33,11 @@
 					    <div class="uk-float-left">
 					        <div class="uk-card single-blog-auth">
 					        	<div class="uk-flex">
-							        <img class="uk-border-circle" src="{{ asset('public/holaTheme/assets/images/avatars/avatar-5.jpg') }}" width="40" height="40">
+									@if(!empty($singleBlog->author->profile_image) && file_exists('public/uploads/' .$singleBlog->author->profile_image))
+							        <img class="uk-border-circle" src="{{ asset('public/uploads/' .$singleBlog->author->profile_image) }}" alt="Profile Image" width="40" height="40">
+									@else
+									<img class="uk-border-circle" src="{{ asset('public/uploads/profile/demo-profile.png') }}" alt="Profile Image" width="40" height="40">
+									@endif
 							        <div class="uk-text-middle uk-margin-left">
 							        <span>{{ $singleBlog->author->first_name }} {{ $singleBlog->author->last_name }}</span><br/>
 							        <span>{{ App\Models\Blog::getTime($singleBlog->created_at) }}</span>
@@ -62,7 +66,7 @@
 			    			<div>
 			    				<div class="uk-card">
 
-			    					@if(!empty($moreBlog->image))
+			    					@if(!empty($moreBlog->image) && file_exists('storage/app/public/uploads/' .$moreBlog->image))
 			    						<img src="{{ asset('storage/app/public/uploads/' .$moreBlog->image) }}" class="uk-margin-bottom"><br/>
 			    					@else
 			    						<img src="{{ asset('public/holaTheme/assets/images/blog/dark-gray-solid-color-background.jpg') }}" class="uk-margin-bottom"><br/>
@@ -84,7 +88,11 @@
 			    		<div>
 			    			<div class="uk-flex uk-flex-between read-more">
 			    				<div>
-			    					<img src="{{ asset('public/holaTheme/assets/images/avatars/avatar-5.jpg') }}"  class="uk-border-circle" style="height: 40px;width: 40px;vertical-align: middle;" uk-img>
+									@if(!empty(Auth::user()->profile_image) && file_exists('public/uploads/'.Auth::user()->profile_image))
+			    					<img src="{{ asset('public/uploads/'.Auth::user()->profile_image) }}"  class="uk-border-circle" style="height: 40px;width: 40px;vertical-align: middle;" uk-img>
+									@else
+			    					<img src="{{ asset('public/uploads/profile/demo-profile.png') }}"  class="uk-border-circle" style="height: 40px;width: 40px;vertical-align: middle;" uk-img>
+									@endif
 			    				</div>
 			    				<div>
 			    					<form action="{{ route('comment.store', $singleBlog->id) }}" method="POST">
@@ -99,7 +107,11 @@
 			    			<div class="uk-clearfix uk-margin">
 						        <div class="uk-float-left uk-card single-blog-comment">
 						        	<div class="uk-flex">
-								        <img class="uk-border-circle" src="{{ asset('public/holaTheme/assets/images/avatars/avatar-5.jpg') }}" style="height: 40px !important;width: 40px;">
+										@if(!empty($comment->user->profile_image) && file_exists('public/uploads/'.$comment->user->profile_image))
+								        <img class="uk-border-circle" src="{{ asset('public/uploads/'.$comment->user->profile_image) }}" style="height: 40px !important;width: 40px;">
+										@else
+								        <img class="uk-border-circle" src="{{ asset('public/uploads/profile/demo-profile.png') }}" style="height: 40px !important;width: 40px;">
+										@endif
 								        <div class="uk-text-middle uk-margin-left comment">
 								        <span>{{ $comment->user->first_name }} {{ $comment->user->last_name }}</span><span style="margin-left: 5px;font-size: 10px;">{{ $comment->created_at->diffForHumans() }}</span><br/>
 								        <span class="com">{{ $comment->comment }}</span>
@@ -127,7 +139,7 @@
 							        <div class="uk-card single-blog-auth uk-margin-bottom">
 							        	<div class="uk-flex">
 
-									        @if (!empty($recent->image))
+									        @if (!empty($recent->image) && file_exists('storage/app/public/uploads/' .$recent->image))
 									        	<img class="uk-border-rounded" src="{{ asset('storage/app/public/uploads/' .$recent->image) }}" style="height: 30px; width: 40px;">
 									        @else
 									        	<img class="uk-border-rounded" src="{{ asset('public/holaTheme/assets/images/blog/dark-gray-solid-color-background.jpg') }}" style="height: 30px; width: 40px;">
@@ -153,7 +165,7 @@
 							        <div class="uk-card single-blog-auth uk-margin-bottom">
 							        	<div class="uk-flex">
 
-							        		@if (!empty($popular->image))
+							        		@if (!empty($popular->image) && file_exists('storage/app/public/uploads/' .$popular->image))
 									        	<img class="uk-border-rounded" src="{{ asset('storage/app/public/uploads/' .$popular->image) }}" style="height: 30px; width: 40px;">
 									        <div class="uk-text-middle uk-margin-left">
 									        @else
