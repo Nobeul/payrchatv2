@@ -22,6 +22,7 @@ Route::group(['middleware' => ['auth']],function(){
     Route::get('/get-post-like/{id}', 'HomeController@getPostLike');
     Route::post('/dislike/{id}', 'HomeController@createDislike');
     Route::get('/get-post-dislike/{id}', 'HomeController@getPostDislike');
+    Route::post('create-comment', 'HomeController@createComment');
 
     Route::get('/timeline', 'HomeController@viewProfile');
     Route::get('profile/about', 'HomeController@viewProfileAbout');

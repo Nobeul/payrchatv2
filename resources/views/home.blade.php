@@ -255,8 +255,9 @@
                 }
                 $('.auto-load').hide();
                 $.each(response.data, function (key,value) {
+                    var demoImage = "this.src='public/uploads/profile/demo-profile.png'";
                     var html = "";
-                    html += '<div class="post"><div class="post-heading"><div class="post-avature"><img src="public/uploads/' + value.user.profile_image + '" alt=""></div><div class="post-title"><h4>' + value.user.first_name + ' ' + value.user.last_name + '</h4><p> <i class="uil-users-alt"></i> </p></div><div class="post-btn-action"><span class="icon-more uil-ellipsis-h"></span><div class="mt-0 p-2" uk-dropdown="pos: bottom-right;mode:hover "><ul class="uk-nav uk-dropdown-nav"><li><a href="#"> <i class="uil-share-alt mr-1"></i> Share</a> </li><li><a href="#"> <i class="uil-edit-alt mr-1"></i> Edit Post </a></li><li><a href="#"> <i class="uil-comment-slash mr-1"></i> Disable comments</a></li><li><a href="#"> <i class="uil-favorite mr-1"></i> Add favorites </a></li><li><a href="#" class="text-danger"> <i class="uil-trash-alt mr-1"></i>Delete </a></li></ul></div></div></div>';
+                    html += '<div class="post"><div class="post-heading"><div class="post-avature"><img onerror="'+demoImage+'" src="public/uploads/' + value.user.profile_image + '" alt=""></div><div class="post-title"><h4>' + value.user.first_name + ' ' + value.user.last_name + '</h4><p> <i class="uil-users-alt"></i> </p></div><div class="post-btn-action"><span class="icon-more uil-ellipsis-h"></span><div class="mt-0 p-2" uk-dropdown="pos: bottom-right;mode:hover "><ul class="uk-nav uk-dropdown-nav"><li><a href="#"> <i class="uil-share-alt mr-1"></i> Share</a> </li><li><a href="#"> <i class="uil-edit-alt mr-1"></i> Edit Post </a></li><li><a href="#"> <i class="uil-comment-slash mr-1"></i> Disable comments</a></li><li><a href="#"> <i class="uil-favorite mr-1"></i> Add favorites </a></li><li><a href="#" class="text-danger"> <i class="uil-trash-alt mr-1"></i>Delete </a></li></ul></div></div></div>';
                     if (value.post_txt != '' && value.post_image == null) {
                         html += '<div class="post-description"><p class="post-text">' + value.post_txt + '</p></div>';
                     } else if (value.post_txt != null && value.post_image != null) {
@@ -264,22 +265,26 @@
                     } else if (value.post_txt == null && value.post_image != '') {
                         html += '<div class="post-description"><div class="fullsizeimg"><img src="public/uploads/' + value.post_image + '" alt=""></div></div>';
                     }
-                    html += '<div class="post-state"><div class="post-state-btns" uk-tooltip="like" id="like-div-'+value.id+'" onclick="addLike('+value.id+')"> <i class="uil-heart"></i> <sup id="like-'+value.id+'">'+value.likes.length+'</sup></div><div class="post-state-btns" id="comment-button-'+value.id+'" uk-tooltip="comments" onclick="viewCommentBox('+value.id+')"> <i class="uil-comments"></i> <sup>'+value.comments.length+'</sup></div><div class="post-state-btns" uk-tooltip="share"> <i class="fa fa-share-alt-square" aria-hidden="true"></i></div><div class="post-state-btns" uk-tooltip="dislike"> <i class="fa fa-heartbeat" aria-hidden="true" id="dislike-div-'+value.id+'" onclick="addDislike('+value.id+')"></i><sup id="dislike-'+value.id+'">'+value.dislikes.length+'</sup></div></div></div>';
+                    html += '<div class="post-state"><div class="post-state-btns" uk-tooltip="like" id="like-div-'+value.id+'" onclick="addLike('+value.id+')"> <i class="uil-heart"></i> <sup id="like-'+value.id+'">'+value.likes.length+'</sup></div><div class="post-state-btns" uk-tooltip="dislike"> <i class="fa fa-heartbeat" aria-hidden="true" id="dislike-div-'+value.id+'" onclick="addDislike('+value.id+')"></i><sup id="dislike-'+value.id+'">'+value.dislikes.length+'</sup></div><div class="post-state-btns" uk-tooltip="comments" onclick="viewCommentBox('+value.id+')"> <i class="uil-comments"></i> <sup id="comment-button-'+value.id+'">'+value.comments.length+'</sup></div><div class="post-state-btns" uk-tooltip="share"> <i class="fa fa-share-alt-square" aria-hidden="true"></i></div></div>';
 
                     html += '<div class="post-comments">';
-                    
                     if (value.comments.length != 0) {
                         if (value.comments.length > 1) {
-                            html += '<p class="view-more-comment more-comment" id="more-comment'+value.id+'" onClick="loadMoreComments('+value.id+')">View more comments</p>';
+                            html += '<p class="view-more-comment more-comment'+value.id+'" id="more-comment'+value.id+'" onClick="loadMoreComments('+value.id+')">View more comments</p>';
                         }
                         $.each(value.comments, function (key, comment) {
                             if (key < 1) {
-                                html += '<div class="post-comments-single"><div class="post-comment-avatar"><img src="public/uploads/'+comment.user.profile_image+'" alt=""></div><div class="post-comment-text"><div class="post-comment-text-inner"><h6><a href="">'+comment.user.first_name+ ' '+comment.user.last_name+'</a></h6><p>' + comment.comment_text + '</p></div><div class="uk-text-small"><a href="#" class="text-danger mr-1"> <i class="uil-heart"></i> Love </a><a href="#" class=" mr-1"> Replay </a><span> </span></div></div><a href="#" class="post-comment-opt"></a></div>';
+                                var demoImage = "this.src='public/uploads/profile/demo-profile.png'";
+                                html += '<div class="post-comments-single"><div class="post-comment-avatar"><img onerror="'+demoImage+'" src="public/uploads/'+comment.user.profile_image+'" alt="Profile Image"></div><div class="post-comment-text"><div class="post-comment-text-inner"><h6><a href="">'+comment.user.first_name+ ' '+comment.user.last_name+'</a></h6><p>' + comment.comment_text + '</p></div><div class="uk-text-small"><a href="#" class="text-danger mr-1"> <i class="uil-heart"></i> Love </a><a href="#" class=" mr-1"> Replay </a><span> </span></div></div><a href="#" class="post-comment-opt"></a></div>';
                             }
                         });
+                    } else {
+                        html += '<p class="view-more-comment more-comment more-comment'+value.id+'" onClick="loadMoreComments('+value.id+')"></p>';
                     }
 
-                    html += '<div class="post-add-comment" id="view-comment-box-'+value.id+'"><div class="post-add-comment-avature"><img src="public/uploads/'+value.user.profile_image+'" alt=""></div><div class="post-add-comment-text-area"><form action="" method="post"><input type="hidden" name="post_id" value=""><input type="text" id="post-text" name="comment_text" placeholder="Write your comment ..." required><div class="icons" id="comment-icon-div"><button type="submit" class="comment-icon"><i class="fa fa-paper-plane" aria-hidden="true"></i></button></div></form></div></div></div></div></div>';
+                    var demoImage = "this.src='public/uploads/profile/demo-profile.png'";
+                    var authenticatedUserImage = '{!! Auth::user()->profile_image !!}';
+                    html += '<div class="post-add-comment" id="view-comment-box-'+value.id+'"><div class="post-add-comment-avature"><img onerror="'+demoImage+'" src="public/uploads/'+authenticatedUserImage+'" alt="Profile Image" style="height:30pt;width:.416666667in;"></div><div class="post-add-comment-text-area"><input type="text" id="post-text-'+value.id+'" name="comment_text" placeholder="Write your comment ..."><div class="icons" uk-tooltip="Post comment" onclick="createNewComment('+value.id+')" id="comment-icon-div"><i class="fa fa-paper-plane" aria-hidden="true" style="cursor:pointer"></i></div></div></div></div></div></div></div>';
 
                     $("#data").append(html);
                     $('.post-add-comment').hide();
@@ -307,8 +312,9 @@
             .done(function (response) {
                 $(response).each(function(key, value) {
                     if (key != 0) {
+                        var demoImage = "this.src='public/uploads/profile/demo-profile.png'";
                         html = '';
-                        html += '<div class="post-comments-single" id="view-comment-box"><div class="post-comment-avatar"><img src="public/uploads/'+value.user.profile_image+'" alt=""></div><div class="post-comment-text"><div class="post-comment-text-inner"><h6><a href="">'+value.user.first_name+ ' '+value.user.last_name+'</a></h6><p>' + value.comment_text + '</p></div><div class="uk-text-small"><a href="#" class="text-danger mr-1"> <i class="uil-heart"></i> Love </a><a href="#" class=" mr-1"> Replay </a><span> </span></div></div><a href="#" class="post-comment-opt"></a></div>';
+                        html += '<div class="post-comments-single" id="view-comment-box"><div class="post-comment-avatar"><img onerror="'+demoImage+'" src="public/uploads/'+value.user.profile_image+'" alt=""></div><div class="post-comment-text"><div class="post-comment-text-inner"><h6><a href="">'+value.user.first_name+ ' '+value.user.last_name+'</a></h6><p>' + value.comment_text + '</p></div><div class="uk-text-small"><a href="#" class="text-danger mr-1"> <i class="uil-heart"></i> Love </a><a href="#" class=" mr-1"> Replay </a><span> </span></div></div><a href="#" class="post-comment-opt"></a></div>';
 
                         $('#more-comment'+postId).append(html);
                     }
@@ -349,7 +355,6 @@
                     }
                 })
                 .done(function (response) {
-                    $('#like-div-'+postId).removeAttr('onClick');
                     $('#like-'+postId).text(response.postCount);
                 });
             }
@@ -389,7 +394,6 @@
                     }
                 })
                 .done(function (response) {
-                    $('#dislike-div-'+postId).removeAttr('onClick');
                     $('#dislike-'+postId).text(response.postCount);
                 });
             }
@@ -405,6 +409,33 @@
                 .done(function (response) {
                     $('#like-'+postId).text(response.postCount);
                 });
+            }
+        });
+    }
+
+    function createNewComment(id)
+    {
+        var commentText = $('#post-text-'+id).val();
+        $.ajax({
+            url: ENDPOINT + "/create-comment",
+            type: "POST",
+            data: {
+                id: id,
+                '_token': "{!! csrf_token() !!}",
+                'comment_text': commentText
+            },
+        })
+        .done(function (response) {
+
+            if (response.status == 'success') {
+                var demoImage = "this.src='public/uploads/profile/demo-profile.png'";
+                html = '';
+                html += '<div class="post-comments-single" id="view-comment-box"><div class="post-comment-avatar"><img onerror="'+demoImage+'" src="public/uploads/'+response.commented_user_profile_image+'" alt="Profile Image"></div><div class="post-comment-text"><div class="post-comment-text-inner"><h6><a href="">'+response.commented_user_name+'</a></h6><p>' + response.comment_text + '</p></div><div class="uk-text-small"><a href="#" class="text-danger mr-1"> <i class="uil-heart"></i> Love </a><a href="#" class=" mr-1"> Replay </a><span> </span></div></div><a href="#" class="post-comment-opt"></a></div>';
+
+                $('.more-comment'+id).append(html);
+
+                var commentCount = parseInt($('#comment-button-'+id).text());
+                $('#comment-button-'+id).text(++commentCount);
             }
         });
     }

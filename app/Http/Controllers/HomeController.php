@@ -137,4 +137,25 @@ class HomeController extends Controller
 
         return view('user.about', $data);
     }
+
+    public function createComment(Request $request)
+    {
+        if (!empty($request->id) && !empty($request->comment_text)) {
+            $comment = new Comment;
+            $comment->comment_text = $request->comment_text;
+            $comment->user_id = Auth::user()->id;
+            $comment->post_id = $request->id;
+
+            $comment->save();
+
+            return response([
+                'status' => 'success',
+                'comment_text' => $comment->comment_text,
+                'commented_user_name' => Auth::user()->first_name . ' ' . Auth::user()->last_name,
+                'commented_user_profile_image' => Auth::user()->profile_image
+            ]);
+        } else {
+            return response(['status' => 'failed']);
+        }
+    }
 }
