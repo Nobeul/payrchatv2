@@ -24,12 +24,16 @@
                 <!-- create post section -->
                 <div class="post-newer">
 
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="{{ url('create-new-post') }}" method="post" enctype="multipart/form-data">
                 @csrf
                     <div class="post-new" uk-toggle="target: body ; cls: post-focus">
                             <div class="post-new-media">
                                 <div class="post-new-media-user">
-                                    <img src="" alt="">
+                                    @if (!empty(Auth::user()->profile_image) && file_exists('public/uploads/'.Auth::user()->profile_image))
+                                    <img src="{{ asset('public/uploads/'.Auth::user()->profile_image) }}" alt="Profile Image">
+                                    @else
+                                    <img src="{{ asset('public/uploads/profile/demo-profile.png') }}" alt="Profile Image">
+                                    @endif
                                 </div>
                                 <div class="post-new-media-input">
                                     <input type="text" class="uk-input" placeholder="What's on Your Mind?">
@@ -73,7 +77,11 @@
 
                             <div class="post-new-media">
                                 <div class="post-new-media-user">
-                                    <img src="{{ asset('public/holaTheme/assets/images/avatars/avatar-2.jpg') }}" alt="">
+                                    @if (!empty(Auth::user()->profile_image) && file_exists('public/uploads/'.Auth::user()->profile_image))
+                                    <img src="{{ asset('public/uploads/'.Auth::user()->profile_image) }}" alt="Profile Image">
+                                    @else
+                                    <img src="{{ asset('public/uploads/profile/demo-profile.png') }}" alt="Profile Image">
+                                    @endif
                                 </div>
                                 <div class="post-new-media-input">
                                     <input type="text" class="uk-input" name="post_txt" placeholder="What's Your Mind ?">
@@ -261,6 +269,7 @@
                     if (value.post_txt != '' && value.post_image == null) {
                         html += '<div class="post-description"><p class="post-text">' + value.post_txt + '</p></div>';
                     } else if (value.post_txt != null && value.post_image != null) {
+                        console.log(value);
                         html += '<div class="post-description"><p class="post-text">' + value.post_txt + '</p><div class="fullsizeimg"><img src="public/uploads/'+ value.post_image + '" alt=""></div></div>';
                     } else if (value.post_txt == null && value.post_image != '') {
                         html += '<div class="post-description"><div class="fullsizeimg"><img src="public/uploads/' + value.post_image + '" alt=""></div></div>';
@@ -275,7 +284,7 @@
                         $.each(value.comments, function (key, comment) {
                             if (key < 1) {
                                 var demoImage = "this.src='public/uploads/profile/demo-profile.png'";
-                                html += '<div class="post-comments-single"><div class="post-comment-avatar"><img onerror="'+demoImage+'" src="public/uploads/'+comment.user.profile_image+'" alt="Profile Image"></div><div class="post-comment-text"><div class="post-comment-text-inner"><h6><a href="">'+comment.user.first_name+ ' '+comment.user.last_name+'</a></h6><p>' + comment.comment_text + '</p></div><div class="uk-text-small"><a href="#" class="text-danger mr-1"> <i class="uil-heart"></i> Love </a><a href="#" class=" mr-1"> Replay </a><span> </span></div></div><a href="#" class="post-comment-opt"></a></div>';
+                                html += '<div class="post-comments-single"><div class="post-comment-avatar"><img onerror="'+demoImage+'" src="public/uploads/'+comment.user.profile_image+'" alt="Profile Image"></div><div class="post-comment-text"><div class="post-comment-text-inner"><h6><a href="">'+comment.user.first_name+ ' '+comment.user.last_name+'</a></h6><p>' + comment.comment_text + '</p></div><div class="uk-text-small"><a href="#" class="text-danger mr-1"> <i class="uil-heart"></i> Love </a></span></div></div><a href="#" class="post-comment-opt"></a></div>';
                             }
                         });
                     } else {
@@ -314,7 +323,7 @@
                     if (key != 0) {
                         var demoImage = "this.src='public/uploads/profile/demo-profile.png'";
                         html = '';
-                        html += '<div class="post-comments-single" id="view-comment-box"><div class="post-comment-avatar"><img onerror="'+demoImage+'" src="public/uploads/'+value.user.profile_image+'" alt=""></div><div class="post-comment-text"><div class="post-comment-text-inner"><h6><a href="">'+value.user.first_name+ ' '+value.user.last_name+'</a></h6><p>' + value.comment_text + '</p></div><div class="uk-text-small"><a href="#" class="text-danger mr-1"> <i class="uil-heart"></i> Love </a><a href="#" class=" mr-1"> Replay </a><span> </span></div></div><a href="#" class="post-comment-opt"></a></div>';
+                        html += '<div class="post-comments-single" id="view-comment-box"><div class="post-comment-avatar"><img onerror="'+demoImage+'" src="public/uploads/'+value.user.profile_image+'" alt=""></div><div class="post-comment-text"><div class="post-comment-text-inner"><h6><a href="">'+value.user.first_name+ ' '+value.user.last_name+'</a></h6><p>' + value.comment_text + '</p></div><div class="uk-text-small"><a href="#" class="text-danger mr-1"> <i class="uil-heart"></i> Love </a><span> </span></div></div><a href="#" class="post-comment-opt"></a></div>';
 
                         $('#more-comment'+postId).append(html);
                     }
@@ -430,11 +439,12 @@
             if (response.status == 'success') {
                 var demoImage = "this.src='public/uploads/profile/demo-profile.png'";
                 html = '';
-                html += '<div class="post-comments-single" id="view-comment-box"><div class="post-comment-avatar"><img onerror="'+demoImage+'" src="public/uploads/'+response.commented_user_profile_image+'" alt="Profile Image"></div><div class="post-comment-text"><div class="post-comment-text-inner"><h6><a href="">'+response.commented_user_name+'</a></h6><p>' + response.comment_text + '</p></div><div class="uk-text-small"><a href="#" class="text-danger mr-1"> <i class="uil-heart"></i> Love </a><a href="#" class=" mr-1"> Replay </a><span> </span></div></div><a href="#" class="post-comment-opt"></a></div>';
+                html += '<div class="post-comments-single" id="view-comment-box"><div class="post-comment-avatar"><img onerror="'+demoImage+'" src="public/uploads/'+response.commented_user_profile_image+'" alt="Profile Image"></div><div class="post-comment-text"><div class="post-comment-text-inner"><h6><a href="">'+response.commented_user_name+'</a></h6><p>' + response.comment_text + '</p></div><div class="uk-text-small"><a href="#" class="text-danger mr-1"> <i class="uil-heart"></i> Love </a><span> </span></div></div><a href="#" class="post-comment-opt"></a></div>';
 
                 $('.more-comment'+id).append(html);
 
                 var commentCount = parseInt($('#comment-button-'+id).text());
+                $('#post-text-'+id).val('');
                 $('#comment-button-'+id).text(++commentCount);
             }
         });

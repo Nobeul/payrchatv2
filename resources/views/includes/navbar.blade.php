@@ -146,17 +146,27 @@
 
 
                 <!-- profile -image -->
-                <a class="opts_account" href="#"> <img src="" alt=""></a>
+                <a class="opts_account" href="{{ url('/timeline') }}">
+                    @if (!empty(Auth::user()->profile_image) && file_exists('public/uploads/'.Auth::user()->profile_image))
+                    <img src="{{ asset('public/uploads/'.Auth::user()->profile_image) }}" alt="Profile Image">
+                    @else
+                    <img src="{{ asset('public/uploads/profile/demo-profile.png') }}" alt="Profile Image">
+                    @endif
+                </a>
 
                 <!-- profile dropdown-->
                 <div uk-dropdown="mode:click ; animation: uk-animation-slide-bottom-small" class="dropdown-notifications rounded">
 
                     <!-- User Name / Avatar -->
-                    <a href="">
+                    <a href="{{ url('/timeline') }}">
 
                         <div class="dropdown-user-details">
                             <div class="dropdown-user-avatar">
-                                <img src="{{ asset('public/holaTheme/assets/images/avatars/avatar.jpg') }}" alt="">
+                                @if (!empty(Auth::user()->profile_image) && file_exists('public/uploads/'.Auth::user()->profile_image))
+                                <img src="{{ asset('public/uploads/'.Auth::user()->profile_image) }}" alt="Profile Image">
+                                @else
+                                <img src="{{ asset('public/uploads/profile/demo-profile.png') }}" alt="Profile Image">
+                                @endif
                             </div>
                             <div class="dropdown-user-name">  {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}  <span>See your profile</span> </div>
                         </div>
@@ -164,7 +174,7 @@
                     </a>
                     <hr class="m-0">
                     <ul class="dropdown-user-menu">
-                        <li><a href=""> <i class="uil-user"></i> My Account </a> </li>
+                        <li><a href="{{ url('/timeline') }}"> <i class="uil-user"></i> My Account </a> </li>
                         <li><a href="#"> <i class="uil-cog"></i> Account Settings</a></li>
                         <li><a href="#"> <i class="uil-wallet"></i> Wallet </a></li>
                         <li class="{{ $menu == 'blog' ? 'active' : '' }}"><a href="{{ route('my.articles') }}"> <i class="uil-book"></i> my articles </a></li>

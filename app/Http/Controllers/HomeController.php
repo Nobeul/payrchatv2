@@ -158,4 +158,24 @@ class HomeController extends Controller
             return response(['status' => 'failed']);
         }
     }
+
+    public function createPost(Request $request)
+    {
+        if (!empty($request->all())) {
+            $post = new Post;
+            $post->user_id = Auth::user()->id;
+            $post->post_txt = !empty($request->post_txt) ? $request->post_txt : Null;
+    
+            if ($request->hasFile('post_image')) {
+                $extension = $request->file('post_image')->getClientOriginalExtension();
+                $fileNameToStore =time().'.'.$extension;
+                $request->post_image->move(public_path('uploads'), $fileNameToStore);
+                $post->post_image = $fileNameToStore;
+            }
+            $post->save();
+            return back();
+        } else {
+            return back();
+        }
+    }
 }
