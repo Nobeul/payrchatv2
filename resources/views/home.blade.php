@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('custom_css')
 <style>
-    .uil-image {
+    .uil-image, .uil-video {
         color: #007bff;
         margin-top: 8px;
     }
@@ -92,19 +92,22 @@
                                     <label for="image-input">
                                         <a>
                                             <i class="uil-image"></i>
-                                            <input type="file" id="image-input" name="post_image">
+                                            <input type="file" id="image-input" name="post_image" accept="image/x-png,image/gif,image/jpeg">
                                         </a>
                                     </label>
                                 </span>
-                                <a href="#"> <i class="uil-user-plus"></i> </a>
-                                <a href="#"> <i class="uil-video"></i> </a>
-                                <a href="#"> <i class="uil-record-audio"></i> </a>
-                                <a href="#"> <i class="uil-file-alt"></i> </a>
-                                <a href="#"> <i class="uil-emoji"></i> </a>
-                                <a href="#"> <i class="uil-gift"></i> </a>
-                                <a href="#"> <i class="uil-shopping-basket"></i> </a>
-                                <a href="#"> <i class="uil-check"></i> </a>
-                                <a href="#"> <i class="uil-graph-bar"></i> </a>
+                                <span>
+                                    <label for="video-input">
+                                        <a>
+                                            <i class="uil-video"></i>
+                                            <input type="file" id="video-input" name="post_video" accept="video/mp4,video/x-m4v,video/*" style="display: none;">
+                                        </a>
+                                    </label>
+                                </span>
+                                <a href="#" id="link-input"> <i class="fa fa-link" aria-hidden="true"></i> </a>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="input_link" id="input_link" class="form-control" placeholder="Enter link here">
                             </div>
                             <div class="uk-flex uk-flex-between">
 
@@ -266,14 +269,22 @@
                     var demoImage = "this.src='public/uploads/profile/demo-profile.png'";
                     var html = "";
                     html += '<div class="post"><div class="post-heading"><div class="post-avature"><img onerror="'+demoImage+'" src="public/uploads/' + value.user.profile_image + '" alt=""></div><div class="post-title"><h4>' + value.user.first_name + ' ' + value.user.last_name + '</h4><p> <i class="uil-users-alt"></i> </p></div><div class="post-btn-action"><span class="icon-more uil-ellipsis-h"></span><div class="mt-0 p-2" uk-dropdown="pos: bottom-right;mode:hover "><ul class="uk-nav uk-dropdown-nav"><li><a href="#"> <i class="uil-share-alt mr-1"></i> Share</a> </li><li><a href="#"> <i class="uil-edit-alt mr-1"></i> Edit Post </a></li><li><a href="#"> <i class="uil-comment-slash mr-1"></i> Disable comments</a></li><li><a href="#"> <i class="uil-favorite mr-1"></i> Add favorites </a></li><li><a href="#" class="text-danger"> <i class="uil-trash-alt mr-1"></i>Delete </a></li></ul></div></div></div>';
-                    if (value.post_txt != '' && value.post_image == null) {
+                    if (value.post_txt != null) {
                         html += '<div class="post-description"><p class="post-text">' + value.post_txt + '</p></div>';
-                    } else if (value.post_txt != null && value.post_image != null) {
-                        console.log(value);
-                        html += '<div class="post-description"><p class="post-text">' + value.post_txt + '</p><div class="fullsizeimg"><img src="public/uploads/'+ value.post_image + '" alt=""></div></div>';
-                    } else if (value.post_txt == null && value.post_image != '') {
-                        html += '<div class="post-description"><div class="fullsizeimg"><img src="public/uploads/' + value.post_image + '" alt=""></div></div>';
                     }
+                    
+                    if (value.post_url != null) {
+                        html += '<div class="post-description"><a href="'+value.post_url+'">'+value.post_url+'</a></div>';
+                    }
+
+                    if (value.post_image != null) {
+                        html += '<div class="post-description"><div class="fullsizeimg"><img src="public/uploads/'+ value.post_image + '" alt=""></div></div>';
+                    }
+
+                    if (value.post_video != null) {
+                        html += '<div class="post-description"><div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="public/uploads/' + value.post_video + '" allowfullscreen></iframe></div></div>';
+                    }
+
                     html += '<div class="post-state"><div class="post-state-btns" uk-tooltip="like" id="like-div-'+value.id+'" onclick="addLike('+value.id+')"> <i class="uil-heart"></i> <sup id="like-'+value.id+'">'+value.likes.length+'</sup></div><div class="post-state-btns" uk-tooltip="dislike"> <i class="fa fa-heartbeat" aria-hidden="true" id="dislike-div-'+value.id+'" onclick="addDislike('+value.id+')"></i><sup id="dislike-'+value.id+'">'+value.dislikes.length+'</sup></div><div class="post-state-btns" uk-tooltip="comments" onclick="viewCommentBox('+value.id+')"> <i class="uil-comments"></i> <sup id="comment-button-'+value.id+'">'+value.comments.length+'</sup></div><div class="post-state-btns" uk-tooltip="share"> <i class="fa fa-share-alt-square" aria-hidden="true"></i></div></div>';
 
                     html += '<div class="post-comments">';
@@ -449,5 +460,9 @@
             }
         });
     }
+    $('#input_link').hide();
+    $('#link-input').on('click', function() {
+        $('#input_link').show();
+    });
 </script>
 @endsection

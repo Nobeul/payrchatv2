@@ -434,7 +434,7 @@
                     } else if (value.post_txt == null && value.post_image != '') {
                         html += '<div class="post-description"><div class="fullsizeimg"><img src="public/uploads/' + value.post_image + '" alt=""></div></div>';
                     }
-                    html += '<div class="post-state"><div class="post-state-btns" uk-tooltip="like" id="like-div-'+value.id+'" onclick="addLike('+value.id+')"> <i class="uil-heart"></i> <sup id="like-'+value.id+'">'+value.likes.length+'</sup></div><div class="post-state-btns" id="comment-button-'+value.id+'" uk-tooltip="comments" onclick="viewCommentBox('+value.id+')"> <i class="uil-comments"></i> <sup>'+value.comments.length+'</sup></div><div class="post-state-btns" uk-tooltip="share"> <i class="fa fa-share-alt-square" aria-hidden="true"></i></div><div class="post-state-btns" uk-tooltip="dislike"> <i class="fa fa-heartbeat" aria-hidden="true" id="dislike-div-'+value.id+'" onclick="addDislike('+value.id+')"></i><sup id="dislike-'+value.id+'">'+value.dislikes.length+'</sup></div></div></div>';
+                    html += '<div class="post-state"><div class="post-state-btns" uk-tooltip="like" id="like-div-'+value.id+'" onclick="addLike('+value.id+')"> <i class="uil-heart"></i> <sup id="like-'+value.id+'">'+value.likes.length+'</sup></div><div class="post-state-btns" uk-tooltip="dislike"> <i class="fa fa-heartbeat" aria-hidden="true" id="dislike-div-'+value.id+'" onclick="addDislike('+value.id+')"></i><sup id="dislike-'+value.id+'">'+value.dislikes.length+'</sup></div><div class="post-state-btns" id="comment-button-'+value.id+'" uk-tooltip="comments" onclick="viewCommentBox('+value.id+')"> <i class="uil-comments"></i> <sup>'+value.comments.length+'</sup></div><div class="post-state-btns" uk-tooltip="share"> <i class="fa fa-share-alt-square" aria-hidden="true"></i></div></div></div>';
 
                     html += '<div class="post-comments">';
                     
@@ -519,7 +519,6 @@
                     }
                 })
                 .done(function (response) {
-                    $('#like-div-'+postId).removeAttr('onClick');
                     $('#like-'+postId).text(response.postCount);
                 });
             }
@@ -559,7 +558,6 @@
                     }
                 })
                 .done(function (response) {
-                    $('#dislike-div-'+postId).removeAttr('onClick');
                     $('#dislike-'+postId).text(response.postCount);
                 });
             }

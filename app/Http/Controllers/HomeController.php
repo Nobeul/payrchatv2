@@ -172,6 +172,14 @@ class HomeController extends Controller
                 $request->post_image->move(public_path('uploads'), $fileNameToStore);
                 $post->post_image = $fileNameToStore;
             }
+
+            if ($request->hasFile('post_video')) {
+                $extension = $request->file('post_video')->getClientOriginalExtension();
+                $fileNameToStore =time().'.'.$extension;
+                $request->post_video->move(public_path('uploads'), $fileNameToStore);
+                $post->post_video = $fileNameToStore;
+            }
+            $post->post_url = !empty($request->input_link) ? $request->input_link : Null;
             $post->save();
             return back();
         } else {
