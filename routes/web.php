@@ -40,4 +40,7 @@ Route::group(['middleware' => ['auth']],function(){
     Route::get('/delete/{id}', 'Blog\BlogController@deleteblog')->name('delete.blog');
     Route::get('/edit/{id}', 'Blog\BlogController@editblog')->name('edit.blog');
     Route::post('/update/{id}', 'Blog\BlogController@updateblog')->name('update.blog');
+
+    // Album Routes
+    Route::get('album', 'Album\AlbumController@showAlbum');
 });

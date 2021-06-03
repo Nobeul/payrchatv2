@@ -53,8 +53,13 @@
                                 </li>
                             </ul>
                     </li>
+                    <li class="{{ $menu == 'photo-album' ? 'active' : '' }}">
+                        <a href="{{ url('/album') }}"> <img src="{{ asset('public/holaTheme/assets/images/icons/gallery.png') }}" alt="">
+                            <span> Album </span>
+                        </a>
+                    </li>
                     <li>
-                        <a href=""> <img src="{{ asset('public/holaTheme/assets/images/icons/video.png') }}" alt="">
+                        <a href=""> <img src="{{ asset('public/holaTheme/assets/images/icons/movies.png') }}" alt="">
                             <span> Videos </span>
                         </a>
                     </li>

@@ -274,7 +274,7 @@
                     }
                     
                     if (value.post_url != null) {
-                        html += '<div class="post-description"><a href="'+value.post_url+'">'+value.post_url+'</a></div>';
+                        html += '<div class="post-description"><a href="'+value.post_url+'" target="_blank">'+value.post_url+'</a></div>';
                     }
 
                     if (value.post_image != null) {
