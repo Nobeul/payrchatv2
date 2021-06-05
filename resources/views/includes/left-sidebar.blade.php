@@ -58,8 +58,8 @@
                             <span> Album </span>
                         </a>
                     </li>
-                    <li>
-                        <a href=""> <img src="{{ asset('public/holaTheme/assets/images/icons/movies.png') }}" alt="">
+                    <li class="{{ $menu == 'video-album' ? 'active' : '' }}">
+                        <a href="{{ url('/video-album') }}"> <img src="{{ asset('public/holaTheme/assets/images/icons/movies.png') }}" alt="">
                             <span> Videos </span>
                         </a>
                     </li>

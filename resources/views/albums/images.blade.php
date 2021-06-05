@@ -1,12 +1,13 @@
 @extends('layouts.app')
 @section('custom_css')
-<link rel="stylesheet" href="{{ asset('public/holaTheme/assets/css/uikit.css') }}">
-<link rel="stylesheet" href="{{ asset('public/holaTheme/assets/css/people-you-may-know/style.css') }}">
 <style>
     @media only screen and (max-width: 425px) {
         .chat-plus-btn {
             display: none;
         }
+    }
+    .image-section {
+        margin-bottom: 15px!important;
     }
 </style>
 @endsection
@@ -26,26 +27,20 @@
 
         </div>
 
-        <div class="uk-child-width-1-4@m uk-child-width-1-3@s uk-child-width-1-2 uk-grid-collapse uk-overflow-hidden" style="border-radius: 25px;  overflow: hidd en;" uk-lightbox="animation: scale" uk-grid>
+        <div class="row uk-child-width-1-4@m uk-child-width-1-3@s uk-child-width-1-2 uk-grid-collapse uk-overflow-hidden" style="border-radius: 25px;  overflow: hidd en;" uk-lightbox="animation: scale" uk-grid>
             @foreach ($postImages as $image)
-            <div>
-                <a href="public/uploads/profile/demo-cover.jpg" data-caption="Image caption">
+            <div class="col-md-4 image-section">
                     @if (file_exists('public/uploads/'.$image->post_image))
-                    <div class="sl_photo_list" data-src="{{ asset('public/uploads/'.$image->post_image) }}" uk-img>
+                    <a href="{{ asset('public/uploads/'.$image->post_image) }}" data-caption="Image caption">
+                        <img class="img-fluid" data-src="{{ asset('public/uploads/'.$image->post_image) }}" uk-img>
                     @else
-                    <div class="sl_photo_list" data-src="{{ asset('public/uploads/profile/demo-cover.jpg') }}" uk-img>
+                    <a href="public/uploads/profile/demo-cover.jpg" data-caption="Image caption">
+                        <img class="img-fluid" data-src="{{ asset('public/uploads/profile/demo-cover.jpg') }}" uk-img>
                     @endif
-                        <div class="sl_photo_list-content">
-                            <div>
-                                <h4> Image description </h4>
-                                <p> <span>{{count($image->likes)}} {{ count($image->likes) == 0 ? 'Like' : 'Likes'}} </span>
-                                    <span>{{count($image->comments)}} {{ count($image->likes) == 0 ? 'Comment' : 'Comments'}} </span>
-                                    <span> Share</span>
-                                </p>
-                            </div>
-                            <div>
-                                <span class="uil-cloud-download btn-down"></span>
-                            </div>
+                    <div>
+                        <div>
+                            <span>{{count($image->likes)}} {{ count($image->likes) == 0 ? 'Like' : 'Likes'}} </span>
+                            <span>{{count($image->comments)}} {{ count($image->likes) == 0 ? 'Comment' : 'Comments'}} </span>
                         </div>
                     </div>
                 </a>

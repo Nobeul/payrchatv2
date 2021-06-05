@@ -43,4 +43,5 @@ Route::group(['middleware' => ['auth']],function(){
 
     // Album Routes
     Route::get('album', 'Album\AlbumController@showAlbum');
+    Route::get('video-album', 'Album\AlbumController@showVideoAlbum');
 });

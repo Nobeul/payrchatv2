@@ -282,7 +282,7 @@
                     }
 
                     if (value.post_video != null) {
-                        html += '<div class="post-description"><div class="embed-responsive embed-responsive-16by9"><iframe class="embed-responsive-item" src="public/uploads/' + value.post_video + '" allowfullscreen></iframe></div></div>';
+                        html += '<div class="post-description"><div class="embed-responsive embed-responsive-16by9"><video allowfullscreen controls><source src="public/uploads/' + value.post_video + '"></video></div></div>';
                     }
 
                     html += '<div class="post-state"><div class="post-state-btns" uk-tooltip="like" id="like-div-'+value.id+'" onclick="addLike('+value.id+')"> <i class="uil-heart"></i> <sup id="like-'+value.id+'">'+value.likes.length+'</sup></div><div class="post-state-btns" uk-tooltip="dislike"> <i class="fa fa-heartbeat" aria-hidden="true" id="dislike-div-'+value.id+'" onclick="addDislike('+value.id+')"></i><sup id="dislike-'+value.id+'">'+value.dislikes.length+'</sup></div><div class="post-state-btns" uk-tooltip="comments" onclick="viewCommentBox('+value.id+')"> <i class="uil-comments"></i> <sup id="comment-button-'+value.id+'">'+value.comments.length+'</sup></div><div class="post-state-btns" uk-tooltip="share"> <i class="fa fa-share-alt-square" aria-hidden="true"></i></div></div>';
