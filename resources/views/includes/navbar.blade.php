@@ -49,7 +49,7 @@
 
 
                 <a href="{{ url('/') }}" class="opts_icon_link uk-visible@s"> Home </a>
-                <a href="" class="opts_icon_link uk-visible@s"> {{ Auth::user()->first_name }} {{ Auth::user()->last_name }} </a>
+                <a href="{{ url('/timeline') }}" class="opts_icon_link uk-visible@s"> {{ Auth::user()->first_name }} {{ Auth::user()->last_name }} </a>
 
                 <a href="#" class="opts_icon" uk-tooltip="title: Friend Request  ; pos: bottom ;offset:7">
                     <img src="{{ asset('public/holaTheme/assets/images/icons/friends.png') }}" alt="" style="width: 18px; height: 18px;">

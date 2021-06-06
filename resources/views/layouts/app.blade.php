@@ -3,7 +3,6 @@
 
 <head>
    <!-- Required meta tags -->
-   <title>Payrchat - Home</title>
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -23,7 +22,7 @@
    <meta name="facebook-domain-verification" content="izd4unkn3vw1j5h6oorj9xa2o498gx" />
    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-   <title>Payrchat - Home</title>
+   <title>Business social network</title>
    <!-- CSS -->
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
    <link rel="stylesheet" href="{{ asset('public/holaTheme/assets/css/style.css') }}">
@@ -36,6 +35,7 @@
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
    <link rel="stylesheet" href="{{ asset('public/holaTheme/assets/css/custom.css') }}">
+   <link rel="shortcut icon" type="image/jpg" href="{{ asset('public/uploads/website-assets/favicon.png') }}">
    @yield('custom_css')
 
 </head>

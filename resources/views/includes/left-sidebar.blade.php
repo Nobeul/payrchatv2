@@ -35,31 +35,13 @@
                             <span> Blogs </span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#"> <img src="{{ asset('public/holaTheme/assets/images/icons/investment.png') }}" alt="">
-                            <span> Investments </span> </a>
-                            <ul>
-                                <li>
-                                    <a href="">My investment</a>
-                                </li>
-                                <li>
-                                    <a href="">Investment status</a>
-                                </li>
-                                <li>
-                                    <a href="">Add fund</a>
-                                </li>
-                                <li>
-                                    <a href="">Withdraw history</a>
-                                </li>
-                            </ul>
-                    </li>
                     <li class="{{ $menu == 'photo-album' ? 'active' : '' }}">
                         <a href="{{ url('/album') }}"> <img src="{{ asset('public/holaTheme/assets/images/icons/gallery.png') }}" alt="">
                             <span> Album </span>
                         </a>
                     </li>
                     <li class="{{ $menu == 'video-album' ? 'active' : '' }}">
-                        <a href="{{ url('/video-album') }}"> <img src="{{ asset('public/holaTheme/assets/images/icons/movies.png') }}" alt="">
+                        <a href="{{ url('/videos') }}"> <img src="{{ asset('public/holaTheme/assets/images/icons/movies.png') }}" alt="">
                             <span> Videos </span>
                         </a>
                     </li>

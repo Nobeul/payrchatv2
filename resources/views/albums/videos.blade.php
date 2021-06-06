@@ -17,15 +17,8 @@
 
         <div id="spinneroverlay"> </div>
 
-        <h1> Photos </h1>
-        <div class="uk-flex uk-flex-between uk-flex-middle mb-4">
-            <ul class="uk-width-expand" uk-tab>
-                <li class="uk-active"><a href="{{ url('/album') }}">Albums</a></li>
-            </ul>
-            <!-- <a href="#" class="button primary small circle uk-visible@s"> <i class="uil-plus"> </i> -->
-            <!-- Create New Album </a> -->
-
-        </div>
+        <h1> Videos </h1>
+        <hr>
 
         <div class="row">
             @foreach ($postVideos as $video)

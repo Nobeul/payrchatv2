@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth']],function(){
     Route::get('profile/about', 'HomeController@viewProfileAbout');
     Route::get('people-you-may-know', 'Friends\FriendsController@viewFriendPage');
     Route::get('search-friends/{id}', 'Friends\FriendsController@findFriends');
+    Route::post('change-profile-pic', 'Friends\FriendsController@changeProfilePic');
 
     // Blogs Route 
     Route::get('/my/article', 'Blog\BlogController@index')->name('my.articles');
@@ -43,5 +44,5 @@ Route::group(['middleware' => ['auth']],function(){
 
     // Album Routes
     Route::get('album', 'Album\AlbumController@showAlbum');
-    Route::get('video-album', 'Album\AlbumController@showVideoAlbum');
+    Route::get('videos', 'Album\AlbumController@showVideoAlbum');
 });

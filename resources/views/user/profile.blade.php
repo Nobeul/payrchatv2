@@ -29,7 +29,7 @@
                 <!-- profile cover -->
                 <img src="{{ asset('public/uploads/profile/demo-cover.jpg') }}" alt="Cover photo">
 
-                <a href="#"> <i class="uil-camera"></i> Edit </a>
+                <!-- <a href="#"> <i class="uil-camera"></i> Edit </a> -->
 
             </div>
 
@@ -40,7 +40,6 @@
                     @else
                     <img src="{{ asset('public/uploads/profile/demo-profile.png') }}" alt="Profile Photo">
                     @endif
-                    <a href="#"> </a>
                 </div>
                 <div class="profile-details-info">
                     <h1> {{ $userProfile->first_name }} {{ $userProfile->last_name }} </h1>
@@ -81,9 +80,9 @@
                             <div class="post-new-media">
                                 <div class="post-new-media-user">
                                     @if(!empty($userProfile->profile_image) && file_exists('public/uploads/'.$userProfile->profile_image))
-                                    <img src="{{ asset('public/uploads/'.$userProfile->profile_image) }}" alt="Profile Photo">
+                                    <img src="{{ asset('public/uploads/'.$userProfile->profile_image) }}" alt="Profile Photo" id="profile-image">
                                     @else
-                                    <img src="{{ asset('public/uploads/profile/demo-profile.png') }}" alt="Profile Photo">
+                                    <img src="{{ asset('public/uploads/profile/demo-profile.png') }}" alt="Profile Photo" id="profile-image">
                                     @endif
                                 </div>
                                 <div class="post-new-media-input">
