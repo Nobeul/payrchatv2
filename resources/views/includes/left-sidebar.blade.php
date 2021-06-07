@@ -47,6 +47,20 @@
                     </li>
                 </ul>
             </div>
+            <!--  Optional Footer -->
+            <div id="foot">
+                <ul>
+                    <li> <a href="{{ url('/about') }}"> About Us </a></li>
+                    <li> <a href="#"> Setting </a></li>
+                    <li> <a href="{{ url('/privacy') }}"> Privacy Policy </a></li>
+                    <li> <a href="{{ url('/terms') }}"> Terms - Conditions </a></li>
+                </ul>
+
+                <div class="foot-content">
+                    <p>© 2021 <strong>Payrchat</strong>. All Rights Reserved. </p>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>

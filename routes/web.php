@@ -45,4 +45,9 @@ Route::group(['middleware' => ['auth']],function(){
     // Album Routes
     Route::get('album', 'Album\AlbumController@showAlbum');
     Route::get('videos', 'Album\AlbumController@showVideoAlbum');
+
+    // Sidebar footer routes 
+    Route::get('/about', 'sidebar\SidebarFooterController@about');
+    Route::get('/privacy', 'sidebar\SidebarFooterController@privacy');
+    Route::get('/terms', 'sidebar\SidebarFooterController@terms');
 });

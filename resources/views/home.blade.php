@@ -131,7 +131,7 @@
 
                 </div>
 
-                <div class="section-small pt-0">
+                <!-- <div class="section-small pt-0">
                     <div class="uk-position-relative" uk-slider="finite: true">
 
                         <div class="uk-slider-container pb-3">
@@ -220,7 +220,7 @@
 
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div id="data">
                     <!-- Results -->
                 </div>

@@ -36,6 +36,11 @@
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
    <link rel="stylesheet" href="{{ asset('public/holaTheme/assets/css/custom.css') }}">
    <link rel="shortcut icon" type="image/jpg" href="{{ asset('public/uploads/website-assets/favicon.png') }}">
+   <!-- og tags -->
+   <meta property="og:title" content="Business social network" />
+   <meta property="og:url" content="https://www.payrchat.com" />
+   <meta property="og:description" content="Payrchat is one of the Rising new social media sites in Bangladesh. Payrchat is the top social networking sites with user registration, Login and with awesome features." />
+   <meta property="og:image" content="https://www.payrchat.com/logo.png" />
    @yield('custom_css')
 
 </head>
