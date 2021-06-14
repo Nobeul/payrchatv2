@@ -14,9 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
+Route::post('register', 'Login\RegisterController@register');
 
 Route::group(['middleware' => ['auth']],function(){
-    Route::get('/', 'HomeController@index');
+    Route::get('/', 'HomeController@index')->name('home');
     Route::get('/fetchComments/{id}', 'HomeController@fetchComment');
     Route::post('/like/{id}', 'HomeController@createLike');
     Route::get('/get-post-like/{id}', 'HomeController@getPostLike');

@@ -55,8 +55,8 @@
                     <img src="{{ asset('public/holaTheme/assets/images/icons/friends.png') }}" alt="" style="width: 18px; height: 18px;">
                 </a>
 
-                <a href="#" class="opts_icon" uk-tooltip="title:  Video; pos: bottom ;offset:7">
-                    <img src="{{ asset('public/holaTheme/assets/images/icons/video.png') }}" alt="" style="width: 18px; height: 18px;">
+                <a href="{{ url('/videos') }}" class="opts_icon" uk-tooltip="title:  Video; pos: bottom ;offset:7">
+                    <img src="{{ asset('public/holaTheme/assets/images/icons/movies.png') }}" alt="" style="width: 18px; height: 18px;">
                 </a>
 
                 <!-- Message  notificiation dropdown -->
@@ -65,23 +65,23 @@
                 </a>
 
                 <!-- Message  notificiation dropdown -->
-                <div uk-dropdown="mode:click ; animation: uk-animation-slide-bottom-small"
-                    class="dropdown-notifications">
+                <!-- <div uk-dropdown="mode:click ; animation: uk-animation-slide-bottom-small"
+                    class="dropdown-notifications"> -->
 
                     <!-- notification contents -->
-                    <div class="dropdown-notifications-content" data-simplebar>
+                    <!-- <div class="dropdown-notifications-content" data-simplebar> -->
 
                         <!-- notivication header -->
-                        <div class="dropdown-notifications-headline">
+                        <!-- <div class="dropdown-notifications-headline">
                             <h4>Messages</h4>
                             <a href="#">
                                 <i class="icon-feather-settings"
                                     uk-tooltip="title: Message settings ; pos: left"></i>
                             </a>
                             <input type="text" class="uk-input" placeholder="Search in Messages">
-                        </div>
+                        </div> -->
                         <!-- notiviation list -->
-                        <ul>
+                        <!-- <ul>
                             <li>
                                 <a href="#">
                                     <span class="notification-avatar status-online">
@@ -95,11 +95,11 @@
                                 </a>
                             </li>
                         </ul>
-                    </div>
+                    </div> 
                     <div class="dropdown-notifications-footer">
                         <a href="#"> See all in Messages</a>
                     </div>
-                </div>
+                </div> -->
 
 
                 <!-- notificiation icon  -->
@@ -175,7 +175,7 @@
                     <hr class="m-0">
                     <ul class="dropdown-user-menu">
                         <li><a href="{{ url('/timeline') }}"> <i class="uil-user"></i> My Account </a> </li>
-                        <li><a href="#"> <i class="uil-cog"></i> Account Settings</a></li>
+                        <li><a href="{{ url('/profile/about') }}"> <i class="uil-cog"></i> Account Settings</a></li>
                         <li><a href="#"> <i class="uil-wallet"></i> Wallet </a></li>
                         <li class="{{ $menu == 'blog' ? 'active' : '' }}"><a href="{{ route('my.articles') }}"> <i class="uil-book"></i> my articles </a></li>
                         </li>

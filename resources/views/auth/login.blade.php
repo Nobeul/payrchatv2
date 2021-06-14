@@ -29,15 +29,16 @@
     <meta property="og:image" content="https://www.payrchat.com/logo.png" />
   </head>
   <body>
-    <div class="container">
+    <div class="container {{ isset($signUpClass) ? $signUpClass : '' }}">
       <div class="forms-container">
         <div class="signin-signup">
           <form action="{{ route('login') }}" method="post" class="sign-in-form">
             @csrf
             <h2 class="title">Sign in</h2>
+            <small>Use phone number or email to login</small>
             <div class="input-field">
               <i class="fas fa-envelope"></i>
-              <input type="text" name="email" value="{{ old('email') }}" required placeholder="E-Mail" />
+              <input type="text" name="email" value="{{ old('email') }}" placeholder="E-Mail or phone" />
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
@@ -51,35 +52,43 @@
           <form action="{{ route('register') }}" method="post" class="sign-up-form">
             @csrf
             <h2 class="title">Sign up</h2>
+            <small style="color:red">{{ isset($emptyPhoneAndEmail) ? $emptyPhoneAndEmail : '' }}</small>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" name="first_name" placeholder="First Name" />
+              <input type="text" name="first_name" placeholder="First Name" value="{{ old('first_name') }}"/>
               <input type="hidden" class="input" name="refered_by" value="<?php echo (empty($_GET['refer_id'] )) ? ' ' : $_GET['refer_id']  ?>">
             </div>
-            @error ('first_name')
-              <small style="color:red">{{ $message }}</small>
-            @enderror
+            @if($errors->has('first_name'))
+              <small style="color:red">{{ $errors->first('first_name') }}</small>
+            @endif
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" name="last_name" placeholder="Last Name" />
+              <input type="text" name="last_name" placeholder="Last Name" value="{{ old('last_name') }}"/>
             </div>
-            @error ('last_name')
-              <small style="color:red">{{ $message }}</small>
-            @enderror
+            @if($errors->has('last_name'))
+              <small style="color:red">{{ $errors->first('last_name') }}</small>
+            @endif
             <div class="input-field">
               <i class="fas fa-envelope"></i>
-              <input type="email" name="email" placeholder="E-Mail" />
+              <input type="email" name="email" placeholder="E-Mail"  value="{{ old('email') }}"/>
             </div>
-            @error ('email')
-              <small style="color:red">{{ $message }}</small>
-            @enderror
+            @if($errors->has('email'))
+              <small style="color:red">{{ $errors->first('email') }}</small>
+            @endif
+            <div class="input-field">
+              <i class="fas fa-phone"></i>
+              <input type="text" name="phone" placeholder="Phone"  value="{{ old('phone') }}"/>
+            </div>
+            @if($errors->has('phone'))
+              <small style="color:red">{{ $errors->first('phone') }}</small>
+            @endif
             <div class="input-field">
               <i class="fas fa-lock"></i>
               <input type="password"  name="password" placeholder="Password" />
             </div>
-            @error ('password')
-              <small style="color:red">{{ $message }}</small>
-            @enderror
+            @if($errors->has('password'))
+              <small style="color:red">{{ $errors->first('password') }}</small>
+            @endif
             <input type="submit" class="btn" value="Sign up" />
 
           </form>

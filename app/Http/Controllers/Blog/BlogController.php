@@ -37,7 +37,7 @@ class BlogController extends Controller
 
     public function store(Request $request)
     {
-        $v = $request->validate([
+        $request->validate([
             'title' => 'required|max:255',
             'category_id' => 'required',
             'description' => 'required',

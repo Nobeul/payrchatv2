@@ -5,11 +5,8 @@
         color: #007bff;
         margin-top: 8px;
     }
-    
-    @media only screen and (max-width: 425px) {
-        .chat-plus-btn {
-            display: none;
-        }
+    .post-new-tab-nav {
+        padding-bottom: 0;
     }
 </style> 
 @endsection

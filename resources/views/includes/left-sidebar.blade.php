@@ -21,7 +21,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://chatbuds.payrchat.com/home"> <img src="{{ asset('public/holaTheme/assets/images/icons/chat.png') }}" alt="">
+                        <a href="#"> <img src="{{ asset('public/holaTheme/assets/images/icons/chat.png') }}" alt="">
                             <span> Chat Buds </span>
                         </a>
                     </li>

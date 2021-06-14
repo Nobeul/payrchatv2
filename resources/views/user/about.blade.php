@@ -9,12 +9,6 @@
     .sl_right_user_info {
         padding-left: 0;
     }
-
-    @media only screen and (max-width: 425px) {
-        .chat-plus-btn {
-            display: none;
-        }
-    }
 </style>
 @endsection
 @section('content')

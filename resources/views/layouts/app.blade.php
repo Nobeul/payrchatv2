@@ -15,7 +15,7 @@
       gtag('config', 'UA-160446042-1');
    </script>
    <meta name="description" content="Payrchat is one of the Rising new social media sites in Bangladesh. Payrchat is the top social networking sites with user registration, Login and with awesome features." />
-   <meta name="keywords" content="new social media sites, top social networking site, Business social network, Online shoping, Best Bangladesh Shoping, Bangladesh e-commerce website">
+   <meta name="keywords" content="new social media sites, top social networking sites, Business social network, Online shoping, Best Bangladesh Shoping, Bangladesh e-commerce website, Bangladesh social media">
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    <meta name="facebook-domain-verification" content="9aaqx5rvgtudrl03jp35vob5s8te74" />
    <meta name="google-site-verification" content="gpR7usA-i-mbjATmnKh3mWNk0gdATcplOnJL0ZILspQ" />
@@ -54,7 +54,6 @@
 
       @yield('content')
 
-      @include('includes.chat-sidebar')
    </div>
 
    <!-- Wrapper END -->
