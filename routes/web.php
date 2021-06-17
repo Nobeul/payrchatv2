@@ -52,3 +52,21 @@ Route::group(['middleware' => ['auth']],function(){
     Route::get('/privacy', 'sidebar\SidebarFooterController@privacy');
     Route::get('/terms', 'sidebar\SidebarFooterController@terms');
 });
+
+//*********************Admin DashBoard Start**************************
+Route::get('/login7778899', 'Admin\AdminController@loginView')->name('/login7778899');
+Route::post('/loginPost', 'Admin\AdminController@loginVarify')->name('/loginPost');
+
+Route::group(['middleware' => ['Admin']], function() {
+    Route::get('/dashboard7778899', 'Admin\AdminController@index')->name('/dashboard7778899');
+    Route::get('user/{id}', 'Admin\AdminController@adminViewUser');
+    Route::post('/update-user/{id}', 'Admin\AdminController@updateUserInfo');
+    Route::get('/logoutAdmin', 'Admin\AdminController@logoutAdmin')->name('/logoutAdmin');
+    Route::get('/withdraw-reqtoadmin', 'Admin\AdminController@seeRequest')->name('withdraw-reqtoadmin');
+    Route::get('/Approve-Request/{id}', 'Admin\AdminController@AcceptPaymentReq')->name('Approve-Request');
+    Route::get('/Delete-Request/{id}', 'Admin\AdminController@DeletePaymentReq')->name('Delete-Request');
+    Route::get('/all_users_view', 'Admin\AdminController@seeAllUser')->name('all_users');
+    Route::get('/AdminEdit/{id}', 'Admin\AdminController@EditUser')->name('AdminEdit');
+    Route::post('/AdminEdit/{id}', 'Admin\AdminController@UpdateUser')->name('AdminEdit');
+    Route::get('pointRest', 'PointController@PointRest')->name('PointRest');
+});
