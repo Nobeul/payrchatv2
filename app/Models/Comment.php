@@ -16,4 +16,14 @@ class Comment extends Model
         return $this->belongsTo(Post::class);
     }
 
+    public function checkUserComment($postId, $userId)
+    {
+        $commentList = Comment::where(['post_id' => $postId, 'user_id' => $userId])->get();
+        if (count($commentList) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
