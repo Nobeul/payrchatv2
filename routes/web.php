@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth']],function(){
     Route::get('/timeline', 'HomeController@viewProfile');
     Route::get('profile/about', 'HomeController@viewProfileAbout');
     Route::get('people-you-may-know', 'Friends\FriendsController@viewFriendPage');
+    Route::post('friend-add/{id}', 'Friends\FriendsController@addNewFriend');
     Route::get('search-friends/{id}', 'Friends\FriendsController@findFriends');
     Route::post('change-profile-pic', 'Friends\FriendsController@changeProfilePic');
 
