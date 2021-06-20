@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Friends;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Friend;
 use Auth;
 use File;
+use DB;
 
 class FriendsController extends Controller
 {
@@ -19,7 +21,13 @@ class FriendsController extends Controller
     public function viewFriendPage(Request $request)
     {
         $data['menu'] = 'people-you-may-know';
-        $data['users'] = $users = User::where('id', '!=', Auth::user()->id)->select(['first_name', 'last_name', 'profile_image', 'cover_photo'])->inRandomOrder()->paginate('12');
+        $data['users'] = $users = User::where('id', '!=', Auth::user()->id)->where(function($query) {
+                            DB::table('friends')->where('requested_by', Auth::user()->id)
+                            ->orWhere('requested_to', Auth::user()->id)
+                            ->where('is_friend', '!=', 1);
+                        })->select(['id', 'first_name', 'last_name', 'profile_image', 'cover_photo', 'profile_slug'])
+                        ->inRandomOrder()
+                        ->paginate(12);
 
         if ($request->ajax()) {
             return response($users);
@@ -45,6 +53,25 @@ class FriendsController extends Controller
             return response(['status' => 'success']);
         } else {
             return response(['status' => 'failed']);
+        }
+    }
+
+    public function addNewFriend(Request $request)
+    {
+        $user = User::where('id', $request->id)->first(['id']);
+        if (!empty($user)) {
+            $friend = new Friend;
+    
+            $friend->requested_by = Auth::user()->id;
+            $friend->requested_to = $user->id;
+            $friend->is_friend = 0;
+            $friend->is_follow = 1;
+
+            $friend->save();
+
+            return response(['status'=>'success']);
+        } else {
+            return response(['status'=>'false']);
         }
     }
 }

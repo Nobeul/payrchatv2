@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth']],function(){
     Route::get('/timeline', 'HomeController@viewProfile');
     Route::get('profile/about', 'HomeController@viewProfileAbout');
     Route::get('people-you-may-know', 'Friends\FriendsController@viewFriendPage');
+    Route::post('friend-add/{id}', 'Friends\FriendsController@addNewFriend');
     Route::get('search-friends/{id}', 'Friends\FriendsController@findFriends');
     Route::post('change-profile-pic', 'Friends\FriendsController@changeProfilePic');
 
@@ -54,4 +55,22 @@ Route::group(['middleware' => ['auth']],function(){
 
     // Wallet section start
     Route::get('/wallet/show', 'Wallet\WalletController@showWallet');
+});
+
+//*********************Admin DashBoard Start**************************
+Route::get('/login7778899', 'Admin\AdminController@loginView')->name('/login7778899');
+Route::post('/loginPost', 'Admin\AdminController@loginVarify')->name('/loginPost');
+
+Route::group(['middleware' => ['Admin']], function() {
+    Route::get('/dashboard7778899', 'Admin\AdminController@index')->name('/dashboard7778899');
+    Route::get('user/{id}', 'Admin\AdminController@adminViewUser');
+    Route::post('/update-user/{id}', 'Admin\AdminController@updateUserInfo');
+    Route::get('/logoutAdmin', 'Admin\AdminController@logoutAdmin')->name('/logoutAdmin');
+    Route::get('/withdraw-reqtoadmin', 'Admin\AdminController@seeRequest')->name('withdraw-reqtoadmin');
+    Route::get('/Approve-Request/{id}', 'Admin\AdminController@AcceptPaymentReq')->name('Approve-Request');
+    Route::get('/Delete-Request/{id}', 'Admin\AdminController@DeletePaymentReq')->name('Delete-Request');
+    Route::get('/all_users_view', 'Admin\AdminController@seeAllUser')->name('all_users');
+    Route::get('/AdminEdit/{id}', 'Admin\AdminController@EditUser')->name('AdminEdit');
+    Route::post('/AdminEdit/{id}', 'Admin\AdminController@UpdateUser')->name('AdminEdit');
+    Route::get('pointRest', 'PointController@PointRest')->name('PointRest');
 });
