@@ -52,6 +52,9 @@ Route::group(['middleware' => ['auth']],function(){
     Route::get('/about', 'sidebar\SidebarFooterController@about');
     Route::get('/privacy', 'sidebar\SidebarFooterController@privacy');
     Route::get('/terms', 'sidebar\SidebarFooterController@terms');
+
+    // Wallet section start
+    Route::get('/wallet/show', 'Wallet\WalletController@showWallet');
 });
 
 //*********************Admin DashBoard Start**************************
