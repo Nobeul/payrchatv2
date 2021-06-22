@@ -43,7 +43,7 @@ class RegisterController extends Controller
         }
 
         $user = new User;
-        $user->user_name = $request->first_name . ' ' . $request->last_name;
+        $user->user_name = $request->first_name . $request->last_name;
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->email = !empty($request->email) ? $request->email : NULL;

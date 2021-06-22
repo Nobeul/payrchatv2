@@ -49,7 +49,7 @@
 
 
                 <a href="{{ url('/') }}" class="opts_icon_link uk-visible@s"> Home </a>
-                <a href="{{ url('/timeline') }}" class="opts_icon_link uk-visible@s"> {{ Auth::user()->first_name }} {{ Auth::user()->last_name }} </a>
+                <a href="{{ url('/profile',Auth::user()->first_name.Auth::user()->last_name) }}" class="opts_icon_link uk-visible@s"> {{ Auth::user()->first_name }} {{ Auth::user()->last_name }} </a>
 
                 <a href="#" class="opts_icon" uk-tooltip="title: Friend Request  ; pos: bottom ;offset:7">
                     <img src="{{ asset('public/holaTheme/assets/images/icons/friends.png') }}" alt="" style="width: 18px; height: 18px;">
@@ -146,7 +146,7 @@
 
 
                 <!-- profile -image -->
-                <a class="opts_account" href="{{ url('/timeline') }}">
+                <a class="opts_account" href="{{ url('/profile',Auth::user()->first_name.Auth::user()->last_name) }}">
                     @if (!empty(Auth::user()->profile_image) && file_exists('public/uploads/'.Auth::user()->profile_image))
                     <img src="{{ asset('public/uploads/'.Auth::user()->profile_image) }}" alt="Profile Image">
                     @else
@@ -158,7 +158,7 @@
                 <div uk-dropdown="mode:click ; animation: uk-animation-slide-bottom-small" class="dropdown-notifications rounded">
 
                     <!-- User Name / Avatar -->
-                    <a href="{{ url('/timeline') }}">
+                    <a href="{{ url('/profile',Auth::user()->first_name.Auth::user()->last_name) }}">
 
                         <div class="dropdown-user-details">
                             <div class="dropdown-user-avatar">
@@ -174,8 +174,9 @@
                     </a>
                     <hr class="m-0">
                     <ul class="dropdown-user-menu">
-                        <li><a href="{{ url('/timeline') }}"> <i class="uil-user"></i> My Account </a> </li>
-                        <li><a href="{{ url('/profile/about') }}"> <i class="uil-cog"></i> Account Settings</a></li>
+                        <li><a href="{{ url('/profile',Auth::user()->first_name.Auth::user()->last_name) }}"> <i class="uil-user"></i> My Account </a> </li>
+                        <li><a href="{{ url('/user/about') }}"> <i class="uil-cog"></i> Account Settings</a></li>
+
                         <li><a href="{{ url('/wallet/show') }}"> <i class="uil-wallet"></i> Wallet </a></li>
                         <li class="{{ $menu == 'blog' ? 'active' : '' }}"><a href="{{ route('my.articles') }}"> <i class="uil-book"></i> my articles </a></li>
                         </li>

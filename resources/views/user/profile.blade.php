@@ -54,7 +54,7 @@
                     <div uk-dropdown="pos: bottom-left ; mode:hover" class="display-hidden">
                         <ul class="uk-nav uk-dropdown-nav">
                             <li><a href="#"> View as guast </a></li>
-                            <li><a href="#"> Bloc this person </a></li>
+                            <li><a href="#"> Block this person </a></li>
                             <li><a href="#"> Report abuse</a></li>
                         </ul>
                     </div>
@@ -360,8 +360,9 @@
     });
 
     function infinteLoadMore(page) {
+        var userName = "{!! Auth::user()->first_name.Auth::user()->last_name !!}";
         $.ajax({
-                url: ENDPOINT + "/timeline/?page=" + page,
+                url: ENDPOINT + "/profile/userName/?page=" + page,
                 datatype: "html",
                 type: "get",
                 beforeSend: function () {

@@ -16,7 +16,7 @@
                         </a>
                     </li>
                     <li class="{{ $menu == 'profile' ? 'active' : '' }}">
-                        <a href="{{ url('timeline') }}"> <img src="{{ asset('public/holaTheme/assets/images/icons/tag-friend.png') }}" alt="">
+                        <a href="{{ url('/profile', Auth::user()->first_name.Auth::user()->last_name) }}"> <img src="{{ asset('public/holaTheme/assets/images/icons/tag-friend.png') }}" alt="">
                             <span> Profile </span>
                         </a>
                     </li>
