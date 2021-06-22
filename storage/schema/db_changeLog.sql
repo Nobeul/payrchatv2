@@ -1,0 +1,1 @@
+ALTER TABLE `withdrawals` ADD `status` VARCHAR(50) NULL DEFAULT NULL AFTER `amount`;

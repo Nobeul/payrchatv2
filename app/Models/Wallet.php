@@ -72,6 +72,9 @@ class Wallet extends Model
         if ($cur == "USD") {
             $tBalance = (float) $point* 0.0001;
             return $tBalance;
+        } elseif ($cur == "TK") {
+            $tBalance = (float) $point* 0.0001;
+            return $tBalance;
         }
     }
 }
