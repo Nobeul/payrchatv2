@@ -15,8 +15,8 @@ class CreateBlogUserTable extends Migration
     {
         Schema::create('blog_user', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('blog_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInterger('blog_id');
+            $table->unsignedBigInterger('user_id');
             $table->timestamps();
         });
     }

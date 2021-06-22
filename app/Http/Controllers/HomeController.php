@@ -2,23 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Comment;
-use App\Models\Dislike;
 use App\Models\Follower;
-use App\Models\Like;
-use App\Models\Post;
-use App\Models\User;
-use App\Models\Wallet;
-use Auth;
 use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Models\Comment;
+use App\Models\User;
+use App\Models\Like;
+use App\Models\Dislike;
+use Auth;
 
 class HomeController extends Controller
 {
-    public function __construct()
-    {
-        $this->wallet = new Wallet();
-        $this->comment = new Comment();
-    }
     /**
      * Show the application dashboard.
      *
@@ -46,11 +40,8 @@ class HomeController extends Controller
 
     public function createLike(Request $request)
     {
-        $user_id = Auth::user()->id;
         $like = Like::where(['user_id' => Auth::user()->id, 'post_id' => $request->id])->first();
         $dislike = Dislike::where(['user_id' => Auth::user()->id, 'post_id' => $request->id])->first();
-
-        $hasWallet = $this->wallet->hasWallet($user_id);
 
         if (empty($dislike)) {
             if (empty($like)) {
@@ -59,13 +50,7 @@ class HomeController extends Controller
                 $newLike->user_id = Auth::user()->id;
                 $newLike->post_id = $request->id;
                 $newLike->save();
-
-                if ($hasWallet == true) {
-                    $walletPoint = $this->wallet->addPoint('like', $user_id);
-                }
-
                 return response(['found_dislike' => 'false']);
-
             } else {
                 return response(['status'=>'false']);
             }
@@ -77,11 +62,6 @@ class HomeController extends Controller
             $newLike->user_id = Auth::user()->id;
             $newLike->post_id = $request->id;
             $newLike->save();
-
-            // if ($hasWallet == true) {
-            //     $walletPoint = $this->wallet->addPoint('like', $user_id);
-            // }
-
             return response(['found_dislike' => 'true']);
         }
     }
@@ -96,10 +76,8 @@ class HomeController extends Controller
 
     public function createDislike(Request $request)
     {
-        $user_id = Auth::user()->id;
         $like = Like::where(['user_id' => Auth::user()->id, 'post_id' => $request->id])->first();
         $dislike = Dislike::where(['user_id' => Auth::user()->id, 'post_id' => $request->id])->first();
-        $hasWallet = $this->wallet->hasWallet($user_id);
 
         if (empty($like)) {
             if (empty($dislike)) {
@@ -108,11 +86,6 @@ class HomeController extends Controller
                 $newDislike->user_id = Auth::user()->id;
                 $newDislike->post_id = $request->id;
                 $newDislike->save();
-
-                if ($hasWallet == true) {
-                    $walletPoint = $this->wallet->addPoint('dislike', $user_id);
-                }
-
                 return response(['found_like' => 'false']);
             } else {
                 return response(['status'=>'false']);
@@ -125,11 +98,6 @@ class HomeController extends Controller
             $newDislike->user_id = Auth::user()->id;
             $newDislike->post_id = $request->id;
             $newDislike->save();
-
-            // if ($hasWallet == true) {
-            //     $walletPoint = $this->wallet->addPoint('dislike', $user_id);
-            // }
-
             return response(['found_like' => 'true']);
         }
     }
@@ -172,10 +140,6 @@ class HomeController extends Controller
 
     public function createComment(Request $request)
     {
-        $user_id = Auth::user()->id;
-        $hasWallet = $this->wallet->hasWallet($user_id);
-        $commentList = $this->comment->checkUserComment($request->id, $user_id);
-        
         if (!empty($request->id) && !empty($request->comment_text)) {
             $comment = new Comment;
             $comment->comment_text = $request->comment_text;
@@ -183,10 +147,6 @@ class HomeController extends Controller
             $comment->post_id = $request->id;
 
             $comment->save();
-
-            if ($hasWallet == true && $commentList == false) {
-                $walletPoint = $this->wallet->addPoint('comment', $user_id);
-            }
 
             return response([
                 'status' => 'success',

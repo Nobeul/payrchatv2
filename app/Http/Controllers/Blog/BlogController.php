@@ -3,21 +3,16 @@
 namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
-use App\Models\Blog;
-use App\Models\BlogCategory;
-use App\Models\Wallet;
-use Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use App\Models\Blog;
+use Auth;
+use App\Models\BlogCategory;
+use Illuminate\Support\Facades\Validator;
 use Session;
 
 class BlogController extends Controller
 {
-    public function __construct()
-    {
-        $this->wallet = new Wallet();
-    }
     public function index()
     {
         $data['menu'] = 'article';
@@ -59,9 +54,6 @@ class BlogController extends Controller
         $blog->content = $request->content;
         $blog->blog_slug = $slug;
 
-        $user_id = Auth::user()->id;
-        $hasWallet = $this->wallet->hasWallet($user_id);
-
         if ($request->hasFile('image')) {
             $extension = $request->file('image')->getClientOriginalExtension();
             $fileNameToStore = time().'.'.$extension;
@@ -69,19 +61,10 @@ class BlogController extends Controller
             $blog->image = $fileNameToStore;
             $blog->save();
 
-            if ($hasWallet == true) {
-                $walletPoint = $this->wallet->addPoint('blog', $user_id);
-            }
-
             return Redirect('/my/article');
         } else {
             $blog->image = ' ';
             $blog->save();
-
-            if ($hasWallet == true) {
-                $walletPoint = $this->wallet->addPoint('blog', $user_id);
-            }
-
             return Redirect('/my/article');
         }
 
