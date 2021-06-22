@@ -1,10 +1,10 @@
 <div>
     <nav class="responsive-tab ml-lg-3">
         <ul>
-            <li class="{{ $submenu == 'timeline' ? 'uk-active' : '' }}"><a href="{{ url('/timeline') }}">Timeline</a></li>
-            <li class="{{ $submenu == 'about' ? 'uk-active' : '' }}"><a href="{{ url('profile/about') }}">About</a></li>
+            <li class="{{ $submenu == 'timeline' ? 'uk-active' : '' }}"><a href="{{ url('/profile',Auth::user()->first_name.Auth::user()->last_name) }}">Timeline</a></li>
+            <li class="{{ $submenu == 'about' ? 'uk-active' : '' }}"><a href="{{ url('user/about') }}">About</a></li>
             <li><a href="#">Friend</a></li>
-            <li><a href="#">Photoes</a></li>
+            <li><a href="#">Photos</a></li>
             <li><a href="#">Videos</a></li>
         </ul>
     </nav>

@@ -21,8 +21,6 @@
                 <!-- profile cover -->
                 <img src="{{ asset('public/uploads/profile/demo-cover.jpg') }}" alt="Cover photo">
 
-                <!-- <a href="#"> <i class="uil-camera"></i> Edit </a> -->
-
             </div>
 
             <div class="profile-details">
@@ -35,7 +33,6 @@
                 </div>
                 <div class="profile-details-info">
                     <h1> {{ $userProfile->first_name }} {{ $userProfile->last_name }} </h1>
-                    <p> Family , Food , Fashion , Fourever <a href="{{ url('/user/about') }}">Edit </a></p>
                 </div>
 
             </div>
@@ -43,7 +40,6 @@
 
             <div class="nav-profile" uk-sticky="media : @s">
                 <div class="py-md-2 uk-flex-last">
-                    <a href="#" class="button primary mr-2"> <i class="uil-plus"></i> Add your story</a>
                     <a href="#" class="button light button-icon mr-2"> <i class="uil-list-ul"> </i> </a>
                     <a href="#" class="button light button-icon mr-lg-3"> <i class="uil-ellipsis-h"> </i> </a>
                     <div uk-dropdown="pos: bottom-left ; mode:hover" class="display-hidden">
@@ -54,7 +50,30 @@
                         </ul>
                     </div>
                 </div>
-                @include('user.common_menu')
+                <div>
+                    <nav class="responsive-tab ml-lg-3">
+                        <ul>
+                            <li class="{{ $submenu == 'about' ? 'uk-active' : '' }}"><a href="{{ url('user/about') }}">About</a></li>
+                            <li><a href="#">Friend</a></li>
+                            <li><a href="#">Photos</a></li>
+                            <li><a href="#">Videos</a></li>
+                        </ul>
+                    </nav>
+                    <div class="uk-visible@s">
+                        <a href="#" class="nav-btn-more"> More</a>
+                        <div uk-dropdown="pos: bottom-left" class="display-hidden">
+                            <ul class="uk-nav uk-dropdown-nav">
+                                <li><a href="#">Moves</a></li>
+                                <li><a href="#">Likes</a></li>
+                                <li><a href="#">Events</a></li>
+                                <li><a href="#">Groups</a></li>
+                                <li><a href="#">Gallery</a></li>
+                                <li><a href="#">Sports</a></li>
+                                <li><a href="#">Gallery</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -67,40 +86,6 @@
                 <div class="uk-width-expand ml-lg-2" id="about-section-in-profile-for-mobile">
 
                     <div class="sl_user-widget">
-                    <div class="sl_user-widget-wrap-header pb-0">
-                            <div class="sl_user-widget-wrap-header-left">
-
-                                <h4>
-                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-                                            <path fill="currentColor" d="M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z">
-                                            </path>
-                                        </svg></span>
-                                    Profile Photo
-                                </h4>
-                            </div>
-                        </div>
-                        <form method="POST" enctype="multipart/form-data" id="upload_image_form" action="javascript:void(0)">
-                            <div class="row">
-                                <div class="col-md-12 mb-2">
-                                    @if(!empty($userProfile->profile_image) && file_exists('public/uploads/'.$userProfile->profile_image))
-                                    <img id="image_preview_container" src="{{ asset('public/uploads/'.$userProfile->profile_image) }}" alt="Profile Photo" style="max-height: 150px;">
-                                    @else
-                                    <img id="image_preview_container" src="{{ asset('public/uploads/profile/demo-profile.png') }}" alt="Profile Photo" style="max-height: 150px;">
-                                    @endif
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="file" name="image" placeholder="Choose image" id="image">
-                                        <span class="text-danger">{{ $errors->first('title') }}</span>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-md-12">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                </div>
-                            </div>
-                        </form>
                         <br>
                         <div class="sl_user-widget-wrap-header pb-0">
                             <div class="sl_user-widget-wrap-header-left">
@@ -122,13 +107,6 @@
                                     </path>
                                 </svg>
                                 <span class="text-success"> Online </span>
-                            </li>
-                            <li class="list-group-item">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-                                    <path fill="currentColor" d="M20 22H4a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1zm-1-2V4H5v16h14zM7 6h4v4H7V6zm0 6h10v2H7v-2zm0 4h10v2H7v-2zm6-9h4v2h-4V7z">
-                                    </path>
-                                </svg>
-                                <span id="user_post_count">{{ $postCount }}</span> posts
                             </li>
                             <li class="list-group-item">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
@@ -242,56 +220,4 @@
         </div>
     </div>
 </div>
-@endsection
-
-@section('custom_js')
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script>
-    $(document).ready(function(e) {
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $('#image').change(function() {
-
-            let reader = new FileReader();
-
-            reader.onload = (e) => {
-
-                $('#image_preview_container').attr('src', e.target.result);
-            }
-
-            reader.readAsDataURL(this.files[0]);
-
-        });
-
-        $('#upload_image_form').submit(function(e) {
-
-            e.preventDefault();
-
-            var formData = new FormData(this);
-
-            $.ajax({
-                type: 'POST',
-                url: "{{ url('change-profile-pic')}}",
-                data: formData,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: (data) => {
-                    this.reset();
-                    if (data.status == 'success') {
-                        location.reload();
-                    }
-                },
-                error: function(data) {
-                    console.log(data);
-                }
-            });
-        });
-    });
-</script>
 @endsection

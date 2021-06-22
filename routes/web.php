@@ -26,8 +26,9 @@ Route::group(['middleware' => ['auth']],function(){
     Route::post('create-comment', 'HomeController@createComment');
     Route::post('create-new-post', 'HomeController@createPost');
 
-    Route::get('/timeline', 'HomeController@viewProfile');
-    Route::get('profile/about', 'HomeController@viewProfileAbout');
+    Route::get('/profile/{username}', 'HomeController@viewProfile');
+    Route::get('/user/profile/{username}', 'HomeController@viewUserProfile');
+    Route::get('user/about', 'HomeController@viewProfileAbout');
     Route::get('people-you-may-know', 'Friends\FriendsController@viewFriendPage');
     Route::post('friend-add/{id}', 'Friends\FriendsController@addNewFriend');
     Route::get('search-friends/{id}', 'Friends\FriendsController@findFriends');

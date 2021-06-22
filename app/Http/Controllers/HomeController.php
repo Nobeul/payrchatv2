@@ -170,6 +170,15 @@ class HomeController extends Controller
         return view('user.about', $data);
     }
 
+    public function viewUserProfile(Request $request)
+    {
+        $data['menu'] = 'people-you-may-know';
+        $data['submenu'] = 'about';
+        $data['userProfile'] = User::where('user_name', $request->username)->first();
+
+        return view('user.user_profile', $data);
+    }
+
     public function createComment(Request $request)
     {
         $user_id = Auth::user()->id;
