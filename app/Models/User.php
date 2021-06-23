@@ -71,4 +71,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Withdrawal::class);
     }
+
+    public function createUserWallet($userId)
+    {
+        $wallet              = new Wallet();
+        $wallet->user_id     = $userId;
+        $wallet->type_id     = null;
+        $wallet->point       = 0;
+        $wallet->save();
+    }
 }

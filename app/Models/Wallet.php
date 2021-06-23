@@ -30,14 +30,14 @@ class Wallet extends Model
 
         if (empty($wallet))
         {
-            $walletInstance              = new Wallet();
-            $walletInstance->user_id     = $userId;
-            $walletInstance->type_id     = null;
-            $walletInstance->point       = 0;
-            $walletInstance->save();
+            $wallet              = new Wallet();
+            $wallet->user_id     = $userId;
+            $wallet->type_id     = null;
+            $wallet->point       = 0;
+            $wallet->save();
         } 
 
-        return true;
+        return $wallet;
     }
     public function addPoint($type, $userId)
     {
@@ -70,10 +70,10 @@ class Wallet extends Model
     {
         $cur = strtoupper($currency);
         if ($cur == "USD") {
-            $tBalance = (float) $point* 0.0001;
+            $tBalance = $point* 0.0001;
             return $tBalance;
         } elseif ($cur == "TK") {
-            $tBalance = (float) $point* 0.0001;
+            $tBalance = $point* 0.0001;
             return $tBalance;
         }
     }
