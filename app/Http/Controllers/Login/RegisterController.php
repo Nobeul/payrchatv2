@@ -11,6 +11,12 @@ use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
+    protected $user;
+
+    public function __construct()
+    {
+        $this->user   = new User();
+    }
     public function register(Request $request)
     {
         $rules = array(
@@ -53,6 +59,8 @@ class RegisterController extends Controller
         $user->refer_code = uniqid();
         $user->gender = 1;
         $user->save();
+
+        $this->user->createUserWallet($user->id);
 
         return redirect('/login');
     }

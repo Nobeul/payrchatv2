@@ -29,7 +29,8 @@
                                 @endphp
                                 <tr>
                                     <td>{{$loop->index+1    }}</td>
-                                    <td><a href="{!! route('my_profile',$users->profile_slug) !!}">{{ $value->user_name }}</a></td>
+                                    {{-- <td><a href="{!! route('adminViewUser',$users->profile_slug) !!}">{{ $value->user_name }}</a></td> --}}
+                                    <td><a href="#">{{ $value->user_name }}</a></td>
                                     <td>{{ $value->accountType }}</td>
                                     <td>{{ $value->accountNumber }}</td>
                                     <td>{{ $value->ammount }}</td>

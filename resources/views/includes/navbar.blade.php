@@ -176,6 +176,7 @@
                     <ul class="dropdown-user-menu">
                         <li><a href="{{ url('/profile',Auth::user()->first_name.Auth::user()->last_name) }}"> <i class="uil-user"></i> My Account </a> </li>
                         <li><a href="{{ url('/user/about') }}"> <i class="uil-cog"></i> Account Settings</a></li>
+
                         <li><a href="{{ url('/wallet/show') }}"> <i class="uil-wallet"></i> Wallet </a></li>
                         <li class="{{ $menu == 'blog' ? 'active' : '' }}"><a href="{{ route('my.articles') }}"> <i class="uil-book"></i> my articles </a></li>
                         </li>
