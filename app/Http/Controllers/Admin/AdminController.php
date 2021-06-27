@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Admin;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Session\SessionManager;
+use App\Models\User;
+use App\Models\Wallet;
+use App\Models\Withdrawal;
 use App\Point;
 use App\Withdraw;
-use App\Models\User;
-use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Session\SessionManager;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -58,8 +60,8 @@ class AdminController extends Controller
 
     public function seeRequest()
     {
-        $notAcceptedReq = Withdraw::where('status', 0)->get();
-        $AcceptedReq = Withdraw::where('status', 1)->get();
+        $notAcceptedReq = Withdrawal::where('status', 'Pending')->get();
+        $AcceptedReq = Withdrawal::where('status', 'Success')->get();
         return view('AdminPanel.withdrawReqToAdmin', compact('notAcceptedReq', 'AcceptedReq'));
     }
 
@@ -99,5 +101,10 @@ class AdminController extends Controller
         $user->status = isset($request->status) ? $request->status : 1;
         $user->save();
         return back()->withErrors('messageSucces', 'Record Successfully Updated!');
+    }
+    public function walletDetailsList()
+    {
+        $data['userWalletDetails'] = Wallet::all()->take(10);
+        return view('AdminPanel.wallet.list', $data);
     }
 }

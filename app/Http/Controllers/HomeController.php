@@ -60,7 +60,7 @@ class HomeController extends Controller
                 $newLike->post_id = $request->id;
                 $newLike->save();
 
-                if ($hasWallet == true) {
+                if (!empty($hasWallet)) {
                     $walletPoint = $this->wallet->addPoint('like', $user_id);
                 }
 
@@ -105,7 +105,7 @@ class HomeController extends Controller
                 $newDislike->post_id = $request->id;
                 $newDislike->save();
 
-                if ($hasWallet == true) {
+                if (!empty($hasWallet)) {
                     $walletPoint = $this->wallet->addPoint('dislike', $user_id);
                 }
 
@@ -185,7 +185,7 @@ class HomeController extends Controller
 
             $comment->save();
 
-            if ($hasWallet == true && $commentList == false) {
+            if (!empty($hasWallet) && $commentList == false) {
                 $walletPoint = $this->wallet->addPoint('comment', $user_id);
             }
 

@@ -77,4 +77,7 @@ Route::group(['middleware' => ['Admin']], function() {
     Route::get('/AdminEdit/{id}', 'Admin\AdminController@EditUser')->name('AdminEdit');
     Route::post('/AdminEdit/{id}', 'Admin\AdminController@UpdateUser')->name('AdminEdit');
     Route::get('pointRest', 'PointController@PointRest')->name('PointRest');
+
+    // Wallet details list show
+    Route::get('/wallet/details/list', 'Admin\AdminController@walletDetailsList')->name('wallet.details.list');
 });
