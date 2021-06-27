@@ -66,4 +66,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Wallet::class);
     }
+
+    public function friends()
+    {
+        return $this->hasMany(Friend::class);
+    }
 }

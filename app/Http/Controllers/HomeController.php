@@ -78,10 +78,6 @@ class HomeController extends Controller
             $newLike->post_id = $request->id;
             $newLike->save();
 
-            // if ($hasWallet == true) {
-            //     $walletPoint = $this->wallet->addPoint('like', $user_id);
-            // }
-
             return response(['found_dislike' => 'true']);
         }
     }
@@ -125,10 +121,6 @@ class HomeController extends Controller
             $newDislike->user_id = Auth::user()->id;
             $newDislike->post_id = $request->id;
             $newDislike->save();
-
-            // if ($hasWallet == true) {
-            //     $walletPoint = $this->wallet->addPoint('dislike', $user_id);
-            // }
 
             return response(['found_like' => 'true']);
         }

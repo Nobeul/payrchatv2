@@ -33,6 +33,9 @@ Route::group(['middleware' => ['auth']],function(){
     Route::post('friend-add/{id}', 'Friends\FriendsController@addNewFriend');
     Route::get('search-friends/{id}', 'Friends\FriendsController@findFriends');
     Route::post('change-profile-pic', 'Friends\FriendsController@changeProfilePic');
+    Route::get('friend-requests', 'Friends\FriendsController@showFreindRequests');
+    Route::post('accept-friend-request/{id}', 'Friends\FriendsController@acceptFreindRequests');
+    Route::post('cancel-friend-request/{id}', 'Friends\FriendsController@cancelFriendRequest');
 
     // Blogs Route 
     Route::get('/my/article', 'Blog\BlogController@index')->name('my.articles');

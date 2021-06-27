@@ -74,4 +74,35 @@ class FriendsController extends Controller
             return response(['status'=>'false']);
         }
     }
+
+    public function showFreindRequests(Request $request)
+    {
+        $data['menu'] = 'people-you-may-know';
+        $data['friends'] = $friends = Friend::with('requested_by_user')->where(['requested_to' => Auth::user()->id, 'is_friend' => 0])->orderBy('id', 'DESC')->paginate(12);
+
+        if ($request->ajax()) {
+            return response($friends);
+        }
+
+        return view('user.friend-requests', $data);
+    }
+
+    public function acceptFreindRequests(Request $request)
+    {
+        $friend = Friend::where(['id' => $request->id])->first();
+        if (empty($friend)) {
+            return response(['status' => 'false']);
+        }
+        $friend->is_friend = 1;
+        $friend->save();
+        return response(['status' => 'success']);
+    }
+
+    public function cancelFriendRequest(Request $request)
+    {
+        Friend::find($request->id)->delete();
+
+        return response(['status' => 'success']);
+
+    }
 }
