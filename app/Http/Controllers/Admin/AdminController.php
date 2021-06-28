@@ -7,10 +7,7 @@ use App\Models\Admin;
 use App\Models\User;
 use App\Models\Wallet;
 use App\Models\Withdrawal;
-use App\Point;
-use App\Withdraw;
 use Illuminate\Http\Request;
-use Illuminate\Session\SessionManager;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -60,20 +57,35 @@ class AdminController extends Controller
 
     public function seeRequest()
     {
-        $notAcceptedReq = Withdrawal::where('status', 'Pending')->get();
-        $AcceptedReq = Withdrawal::where('status', 'Success')->get();
-        return view('AdminPanel.withdrawReqToAdmin', compact('notAcceptedReq', 'AcceptedReq'));
+        $data['withdrawarlReqList'] = Withdrawal::orderBy('id', 'DESC')->get();
+        $data['userWalletDetails'] = Wallet::all()->take(10);
+        return view('AdminPanel.withdrawal.withdrawReqToAdmin', $data);
     }
 
     public function AcceptPaymentReq(Request $request)
     {
-        Withdraw::where('id', $request->id)->update(['status' => 1]);
-        return back();
+        $with = Withdrawal::where(['id' => $request->id, 'status' => 'Pending'])->first();
+        if (!is_null($with)) {
+            $with->status = 'Success';
+            $with->save();
+            return back()->with('success', 'Successfully Updated');
+        } else {
+            return redirect()->back()->with('error', 'You Cannot Change this transaction Status!');
+        }
     }
     public function DeletePaymentReq(Request $request)
     {
-        Withdraw::where('id', $request->id)->update(['status' => 3]);
-        return back();
+        $with = Withdrawal::where(['id' => $request->id, 'status' => 'Pending'])->first();
+        if (!is_null($with)) {
+            $wallet = Wallet::where(['user_id' => $with->user_id])->first();
+            $wallet->point  = $wallet->point + $with->request_point;
+            $wallet->save();
+            $with->status = 'Cancelled';
+            $with->save();
+            return back()->with('success', 'Successfully Updated');
+        } else {
+            return redirect()->back()->with('error', 'You Cannot Change this transaction Status!');
+        }
     }
 
     public function seeAllUser()

@@ -40,8 +40,8 @@
                                     <td>{{ $userWallet->point }}</td>
                                     <td>{{ number_format((float)$balance, 4, '.', '') }}</td>
                                     <td>
-                                        <a href="#" class="text-red">
-                                            <i class="fas fa-trash"></i>
+                                        <a href="#" class="text-blue">
+                                            <i class="uil-edit-alt mr-1"></i>
                                         </a>
                                     </td>
                                 </tr>

@@ -77,4 +77,19 @@ class Wallet extends Model
             return $tBalance;
         }
     }
+
+    function updateWallet($userId, $point)
+    {
+      $wallet = Wallet::where(['user_id' => $userId])->first();
+
+      if (!empty($wallet))
+      {
+          $wallet->user_id     = $userId;
+          $wallet->type_id     = null;
+          $wallet->point       = $wallet->point - $point;
+          $wallet->save();
+      } 
+
+      return $wallet;
+    }
 }
