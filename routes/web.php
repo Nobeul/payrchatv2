@@ -81,3 +81,6 @@ Route::group(['middleware' => ['Admin']], function() {
     // Wallet details list show
     Route::get('/wallet/details/list', 'Admin\AdminController@walletDetailsList')->name('wallet.details.list');
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

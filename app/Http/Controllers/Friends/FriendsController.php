@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Friends;
 
+use App\Events\Friendrequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -69,6 +70,8 @@ class FriendsController extends Controller
 
             $friend->save();
 
+            event(new Friendrequest);
+
             return response(['status'=>'success']);
         } else {
             return response(['status'=>'false']);
@@ -104,5 +107,23 @@ class FriendsController extends Controller
 
         return response(['status' => 'success']);
 
+    }
+
+    public function apiShowFreindRequests()
+    {
+        $friend = Friend::with('requested_by_user')->where(['requested_to' => Auth::user()->id, 'is_friend' => 0])->orderBy('id', 'DESC')->get();
+
+        return response($friend);
+    }
+
+    public function apiAddNewFriend(Request $request)
+    {
+        $friend = Friend::where(['id' => $request->id])->first();
+        if (empty($friend)) {
+            return response(['status' => 'false']);
+        }
+        $friend->is_friend = 1;
+        $friend->save();
+        return response($friend);
     }
 }
