@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
-Route::post('register', 'Login\RegisterController@register');
+Route::post('register-user', 'Login\RegisterController@register');
 
 Route::group(['middleware' => ['auth']],function(){
     Route::get('/', 'HomeController@index')->name('home');
@@ -76,7 +76,7 @@ Route::group(['middleware' => ['Admin']], function() {
     Route::get('/all_users_view', 'Admin\AdminController@seeAllUser')->name('all_users');
     Route::get('/AdminEdit/{id}', 'Admin\AdminController@EditUser')->name('AdminEdit');
     Route::post('/AdminEdit/{id}', 'Admin\AdminController@UpdateUser')->name('AdminEdit');
-    Route::get('pointRest', 'PointController@PointRest')->name('PointRest');
+    // Route::get('pointRest', 'PointController@PointRest')->name('PointRest');
 
     // Wallet details list show
     Route::get('/wallet/details/list', 'Admin\AdminController@walletDetailsList')->name('wallet.details.list');

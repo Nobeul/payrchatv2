@@ -30,7 +30,7 @@ class HomeController extends Controller
         $followers = Follower::where(['following_id' => Auth::user()->id])->pluck('follower_id')->toArray();
         array_push($followers, Auth::user()->id);
 
-        $posts = Post::with(['user', 'comments.user', 'likes.user', 'dislikes.user'])->whereIn('posts.user_id', $followers)->orderBy('posts.id', 'DESC')->paginate(5);
+        $posts = Post::with(['user', 'comments.user', 'likes.user', 'dislikes.user'])->whereIn('posts.user_id', $followers)->inRandomOrder()->paginate(5);
 
         if ($request->ajax()) {
             return response($posts);

@@ -36,7 +36,7 @@ class RegisterController extends Controller
 
         $validator = Validator::make($request->all(), $rules);
         $validator->setAttributeNames($fieldNames);
-        
+
         if ($validator->fails()) {
             if (empty($request->email) && empty($request->phone)) {
                 $data['signUpClass'] = 'sign-up-mode';
